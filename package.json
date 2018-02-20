@@ -15,9 +15,11 @@
     "node-sass-chokidar": "^0.0.3",
     "nodemon": "^1.15.1",
     "npm-run-all": "^4.1.2",
+    "react-app-rewired": "^1.4.1",
     "react-scripts": "1.1.1",
     "stylelint": "^9.0.0",
-    "stylelint-config-standard": "^18.1.0"
+    "stylelint-config-standard": "^18.1.0",
+    "stylelint-webpack-plugin": "^0.10.2"
   },
   "dependencies": {
     "express": "^4.16.2",
@@ -25,27 +27,21 @@
     "react-dom": "^16.2.0"
   },
   "scripts": {
-    "dev:server": "nodemon --watch server server/index.js --exec 'yarn lint:server -c .eslintrc.dev.js && NODE_PATH=server babel-node'",
-    "dev:client": "npm-run-all --parallel lint:client:css dev:client:*",
-    "dev:client:js": "NODE_PATH=src react-scripts start",
+    "dev": "run-p dev:*",
+    "dev:server": "nodemon --watch server server/index.js --exec 'yarn lint:server -- -c .eslintrc.dev.js && NODE_PATH=server babel-node'",
+    "dev:client": "run-p dev:client:*",
+    "dev:client:js": "NODE_PATH=src react-app-rewired start",
     "dev:client:css": "npm run build:client:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-
-
-
-    "build": "npm-run-all build:client build:server",
+    "build": "run-p build:*",
     "build:server": "babel server -d build-server",
-    "build:client": "npm-run-all build:client:css build:client:js",
+    "build:client": "run-p build:client:*",
     "build:client:js": "NODE_PATH=src react-scripts build",
     "build:client:css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-
-
-    "lint": "npm-run-all --sequential lint:server lint:client",
+    "lint": "run-s lint:*",
     "lint:server": "ESLINT_MODE=node eslint 'server/**/*.js' --ignore-path .gitignore",
-    "lint:client": "npm-run-all --sequential lint:client:js lint:client:css",
+    "lint:client": "run-s lint:client:*",
     "lint:client:js": "eslint --ext .js --ignore-path .gitignore --ignore-pattern '/server/*' .",
     "lint:client:css": "stylelint 'src/scss/**/*.scss'",
-
-
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

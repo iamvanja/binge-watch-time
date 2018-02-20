@@ -33,10 +33,8 @@ if (process.env.ESLINT_MODE !== 'node') {
  *
  * Development rules overwrite the production ones if same rule is defined.
  */
-module.exports = {
-  ...eslintrc,
-  rules: {
-    ...eslintrc.rules,
-    ...devRules
-  }
-}
+const final = Object.assign({}, eslintrc, {
+  rules: Object.assign({}, eslintrc.rules, devRules)
+})
+
+module.exports = final

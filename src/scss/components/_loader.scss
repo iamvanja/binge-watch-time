@@ -1,0 +1,36 @@
+@keyframes pulse {
+  20% {
+    transform: scale(1.8);
+    color: $loading-color-2;
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}
+
+.loader {
+  display: inline-block;
+  font-family: Arial;
+  color: $loading-color-1;
+  width: 100%;
+  text-align: center;
+  font-size: rem-calc(50px);
+  line-height: 1;
+
+  span {
+    display: inline-block;
+    padding: rem-calc(0 3px);
+    animation: pulse 0.6s infinite;
+    animation-timing-function: ease-in;
+    backface-visibility: hidden;
+
+    &:nth-child(2) {
+      animation-delay: 0.08s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0.16s;
+    }
+  }
+}

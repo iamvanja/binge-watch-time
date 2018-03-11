@@ -1,0 +1,88 @@
+.primary-header {
+  margin-bottom: rem-calc(10px);
+  background-color: $app-secondary-color;
+
+  .logo {
+    max-width: 40px;
+  }
+
+  .menu-button {
+    margin-bottom: 0;
+  }
+
+  .menu {
+    margin-left: rem-calc(12px);
+    position: relative;
+
+    li {
+      display: inline-block;
+      cursor: pointer;
+
+      a {
+        color: $app-medium-gray;
+        padding: rem-calc(20px);
+        display: block;
+        transition: all 0.15s ease-out;
+
+        &:hover {
+          background: $app-primary-color;
+          color: $app-white;
+        }
+
+        &.active {
+          background: $app-body-background;
+          color: $app-white;
+        }
+      }
+    }
+  }
+
+  @include breakpoint(medium up) {
+    .menu {
+      li.logout {
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+
+  @include breakpoint(small only) {
+    .menu-container {
+      display: none;
+
+      &.is-mobile-active {
+        display: block;
+      }
+    }
+
+    .menu {
+      margin-left: 0;
+
+      li {
+        width: 100%;
+        margin-bottom: rem-calc(1px);
+
+        a {
+          &.active {
+            background: $app-primary-color;
+            color: $app-white;
+          }
+        }
+      }
+    }
+  }
+
+  @include breakpoint(small only) {
+    $gutter: map-get($grid-margin-gutters, 'small');
+
+    .main-content-container {
+      padding: rem-calc($gutter / 2) 0;
+    }
+
+    .menu-container {
+      margin-left: rem-calc($gutter / -2);
+      margin-right: rem-calc($gutter / -2);
+      width: calc(100% + #{rem-calc($gutter)});
+    }
+  }
+}

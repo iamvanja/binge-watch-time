@@ -1,0 +1,147 @@
+@font-face {
+  font-family: 'icons';
+  src: url('./fonts/icons/icons.eot?25666049');
+  src: url('./fonts/icons/icons.eot?25666049#iefix') format('embedded-opentype'), url('./fonts/icons/icons.woff2?25666049') format('woff2'), url('./fonts/icons/icons.woff?25666049') format('woff'), url('./fonts/icons/icons.ttf?25666049') format('truetype'), url('./fonts/icons/icons.svg?25666049#icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'icons';
+    src: url('./fonts/icons/icons.svg?25666049#icons') format('svg');
+  }
+}
+*/
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "icons";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: 0.2em;
+  text-align: center;
+
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes */
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  margin-left: 0.2em;
+
+  /* font-size: 120%; */ // you can be more comfortable with increased icons size
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ // uncomment for 3D effect
+
+  // vertical-align: middle;
+}
+
+.icon-eye:before {
+  content: '\e800';
+}
+
+.icon-menu:before {
+  content: '\e801';
+}
+
+.icon-cancel:before {
+  content: '\e802';
+}
+
+.icon-picture:before {
+  content: '\e803';
+}
+
+.icon-search:before {
+  content: '\e804';
+}
+
+.icon-ok:before {
+  content: '\e805';
+}
+
+.icon-user:before {
+  content: '\e806';
+}
+
+.icon-cog:before {
+  content: '\e807';
+}
+
+.icon-help:before {
+  content: '\e808';
+}
+
+.icon-tv:before {
+  content: '\e809';
+}
+
+.icon-home:before {
+  content: '\e80a';
+}
+
+.icon-edit:before {
+  content: '\e80b';
+}
+
+.icon-plus:before {
+  content: '\e80c';
+}
+
+.icon-ok-circle:before {
+  content: '\e80d';
+}
+
+.icon-cancel-circle:before {
+  content: '\e80e';
+}
+
+.icon-cinema:before {
+  content: '\e80f';
+}
+
+.icon-attention-circle:before {
+  content: '\e810';
+}
+
+.icon-attention:before {
+  content: '\e811';
+}
+
+.icon-star:before {
+  content: '\e812';
+}
+
+.icon-star-empty:before {
+  content: '\e813';
+}
+
+.icon-logout:before {
+  content: '\f02d';
+}
+
+.icon-star-half:before {
+  content: '\f123';
+}
+
+.icon-lock-open:before {
+  content: '\f13e';
+}

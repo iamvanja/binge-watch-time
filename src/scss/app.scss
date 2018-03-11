@@ -1,39 +1,24 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
+@charset "utf-8";
 
-.App {
-  text-align: center;
-}
+@import "abstracts/variables";
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
+// fonts
+@import "fonts/open-sans";
+@import "fonts/icons";
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
+// vendor
+@import "vendor/foundation/index";
 
-.App-title {
-  font-size: 1.5em;
-}
+// base
+@import "base/general";
 
-.App-intro {
-  font-size: large;
-}
+// layouts
+@import "layouts/unauthorized";
+@import "layouts/authorized";
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
+// components
+@import "components/loader";
+@import "components/loader-page";
+@import "components/footer";
+@import "components/button-loader";
+@import "components/primary-header";

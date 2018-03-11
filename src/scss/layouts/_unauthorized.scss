@@ -1,0 +1,69 @@
+.layout.unauthorized {
+  @include xy-grid('horizontal');
+
+  color: $white;
+  background: url('../images/unauthorized/bg.jpg') no-repeat center center;
+  background-size: cover;
+  $text-shadow: 1px 1px 3px $app-secondary-color;
+
+  label:not(.is-invalid-label),
+  p,
+  h1 {
+    color: $white;
+    text-shadow: $text-shadow;
+  }
+
+  &:after {
+    background: rgba($app-secondary-color, 0.9);
+  }
+
+  .header {
+    @include flex-align-self('top');
+
+    text-align: center;
+    padding-top: rem-calc(20px);
+    padding-bottom: rem-calc(20px);
+
+    .app-name {
+      margin: rem-calc(10px) 0 0;
+      font-size: rem-calc(24px);
+    }
+
+    .logo {
+      width: rem-calc(80px);
+    }
+  }
+
+  .bottom-content {
+    @include flex-align-self('bottom');
+  }
+
+  .header,
+  .bottom-content,
+  .footer {
+    width: 100%;
+  }
+
+  .page {
+    margin-bottom: rem-calc(8px);
+
+    .loading-results {
+      line-height: 1;
+    }
+
+    &.login {
+      input[name="password"] {
+        margin-bottom: 0;
+      }
+    }
+
+    .message-box {
+      text-align: center;
+
+      .message-text {
+        font-weight: bold;
+        margin-bottom: rem-calc(4px);
+      }
+    }
+  }
+}

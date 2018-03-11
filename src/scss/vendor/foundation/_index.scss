@@ -1,0 +1,13 @@
+// customize foundation
+@import "settings";
+
+// include entire foundation
+@import "foundation-sites/scss/foundation";
+
+// include importer mixin that will later be used executed
+@import "importer";
+
+@include foundation-everything();
+
+// post import fixes
+@import "fixes";

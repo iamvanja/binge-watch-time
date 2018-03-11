@@ -1,0 +1,15 @@
+select {
+  line-height: 1 !important;
+}
+
+.is-invalid-label {
+  input,
+  select {
+    margin-bottom: 0;
+  }
+
+  .form-error {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}

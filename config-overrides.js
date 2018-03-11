@@ -30,11 +30,11 @@ module.exports = {
     }
 
     return config
+  },
+  jest: function (config) {
+    const customConfig = require('./jest.config')
+    return customConfig
   }
-  // jest: function(config) {
-  //   // customize jest here
-  //   return config;
-  // },
   // devServer: function(configFunction) {
   //   return function(proxy, host) {
   //     // customize devServer config here

@@ -1,0 +1,26 @@
+.footer {
+  background: $app-secondary-color;
+  font-size: rem-calc(11px);
+  color: $app-white;
+  width: 100%;
+
+  .copy {
+    text-align: center;
+    padding-top: rem-calc(8px);
+  }
+
+  .menu {
+    justify-content: center;
+  }
+
+  @include breakpoint(medium up) {
+    .copy {
+      text-align: left;
+      padding: 0;
+    }
+
+    .menu {
+      justify-content: flex-end;
+    }
+  }
+}

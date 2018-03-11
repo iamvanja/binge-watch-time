@@ -3,8 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-preset-stage-2": "^6.24.1",
+    "db-migrate": "^0.10.5",
+    "db-migrate-mysql": "^1.1.10",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.18.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-config-standard-react": "^5.0.0",
@@ -22,9 +27,30 @@
     "stylelint-webpack-plugin": "^0.10.2"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt-nodejs": "^0.0.3",
+    "classnames": "^2.2.5",
+    "cookies": "^0.7.1",
+    "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "foundation-sites": "^6.4.4-rc1",
+    "helmet": "^3.11.0",
+    "house-rules": "^0.8.1",
+    "informative": "^0.6.1",
+    "js-cookie": "^2.2.0",
+    "lodash": "^4.17.5",
+    "mailgun-js": "^0.16.0",
+    "mysql": "^2.15.0",
+    "njwt": "^0.4.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
+    "redux": "^3.7.2",
+    "redux-act": "^1.7.2",
+    "uuid": "^3.2.1",
+    "winston": "^2.4.0"
   },
   "scripts": {
     "dev": "run-p dev:*",
@@ -38,12 +64,14 @@
     "build:client:js": "NODE_PATH=src react-scripts build",
     "build:client:css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "lint": "run-s lint:*",
-    "lint:server": "ESLINT_MODE=node eslint 'server/**/*.js' --ignore-path .gitignore",
+    "lint:server": "ESLINT_MODE=node eslint 'server/**/*.js' --ignore-path '.gitignore' --ignore-pattern 'server/migrations/*'",
     "lint:client": "run-s lint:client:*",
     "lint:client:js": "eslint --ext .js --ignore-path .gitignore --ignore-pattern '/server/*' .",
     "lint:client:css": "stylelint 'src/scss/**/*.scss'",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "react-app-rewired test",
+    "test:coverage": "yarn test -- --coverage",
+    "start:server": "NODE_PATH=build-server pm2 start build-server/index.js",
+    "migrate": "npx db-migrate  --config 'server/database.json' --migrations-dir 'server/migrations'"
   },
   "proxy": {
     "/api": {

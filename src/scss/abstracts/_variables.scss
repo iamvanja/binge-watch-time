@@ -1,0 +1,12 @@
+$font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+$app-primary-color: #03c996;
+$app-secondary-color: darken(#465262, 10%);
+$app-tertiary-color: #725eed;
+$app-alert-color: #f04124;
+$app-black: #171a1f;
+$app-white: #fefefe;
+$app-body-background: lighten($app-secondary-color, 8%);
+$app-body-font-color: $app-white;
+$app-medium-gray: #cacaca;
+$loading-color-1: $app-primary-color;
+$loading-color-2: $app-tertiary-color;

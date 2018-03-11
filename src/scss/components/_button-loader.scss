@@ -1,0 +1,9 @@
+.button-loader {
+  .loader {
+    font-size: inherit;
+  }
+
+  &[disabled].is-loading {
+    opacity: 1;
+  }
+}

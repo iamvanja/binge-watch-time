@@ -1,0 +1,48 @@
+// ensure proper height
+html,
+body,
+#root {
+  height: 100%;
+  min-width: rem-calc(360px);
+}
+
+.layout {
+  min-height: 100%;
+}
+
+body {
+  // always show scrollbar to prevent the content shift between
+  // scrollbar and no scrollbar states
+  overflow-y: scroll;
+
+  // allow colors to be printed
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
+}
+
+.overlay-bg {
+  position: relative;
+  z-index: 0;
+
+  &:after {
+    content: '';
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+/**
+ * IE min-height fix
+ */
+#root {
+  // display: flex; // causes issue with other browsers, investigate this later
+  width: 100%;
+}
+// stylelint-disable-next-line
+.layout {
+  width: 100%;
+}

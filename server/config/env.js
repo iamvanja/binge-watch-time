@@ -28,7 +28,8 @@ const {
   MAILER_FROM_EMAIL,
   MAILER_FROM_NAME,
   MAILGUN_API_KEY,
-  MAILGUN_DOMAIN
+  MAILGUN_DOMAIN,
+  MOVIE_DB_API_KEY
 } = process.env
 
 const isTrue = (val = '') => val.toLowerCase() === 'true'
@@ -70,3 +71,4 @@ export { MAILER_FROM_EMAIL }
 export { MAILER_FROM_NAME }
 export { MAILGUN_API_KEY }
 export { MAILGUN_DOMAIN }
+export { MOVIE_DB_API_KEY }

@@ -7,18 +7,7 @@ import Footer from 'components/Footer'
 import SessionTimeout from 'components/SessionTimeout'
 import NotFoundLayout from 'layouts/NotFoundLayout'
 import { GridContainer } from 'components/Grid'
-
-const DiscoverPage = () =>
-  <div className='page browse'>
-    <h1>Discover</h1>
-
-    <h2>New</h2>
-    <h2>Popular</h2>
-    <h2>Action</h2>
-    <h2>Comedy</h2>
-    .....
-
-  </div>
+import DiscoverPage from 'discover/DiscoverPage'
 
 const Shows = () =>
   <div className='page my-shows'>
@@ -34,7 +23,7 @@ export const AuthorizedLayout = ({ timeout }) => {
           <Switch>
             <Redirect exact from='/' to='/discover' />
             <Route path='/discover' component={DiscoverPage} />
-            <Route path='/shows' component={Shows} />
+            <Route exact path='/shows' component={Shows} />
             <Route component={NotFoundLayout} />
           </Switch>
         </GridContainer>

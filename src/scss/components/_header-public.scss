@@ -1,0 +1,14 @@
+.header-public {
+  text-align: center;
+  padding-top: rem-calc(20px);
+  padding-bottom: rem-calc(20px);
+
+  .app-name {
+    margin: rem-calc(10px) 0 0;
+    font-size: rem-calc(24px);
+  }
+
+  .logo {
+    width: rem-calc(80px);
+  }
+}

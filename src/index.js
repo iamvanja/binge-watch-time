@@ -6,6 +6,7 @@ import './scss/app.css'
 import store from './store'
 
 import UnauthorizedLayout from 'layouts/UnauthorizedLayout'
+import PublicLayout from 'layouts/PublicLayout'
 import ErrorLayout from 'layouts/ErrorLayout'
 import AuthorizedLayout from 'layouts/AuthorizedLayout'
 import AuthorizedRoute from 'components/routes/AuthorizedRoute'
@@ -30,6 +31,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path='/auth' component={UnauthorizedLayout} />
+            <Route path='/(privacy|terms)' component={PublicLayout} />
             <Route path='/error' component={ErrorLayout} />
             <AuthorizedRoute path='/' component={AuthorizedLayout} />
           </Switch>

@@ -15,9 +15,11 @@ const withNoticeHoc = Component => {
 
     addNotice (noticeMessage, noticeType = null, ms = 0) {
       this.setState({ noticeMessage, noticeType })
-      ms = parseInt(ms)
+      ms = parseInt(ms, 10)
       clearTimeout(this._timeout)
-      if (ms > 0) this._timeout = setTimeout(this.clearNotice, parseInt(ms))
+      if (ms > 0) {
+        this._timeout = setTimeout(this.clearNotice, parseInt(ms, 10))
+      }
     }
 
     clearNotice () {

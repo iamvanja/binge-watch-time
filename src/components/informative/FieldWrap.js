@@ -32,7 +32,7 @@ const FieldWrap = ({
         const errorMessageClass = classnames('form-error', { 'is-visible': errorMessage.length })
 
         return (
-          <label className={labelClass}>
+          <label className={labelClass} htmlFor={name}>
             {label}
             <Component
               {...rest}

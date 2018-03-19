@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PrimaryHeader always renders PrimaryHeader 1`] = `
+exports[`HeaderPrimary always renders HeaderPrimary 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <PrimaryHeader />,
+  Symbol(enzyme.__unrendered__): <HeaderPrimary />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -30,6 +30,7 @@ ShallowWrapper {
                                 to="/"
                         >
                                 <img
+                                        alt="Logo"
                                         className="logo"
                                         src="logo.svg"
                                 />
@@ -89,7 +90,7 @@ ShallowWrapper {
                 </Cell>
         </Grid>
 </GridContainer>,
-      "className": "primary-header",
+      "className": "header-primary",
     },
     "ref": null,
     "rendered": Object {
@@ -109,6 +110,7 @@ ShallowWrapper {
                               to="/"
                     >
                               <img
+                                        alt="Logo"
                                         className="logo"
                                         src="logo.svg"
                               />
@@ -185,6 +187,7 @@ ShallowWrapper {
                             to="/"
               >
                             <img
+                                          alt="Logo"
                                           className="logo"
                                           src="logo.svg"
                             />
@@ -257,6 +260,7 @@ ShallowWrapper {
                 to="/"
 >
                 <img
+                                alt="Logo"
                                 className="logo"
                                 src="logo.svg"
                 />
@@ -270,6 +274,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": <img
+                  alt="Logo"
                   className="logo"
                   src="logo.svg"
 />,
@@ -283,6 +288,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
+                  "alt": "Logo",
                   "className": "logo",
                   "src": "logo.svg",
                 },
@@ -582,6 +588,7 @@ ShallowWrapper {
                                         to="/"
                               >
                                         <img
+                                                  alt="Logo"
                                                   className="logo"
                                                   src="logo.svg"
                                         />
@@ -641,7 +648,7 @@ ShallowWrapper {
                     </Cell>
           </Grid>
 </GridContainer>,
-        "className": "primary-header",
+        "className": "header-primary",
       },
       "ref": null,
       "rendered": Object {
@@ -661,6 +668,7 @@ ShallowWrapper {
                                     to="/"
                         >
                                     <img
+                                                alt="Logo"
                                                 className="logo"
                                                 src="logo.svg"
                                     />
@@ -737,6 +745,7 @@ ShallowWrapper {
                                 to="/"
                 >
                                 <img
+                                                alt="Logo"
                                                 className="logo"
                                                 src="logo.svg"
                                 />
@@ -809,6 +818,7 @@ ShallowWrapper {
                   to="/"
 >
                   <img
+                                    alt="Logo"
                                     className="logo"
                                     src="logo.svg"
                   />
@@ -822,6 +832,7 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "children": <img
+                    alt="Logo"
                     className="logo"
                     src="logo.svg"
 />,
@@ -835,6 +846,7 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
+                    "alt": "Logo",
                     "className": "logo",
                     "src": "logo.svg",
                   },

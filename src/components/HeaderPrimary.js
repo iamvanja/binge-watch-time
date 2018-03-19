@@ -5,7 +5,7 @@ import Button from 'components/Button'
 import { GridContainer, Grid, Cell } from 'components/Grid'
 import logo from 'images/logo.svg'
 
-class PrimaryHeader extends Component {
+class HeaderPrimary extends Component {
   constructor () {
     super()
     this.state = {
@@ -22,12 +22,12 @@ class PrimaryHeader extends Component {
   render () {
     const { isMobileActive } = this.state
     return (
-      <div className='primary-header'>
+      <div className='header-primary'>
         <GridContainer>
           <Grid align='middle'>
             <Cell className='small-6 medium-shrink main-content-container'>
               <Link to='/' title='Home'>
-                <img src={logo} className='logo' />
+                <img src={logo} alt='Logo' className='logo' />
               </Link>
             </Cell>
             <Cell className='small-6 hide-for-medium text-right'>
@@ -65,4 +65,4 @@ class PrimaryHeader extends Component {
   }
 }
 
-export default PrimaryHeader
+export default HeaderPrimary

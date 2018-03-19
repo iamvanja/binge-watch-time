@@ -7,11 +7,13 @@ const config = {
   },
   parser: 'babel-eslint',
   plugins: [
-    'react'
+    'react',
+    'jsx-a11y'
   ],
   extends: [
     'standard',
-    'standard-react'
+    'standard-react',
+    'plugin:jsx-a11y/recommended'
   ],
   rules: {
     complexity: ['error', 10],

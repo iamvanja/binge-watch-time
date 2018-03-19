@@ -16,7 +16,7 @@ const CheckboxWrap = ({
       const checked = stateValue !== ''
 
       return (
-        <label>
+        <label htmlFor={name}>
           <input type='checkbox' name={name} value={value} checked={checked} disabled={disabled} {...events} />
           {label}
         </label>

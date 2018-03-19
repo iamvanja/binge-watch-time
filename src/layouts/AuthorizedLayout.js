@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import PrimaryHeader from 'components/PrimaryHeader'
+import HeaderPrimary from 'components/HeaderPrimary'
 import Footer from 'components/Footer'
 import SessionTimeout from 'components/SessionTimeout'
 import NotFoundLayout from 'layouts/NotFoundLayout'
@@ -16,8 +16,8 @@ const Shows = () =>
 
 export const AuthorizedLayout = ({ timeout }) => {
   return (
-    <div className='layout authorized'>
-      <PrimaryHeader />
+    <div className='layout authorized sticky-footer'>
+      <HeaderPrimary />
       <main className='primary-content'>
         <GridContainer>
           <Switch>

@@ -5,7 +5,7 @@ import Loader from 'components/Loader'
 
 const Item = ({ id, imgSrc, name }) =>
   <div className='horizontal-item'>
-    <img src={imgSrc} />
+    <img src={imgSrc} alt={`${name} poster`} />
     <strong className='title'>{name}</strong>
     <Link to={`shows/${id}`} className='button expanded hollow'>DETAIL</Link>
   </div>
@@ -66,7 +66,7 @@ class HorizontalList extends Component {
 }
 
 HorizontalList.propTypes = {
-  api: PropTypes.instanceOf(Promise).isRequired
+  api: PropTypes.func.isRequired
 }
 
 export default HorizontalList

@@ -14,7 +14,7 @@
 
 // layouts
 @import "layouts/unauthorized";
-@import "layouts/authorized";
+@import "layouts/sticky-footer";
 
 // pages
 @import "pages/discover";
@@ -24,6 +24,7 @@
 @import "components/loader-page";
 @import "components/footer";
 @import "components/button-loader";
-@import "components/primary-header";
+@import "components/header-public";
+@import "components/header-primary";
 @import "components/content-box";
 @import "components/horizontal-list";

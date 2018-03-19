@@ -1,6 +1,4 @@
 .layout.unauthorized {
-  @include xy-grid('horizontal');
-
   color: $white;
   background: url('../images/unauthorized/bg.jpg') no-repeat center center;
   background-size: cover;
@@ -17,31 +15,13 @@
     background: rgba($app-secondary-color, 0.9);
   }
 
-  .header {
-    @include flex-align-self('top');
+  .primary-content {
+    display: flex;
 
-    text-align: center;
-    padding-top: rem-calc(20px);
-    padding-bottom: rem-calc(20px);
-
-    .app-name {
-      margin: rem-calc(10px) 0 0;
-      font-size: rem-calc(24px);
+    .grid-container {
+      align-self: flex-end;
+      width: 100%;
     }
-
-    .logo {
-      width: rem-calc(80px);
-    }
-  }
-
-  .bottom-content {
-    @include flex-align-self('bottom');
-  }
-
-  .header,
-  .bottom-content,
-  .footer {
-    width: 100%;
   }
 
   .page {

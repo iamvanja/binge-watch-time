@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { GridContainer, Grid, Cell } from 'components/Grid'
 
 const Footer = () =>
@@ -11,19 +12,13 @@ const Footer = () =>
         <Cell small={12} medium={9}>
           <ul className='menu'>
             <li>
-              <a href='#'>
-                PRIVACY POLICY
-              </a>
+              <Link to='/privacy'>PRIVACY POLICY</Link>
             </li>
             <li>
-              <a href='#'>
-                TERMS OF USE
-              </a>
+              <Link to='/terms'>TERMS OF USE</Link>
             </li>
             <li>
-              <a href='#'>
-                CONTACT US
-              </a>
+              <a href='https://vanja.gavric.org/#contact'>CONTACT</a>
             </li>
           </ul>
         </Cell>

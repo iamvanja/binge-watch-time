@@ -6,12 +6,13 @@
  * 3. Use `%` instead of `vh` since `vh` is buggy in older mobile Safari.
  */
 
-.layout.authorized {
+.layout.sticky-footer {
   display: flex;
   flex-direction: column;
   height: 100%;
 
-  .primary-header,
+  .header-primary,
+  .header-public,
   .footer {
     flex: none;
   }

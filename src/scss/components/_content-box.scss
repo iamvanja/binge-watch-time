@@ -1,0 +1,15 @@
+.content-box {
+  border: 1px solid $app-tertiary-color;
+  box-shadow: 0 0 5px rgba($black, 0.3);
+  background-color: $app-secondary-color;
+
+  > .title {
+    border-bottom: 1px solid $app-tertiary-color;
+    padding: rem-calc(18px 22px);
+    margin: 0;
+  }
+
+  > .content {
+    padding: rem-calc(10px);
+  }
+}

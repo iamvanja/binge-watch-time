@@ -1,5 +1,6 @@
 import isPlainObject from 'lodash/isPlainObject'
 import snakeCase from 'lodash/snakeCase'
+import mapKeys from 'lodash/mapKeys'
 import db from 'utils/mysql'
 
 class Model {
@@ -99,12 +100,8 @@ class Model {
     if (!camelCaseObj) {
       return null
     }
-    const snakeCaseObj = {}
-    for (const key in camelCaseObj) {
-      snakeCaseObj[snakeCase(key)] = camelCaseObj[key]
-    }
 
-    return snakeCaseObj
+    return mapKeys(camelCaseObj, (value, key) => snakeCase(key))
   }
 }
 

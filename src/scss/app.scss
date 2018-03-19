@@ -16,9 +16,14 @@
 @import "layouts/unauthorized";
 @import "layouts/authorized";
 
+// pages
+@import "pages/discover";
+
 // components
 @import "components/loader";
 @import "components/loader-page";
 @import "components/footer";
 @import "components/button-loader";
 @import "components/primary-header";
+@import "components/content-box";
+@import "components/horizontal-list";

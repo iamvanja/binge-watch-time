@@ -1,0 +1,21 @@
+.page.discover {
+  .content-box {
+    margin-bottom: rem-calc(20px);
+
+    > .content {
+      padding-bottom: 0;
+    }
+
+    .horizontal-list {
+      padding-bottom: rem-calc(10px);
+
+      .loader {
+        line-height: rem-calc(230px);
+      }
+
+      .button {
+        margin: 0;
+      }
+    }
+  }
+}

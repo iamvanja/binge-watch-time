@@ -2,6 +2,7 @@ import { Router } from 'express'
 import errorHandler from 'utils/errorHandler'
 
 import auth from './auth'
+import discover from './discover'
 import healthcheck from './healthcheck'
 import users from './users'
 
@@ -12,6 +13,7 @@ router.get('/', (req, res) => res.sendStatus(204))
 
 // Routes
 router.use('/auth', auth)
+router.use('/discover', discover)
 router.use('/healthcheck', healthcheck)
 router.use('/users', users)
 

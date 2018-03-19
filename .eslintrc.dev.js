@@ -21,6 +21,7 @@ const devRules = {
   'import/first': ERROR_LEVEL,
   'keyword-spacing': ERROR_LEVEL,
   'indent': ERROR_LEVEL,
+  'handle-callback-err': ERROR_LEVEL
 }
 
 // front-end only

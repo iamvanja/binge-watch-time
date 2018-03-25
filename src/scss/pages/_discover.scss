@@ -2,6 +2,12 @@
   .content-box {
     margin-bottom: rem-calc(20px);
 
+    > .title {
+      h2 {
+        margin: 0;
+      }
+    }
+
     > .content {
       padding-bottom: 0;
     }
@@ -12,10 +18,11 @@
       .loader {
         line-height: rem-calc(237px);
       }
+    }
 
-      .button {
-        margin: 0;
-      }
+    .button,
+    select {
+      margin: 0;
     }
   }
 }

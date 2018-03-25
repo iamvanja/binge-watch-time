@@ -7,9 +7,9 @@ const defaultQuery = {
   withOriginalLanguage: 'en'
 }
 
-const getDiscoverQuery = type => {
+const getDiscoverQuery = (category, genreId) => {
   let extraQuery = {}
-  switch (type) {
+  switch (category) {
     case 'new':
       extraQuery = {
         'firstAirDate.gte': moment()
@@ -20,11 +20,21 @@ const getDiscoverQuery = type => {
       break
   }
 
+  if (genreId) {
+    extraQuery.withGenres = genreId
+  }
+
   return { ...defaultQuery, ...extraQuery }
 }
 
-export const discover = (req, res, next) => {
-  ServiceShowModel.discover(getDiscoverQuery(req.params.type))
+export const discoverByCategory = (req, res, next) => {
+  ServiceShowModel.discover(getDiscoverQuery(req.params.category))
+    .then(data => res.json(data))
+    .catch(next)
+}
+
+export const discoverByGenreId = (req, res, next) => {
+  ServiceShowModel.discover(getDiscoverQuery(null, req.params.genreId))
     .then(data => res.json(data))
     .catch(next)
 }

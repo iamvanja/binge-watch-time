@@ -1,31 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { renderable } from 'constants/propTypes'
+import isEqual from 'lodash/isEqual'
 import Loader from 'components/Loader'
-import Image from 'components/Image'
-import ImagePlaceholder from 'components/ImagePlaceholder'
-import { IMG_BASE_URL, POSTER_SIZES } from 'constants/tmdb'
 
-const Item = ({ id, posterPath, name }) =>
-  <div className='horizontal-item'>
-    <div className='image-holder'>
-      <Image
-        src={`${IMG_BASE_URL}/${POSTER_SIZES.medium}${posterPath}`}
-        alt={`${name} poster`}
-        fallback={<ImagePlaceholder width={100} height={150} />}
-      />
-    </div>
-    <strong className='title'>{name}</strong>
-    <Link to={`shows/${id}`} className='button expanded hollow'>DETAIL</Link>
-  </div>
-
-Item.propTypes = {
-  id: PropTypes.number.isRequired,
-  posterPath: PropTypes.string,
-  name: PropTypes.string.isRequired
-}
-
-// todo: make render props
 class HorizontalList extends Component {
   constructor () {
     super()
@@ -33,10 +11,23 @@ class HorizontalList extends Component {
       isPending: true,
       list: []
     }
+
+    this.fetch = this.fetch.bind(this)
   }
 
   componentDidMount () {
-    this.props.api()
+    this.fetch()
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (!isEqual(prevProps.params, this.props.params)) {
+      this.fetch()
+    }
+  }
+
+  fetch () {
+    this.setState({ isPending: true })
+    this.props.api(this.props.params)
       .then(data => {
         this.setState({
           list: data.results,
@@ -53,6 +44,7 @@ class HorizontalList extends Component {
 
   render () {
     const { isPending, list } = this.state
+    const { item: Item } = this.props
     return (
       <div className='horizontal-list'>
         {
@@ -73,7 +65,14 @@ class HorizontalList extends Component {
 }
 
 HorizontalList.propTypes = {
-  api: PropTypes.func.isRequired
+  api: PropTypes.func.isRequired,
+  params: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object
+  ]),
+  item: renderable.isRequired
+
 }
 
 export default HorizontalList

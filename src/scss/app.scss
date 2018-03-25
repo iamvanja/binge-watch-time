@@ -18,6 +18,7 @@
 
 // pages
 @import "pages/discover";
+@import "pages/show-detail";
 
 // components
 @import "components/loader";
@@ -28,3 +29,7 @@
 @import "components/header-primary";
 @import "components/content-box";
 @import "components/horizontal-list";
+@import "components/rater";
+@import "components/sub-nav";
+@import "components/image-placeholder";
+@import "components/shows/show-hero";

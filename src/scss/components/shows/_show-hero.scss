@@ -1,0 +1,104 @@
+.show-hero {
+  &.overlay-bg {
+    background: no-repeat center $app-black;
+    background-size: cover;
+
+    &:after {
+      background: rgba($app-secondary-color, 0.8);
+    }
+  }
+
+  .grid-x {
+    min-height: 300px;
+  }
+
+  .info {
+    text-align: right;
+
+    .rater {
+      color: $app-tertiary-color;
+      text-shadow: 0 1px 0 rgba($app-black, 0.6);
+      font-size: rem-calc(24px);
+    }
+  }
+
+  .poster {
+    text-align: right;
+    padding: rem-calc(10px) 0;
+
+    > img {
+      margin-bottom: 0;
+      max-height: 260px;
+    }
+  }
+
+  &.mini {
+    .grid-x {
+      min-height: 140px;
+    }
+
+    .poster {
+      > img {
+        max-height: 120px;
+      }
+
+      .image-placeholder {
+        display: none;
+      }
+    }
+  }
+
+  .show-follow-toggle {
+    height: rem-calc(50px);
+    width: rem-calc(50px);
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    border-radius: 50%;
+    font-size: rem-calc(24px);
+    border: 1px solid $light-gray;
+    color: $medium-gray;
+    background: transparent;
+
+    &:hover {
+      background: rgba($light-gray, 0.3);
+    }
+
+    &.active {
+      background: $app-tertiary-color;
+      color: $white;
+    }
+  }
+
+  @include breakpoint(medium down) {
+    &:not(.mini) {
+      .title {
+        text-align: center;
+        order: 1;
+      }
+
+      .info {
+        order: 3;
+      }
+
+      .poster {
+        order: 2;
+        text-align: left;
+      }
+    }
+  }
+
+  @include breakpoint(small only) {
+    .poster {
+      > img {
+        max-height: 160px;
+      }
+
+      .image-placeholder {
+        height: 160px !important;
+        width: 108px !important;
+        font-size: 33px !important;
+      }
+    }
+  }
+}

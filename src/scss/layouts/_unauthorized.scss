@@ -1,7 +1,16 @@
 .layout.unauthorized {
   color: $white;
-  background: url('../images/unauthorized/bg.jpg') no-repeat center center;
-  background-size: cover;
+
+  &.overlay-bg {
+    background: url('../images/unauthorized/bg.jpg') no-repeat center center;
+    background-size: cover;
+    height: auto; // prevent bg cut-off
+
+    &:after {
+      background: rgba($app-secondary-color, 0.9);
+    }
+  }
+
   $text-shadow: 1px 1px 3px $app-secondary-color;
 
   label:not(.is-invalid-label),
@@ -9,10 +18,6 @@
   h1 {
     color: $white;
     text-shadow: $text-shadow;
-  }
-
-  &:after {
-    background: rgba($app-secondary-color, 0.9);
   }
 
   .primary-content {

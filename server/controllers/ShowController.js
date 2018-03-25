@@ -2,18 +2,20 @@ import ServiceShowModel from 'models/ServiceShowModel'
 import moment from 'moment'
 
 const defaultQuery = {
-  language: 'en-US',
   sortBy: 'popularity.desc',
-  timezone: 'America/Phoenix',
-  includeNullFirstAirDates: false
+  includeNullFirstAirDates: false,
+  withOriginalLanguage: 'en'
 }
 
-const getQuery = type => {
+const getDiscoverQuery = type => {
   let extraQuery = {}
   switch (type) {
     case 'new':
       extraQuery = {
-        'firstAirDate.gte': moment().startOf('year').format('YYYY-MM-DD')
+        'firstAirDate.gte': moment()
+          .subtract(4, 'months')
+          .startOf('month')
+          .format('YYYY-MM-DD')
       }
       break
   }
@@ -22,7 +24,14 @@ const getQuery = type => {
 }
 
 export const discover = (req, res, next) => {
-  ServiceShowModel.discover(getQuery(req.params.type))
+  ServiceShowModel.discover(getDiscoverQuery(req.params.type))
     .then(data => res.json(data))
+    .catch(next)
+}
+
+export const one = (req, res, next) => {
+  const { showId } = req.params
+  ServiceShowModel.findOne(showId)
+    .then(show => res.json(show))
     .catch(next)
 }

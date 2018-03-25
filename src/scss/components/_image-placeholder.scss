@@ -1,0 +1,15 @@
+.image-placeholder {
+  width: 200px;
+  height: 200px;
+  background: lighten($app-secondary-color, 12%);
+  text-align: center;
+  display: table;
+  font-size: rem-calc(50px);
+
+  &:before {
+    font-family: 'icons';
+    content: '\e803';
+    display: table-cell;
+    vertical-align: middle;
+  }
+}

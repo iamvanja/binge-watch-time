@@ -29,6 +29,12 @@
     margin-right: rem-calc(6px);
     flex: 0 0 auto;
 
+    .image-holder {
+      width: rem-calc(100px);
+      height: rem-calc(150px);
+      display: flex;
+    }
+
     .title {
       display: block;
       width: 100%;

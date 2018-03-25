@@ -2,17 +2,26 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Loader from 'components/Loader'
+import Image from 'components/Image'
+import ImagePlaceholder from 'components/ImagePlaceholder'
+import { IMG_BASE_URL, POSTER_SIZES } from 'constants/tmdb'
 
-const Item = ({ id, imgSrc, name }) =>
+const Item = ({ id, posterPath, name }) =>
   <div className='horizontal-item'>
-    <img src={imgSrc} alt={`${name} poster`} />
+    <div className='image-holder'>
+      <Image
+        src={`${IMG_BASE_URL}/${POSTER_SIZES.medium}${posterPath}`}
+        alt={`${name} poster`}
+        fallback={<ImagePlaceholder width={100} height={150} />}
+      />
+    </div>
     <strong className='title'>{name}</strong>
     <Link to={`shows/${id}`} className='button expanded hollow'>DETAIL</Link>
   </div>
 
 Item.propTypes = {
   id: PropTypes.number.isRequired,
-  imgSrc: PropTypes.string.isRequired,
+  posterPath: PropTypes.string,
   name: PropTypes.string.isRequired
 }
 
@@ -53,10 +62,8 @@ class HorizontalList extends Component {
               ? list
                 .map(show =>
                   <Item
-                    id={show.id}
                     key={show.id}
-                    imgSrc={`https://image.tmdb.org/t/p/w300${show.posterPath}`}
-                    name={show.name}
+                    {...show}
                   />)
               : 'No data'
         }

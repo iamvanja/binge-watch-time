@@ -1,4 +1,6 @@
 import mysql from 'mysql'
+import isObject from 'lodash/isObject'
+import isArray from 'lodash/isArray'
 
 /**
  * Casts tiny(1) into boolean
@@ -48,13 +50,13 @@ export const prepareInsertValues = (values = {}) =>
 /**
  * Turns {user_id: 1, age: null}, into "WHERE `user_id` = 1 AND `age` IS NULL"
  */
-export const sqlWhere = (where) => {
+export const sqlWhere = (where = '') => {
   const stringified = stringifyObject(where, {
     separator: ' AND ',
     handleIsNull: true
   })
 
-  return stringified.length
+  return stringified.length && !stringified.startsWith('WHERE')
     ? `WHERE ${stringified}`
     : stringified
 }

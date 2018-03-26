@@ -1,6 +1,4 @@
 import mysql from 'mysql'
-import isObject from 'lodash/isObject'
-import isArray from 'lodash/isArray'
 
 /**
  * Casts tiny(1) into boolean

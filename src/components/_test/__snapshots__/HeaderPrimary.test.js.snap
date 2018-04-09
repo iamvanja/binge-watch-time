@@ -22,7 +22,9 @@ ShallowWrapper {
                 align="middle"
         >
                 <Cell
-                        className="small-6 medium-shrink main-content-container"
+                        className="main-content-container"
+                        medium="shrink"
+                        small={6}
                 >
                         <Link
                                 replace={false}
@@ -37,7 +39,8 @@ ShallowWrapper {
                         </Link>
                 </Cell>
                 <Cell
-                        className="small-6 hide-for-medium text-right"
+                        className="hide-for-medium text-right"
+                        small={6}
                 >
                         <Button
                                 className="menu-button hollow"
@@ -48,13 +51,17 @@ ShallowWrapper {
                         </Button>
                 </Cell>
                 <Cell
-                        className="small-12 medium-auto menu-container"
+                        className="menu-container"
+                        medium="auto"
+                        small={12}
                 >
                         <nav>
                                 <ul
                                         className="menu"
                                 >
-                                        <li>
+                                        <li
+                                                className="border"
+                                        >
                                                 <NavLink
                                                         activeClassName="active"
                                                         ariaCurrent="true"
@@ -64,7 +71,9 @@ ShallowWrapper {
                                                         Discover
                                                 </NavLink>
                                         </li>
-                                        <li>
+                                        <li
+                                                className="border"
+                                        >
                                                 <NavLink
                                                         activeClassName="active"
                                                         ariaCurrent="true"
@@ -73,6 +82,11 @@ ShallowWrapper {
                                                 >
                                                         Shows
                                                 </NavLink>
+                                        </li>
+                                        <li
+                                                className="search"
+                                        >
+                                                <ShowSearchForm />
                                         </li>
                                         <li
                                                 className="logout"
@@ -102,7 +116,9 @@ ShallowWrapper {
           align="middle"
 >
           <Cell
-                    className="small-6 medium-shrink main-content-container"
+                    className="main-content-container"
+                    medium="shrink"
+                    small={6}
           >
                     <Link
                               replace={false}
@@ -117,7 +133,8 @@ ShallowWrapper {
                     </Link>
           </Cell>
           <Cell
-                    className="small-6 hide-for-medium text-right"
+                    className="hide-for-medium text-right"
+                    small={6}
           >
                     <Button
                               className="menu-button hollow"
@@ -128,13 +145,17 @@ ShallowWrapper {
                     </Button>
           </Cell>
           <Cell
-                    className="small-12 medium-auto menu-container"
+                    className="menu-container"
+                    medium="auto"
+                    small={12}
           >
                     <nav>
                               <ul
                                         className="menu"
                               >
-                                        <li>
+                                        <li
+                                                  className="border"
+                                        >
                                                   <NavLink
                                                             activeClassName="active"
                                                             ariaCurrent="true"
@@ -144,7 +165,9 @@ ShallowWrapper {
                                                             Discover
                                                   </NavLink>
                                         </li>
-                                        <li>
+                                        <li
+                                                  className="border"
+                                        >
                                                   <NavLink
                                                             activeClassName="active"
                                                             ariaCurrent="true"
@@ -153,6 +176,11 @@ ShallowWrapper {
                                                   >
                                                             Shows
                                                   </NavLink>
+                                        </li>
+                                        <li
+                                                  className="search"
+                                        >
+                                                  <ShowSearchForm />
                                         </li>
                                         <li
                                                   className="logout"
@@ -179,7 +207,9 @@ ShallowWrapper {
           "align": "middle",
           "children": Array [
             <Cell
-              className="small-6 medium-shrink main-content-container"
+              className="main-content-container"
+              medium="shrink"
+              small={6}
 >
               <Link
                             replace={false}
@@ -194,7 +224,8 @@ ShallowWrapper {
               </Link>
 </Cell>,
             <Cell
-              className="small-6 hide-for-medium text-right"
+              className="hide-for-medium text-right"
+              small={6}
 >
               <Button
                             className="menu-button hollow"
@@ -205,13 +236,17 @@ ShallowWrapper {
               </Button>
 </Cell>,
             <Cell
-              className="small-12 medium-auto menu-container"
+              className="menu-container"
+              medium="auto"
+              small={12}
 >
               <nav>
                             <ul
                                           className="menu"
                             >
-                                          <li>
+                                          <li
+                                                        className="border"
+                                          >
                                                         <NavLink
                                                                       activeClassName="active"
                                                                       ariaCurrent="true"
@@ -221,7 +256,9 @@ ShallowWrapper {
                                                                       Discover
                                                         </NavLink>
                                           </li>
-                                          <li>
+                                          <li
+                                                        className="border"
+                                          >
                                                         <NavLink
                                                                       activeClassName="active"
                                                                       ariaCurrent="true"
@@ -230,6 +267,11 @@ ShallowWrapper {
                                                         >
                                                                       Shows
                                                         </NavLink>
+                                          </li>
+                                          <li
+                                                        className="search"
+                                          >
+                                                        <ShowSearchForm />
                                           </li>
                                           <li
                                                         className="logout"
@@ -265,7 +307,9 @@ ShallowWrapper {
                                 src="logo.svg"
                 />
 </Link>,
-              "className": "small-6 medium-shrink main-content-container",
+              "className": "main-content-container",
+              "medium": "shrink",
+              "small": 6,
             },
             "ref": null,
             "rendered": Object {
@@ -312,7 +356,8 @@ ShallowWrapper {
 >
                 MENU
 </Button>,
-              "className": "small-6 hide-for-medium text-right",
+              "className": "hide-for-medium text-right",
+              "small": 6,
             },
             "ref": null,
             "rendered": Object {
@@ -340,7 +385,9 @@ ShallowWrapper {
                 <ul
                                 className="menu"
                 >
-                                <li>
+                                <li
+                                                className="border"
+                                >
                                                 <NavLink
                                                                 activeClassName="active"
                                                                 ariaCurrent="true"
@@ -350,7 +397,9 @@ ShallowWrapper {
                                                                 Discover
                                                 </NavLink>
                                 </li>
-                                <li>
+                                <li
+                                                className="border"
+                                >
                                                 <NavLink
                                                                 activeClassName="active"
                                                                 ariaCurrent="true"
@@ -359,6 +408,11 @@ ShallowWrapper {
                                                 >
                                                                 Shows
                                                 </NavLink>
+                                </li>
+                                <li
+                                                className="search"
+                                >
+                                                <ShowSearchForm />
                                 </li>
                                 <li
                                                 className="logout"
@@ -373,7 +427,9 @@ ShallowWrapper {
                                 </li>
                 </ul>
 </nav>,
-              "className": "small-12 medium-auto menu-container",
+              "className": "menu-container",
+              "medium": "auto",
+              "small": 12,
             },
             "ref": null,
             "rendered": Object {
@@ -384,7 +440,9 @@ ShallowWrapper {
                 "children": <ul
                   className="menu"
 >
-                  <li>
+                  <li
+                                    className="border"
+                  >
                                     <NavLink
                                                       activeClassName="active"
                                                       ariaCurrent="true"
@@ -394,7 +452,9 @@ ShallowWrapper {
                                                       Discover
                                     </NavLink>
                   </li>
-                  <li>
+                  <li
+                                    className="border"
+                  >
                                     <NavLink
                                                       activeClassName="active"
                                                       ariaCurrent="true"
@@ -403,6 +463,11 @@ ShallowWrapper {
                                     >
                                                       Shows
                                     </NavLink>
+                  </li>
+                  <li
+                                    className="search"
+                  >
+                                    <ShowSearchForm />
                   </li>
                   <li
                                     className="logout"
@@ -424,7 +489,9 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": Array [
-                    <li>
+                    <li
+                      className="border"
+>
                       <NavLink
                                             activeClassName="active"
                                             ariaCurrent="true"
@@ -434,7 +501,9 @@ ShallowWrapper {
                                             Discover
                       </NavLink>
 </li>,
-                    <li>
+                    <li
+                      className="border"
+>
                       <NavLink
                                             activeClassName="active"
                                             ariaCurrent="true"
@@ -443,6 +512,11 @@ ShallowWrapper {
                       >
                                             Shows
                       </NavLink>
+</li>,
+                    <li
+                      className="search"
+>
+                      <ShowSearchForm />
 </li>,
                     <li
                       className="logout"
@@ -473,6 +547,7 @@ ShallowWrapper {
 >
                         Discover
 </NavLink>,
+                      "className": "border",
                     },
                     "ref": null,
                     "rendered": Object {
@@ -505,6 +580,7 @@ ShallowWrapper {
 >
                         Shows
 </NavLink>,
+                      "className": "border",
                     },
                     "ref": null,
                     "rendered": Object {
@@ -520,6 +596,26 @@ ShallowWrapper {
                       },
                       "ref": null,
                       "rendered": "Shows",
+                      "type": [Function],
+                    },
+                    "type": "li",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <ShowSearchForm />,
+                      "className": "search",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
                       "type": [Function],
                     },
                     "type": "li",
@@ -580,7 +676,9 @@ ShallowWrapper {
                     align="middle"
           >
                     <Cell
-                              className="small-6 medium-shrink main-content-container"
+                              className="main-content-container"
+                              medium="shrink"
+                              small={6}
                     >
                               <Link
                                         replace={false}
@@ -595,7 +693,8 @@ ShallowWrapper {
                               </Link>
                     </Cell>
                     <Cell
-                              className="small-6 hide-for-medium text-right"
+                              className="hide-for-medium text-right"
+                              small={6}
                     >
                               <Button
                                         className="menu-button hollow"
@@ -606,13 +705,17 @@ ShallowWrapper {
                               </Button>
                     </Cell>
                     <Cell
-                              className="small-12 medium-auto menu-container"
+                              className="menu-container"
+                              medium="auto"
+                              small={12}
                     >
                               <nav>
                                         <ul
                                                   className="menu"
                                         >
-                                                  <li>
+                                                  <li
+                                                            className="border"
+                                                  >
                                                             <NavLink
                                                                       activeClassName="active"
                                                                       ariaCurrent="true"
@@ -622,7 +725,9 @@ ShallowWrapper {
                                                                       Discover
                                                             </NavLink>
                                                   </li>
-                                                  <li>
+                                                  <li
+                                                            className="border"
+                                                  >
                                                             <NavLink
                                                                       activeClassName="active"
                                                                       ariaCurrent="true"
@@ -631,6 +736,11 @@ ShallowWrapper {
                                                             >
                                                                       Shows
                                                             </NavLink>
+                                                  </li>
+                                                  <li
+                                                            className="search"
+                                                  >
+                                                            <ShowSearchForm />
                                                   </li>
                                                   <li
                                                             className="logout"
@@ -660,7 +770,9 @@ ShallowWrapper {
             align="middle"
 >
             <Cell
-                        className="small-6 medium-shrink main-content-container"
+                        className="main-content-container"
+                        medium="shrink"
+                        small={6}
             >
                         <Link
                                     replace={false}
@@ -675,7 +787,8 @@ ShallowWrapper {
                         </Link>
             </Cell>
             <Cell
-                        className="small-6 hide-for-medium text-right"
+                        className="hide-for-medium text-right"
+                        small={6}
             >
                         <Button
                                     className="menu-button hollow"
@@ -686,13 +799,17 @@ ShallowWrapper {
                         </Button>
             </Cell>
             <Cell
-                        className="small-12 medium-auto menu-container"
+                        className="menu-container"
+                        medium="auto"
+                        small={12}
             >
                         <nav>
                                     <ul
                                                 className="menu"
                                     >
-                                                <li>
+                                                <li
+                                                            className="border"
+                                                >
                                                             <NavLink
                                                                         activeClassName="active"
                                                                         ariaCurrent="true"
@@ -702,7 +819,9 @@ ShallowWrapper {
                                                                         Discover
                                                             </NavLink>
                                                 </li>
-                                                <li>
+                                                <li
+                                                            className="border"
+                                                >
                                                             <NavLink
                                                                         activeClassName="active"
                                                                         ariaCurrent="true"
@@ -711,6 +830,11 @@ ShallowWrapper {
                                                             >
                                                                         Shows
                                                             </NavLink>
+                                                </li>
+                                                <li
+                                                            className="search"
+                                                >
+                                                            <ShowSearchForm />
                                                 </li>
                                                 <li
                                                             className="logout"
@@ -737,7 +861,9 @@ ShallowWrapper {
             "align": "middle",
             "children": Array [
               <Cell
-                className="small-6 medium-shrink main-content-container"
+                className="main-content-container"
+                medium="shrink"
+                small={6}
 >
                 <Link
                                 replace={false}
@@ -752,7 +878,8 @@ ShallowWrapper {
                 </Link>
 </Cell>,
               <Cell
-                className="small-6 hide-for-medium text-right"
+                className="hide-for-medium text-right"
+                small={6}
 >
                 <Button
                                 className="menu-button hollow"
@@ -763,13 +890,17 @@ ShallowWrapper {
                 </Button>
 </Cell>,
               <Cell
-                className="small-12 medium-auto menu-container"
+                className="menu-container"
+                medium="auto"
+                small={12}
 >
                 <nav>
                                 <ul
                                                 className="menu"
                                 >
-                                                <li>
+                                                <li
+                                                                className="border"
+                                                >
                                                                 <NavLink
                                                                                 activeClassName="active"
                                                                                 ariaCurrent="true"
@@ -779,7 +910,9 @@ ShallowWrapper {
                                                                                 Discover
                                                                 </NavLink>
                                                 </li>
-                                                <li>
+                                                <li
+                                                                className="border"
+                                                >
                                                                 <NavLink
                                                                                 activeClassName="active"
                                                                                 ariaCurrent="true"
@@ -788,6 +921,11 @@ ShallowWrapper {
                                                                 >
                                                                                 Shows
                                                                 </NavLink>
+                                                </li>
+                                                <li
+                                                                className="search"
+                                                >
+                                                                <ShowSearchForm />
                                                 </li>
                                                 <li
                                                                 className="logout"
@@ -823,7 +961,9 @@ ShallowWrapper {
                                     src="logo.svg"
                   />
 </Link>,
-                "className": "small-6 medium-shrink main-content-container",
+                "className": "main-content-container",
+                "medium": "shrink",
+                "small": 6,
               },
               "ref": null,
               "rendered": Object {
@@ -870,7 +1010,8 @@ ShallowWrapper {
 >
                   MENU
 </Button>,
-                "className": "small-6 hide-for-medium text-right",
+                "className": "hide-for-medium text-right",
+                "small": 6,
               },
               "ref": null,
               "rendered": Object {
@@ -898,7 +1039,9 @@ ShallowWrapper {
                   <ul
                                     className="menu"
                   >
-                                    <li>
+                                    <li
+                                                      className="border"
+                                    >
                                                       <NavLink
                                                                         activeClassName="active"
                                                                         ariaCurrent="true"
@@ -908,7 +1051,9 @@ ShallowWrapper {
                                                                         Discover
                                                       </NavLink>
                                     </li>
-                                    <li>
+                                    <li
+                                                      className="border"
+                                    >
                                                       <NavLink
                                                                         activeClassName="active"
                                                                         ariaCurrent="true"
@@ -917,6 +1062,11 @@ ShallowWrapper {
                                                       >
                                                                         Shows
                                                       </NavLink>
+                                    </li>
+                                    <li
+                                                      className="search"
+                                    >
+                                                      <ShowSearchForm />
                                     </li>
                                     <li
                                                       className="logout"
@@ -931,7 +1081,9 @@ ShallowWrapper {
                                     </li>
                   </ul>
 </nav>,
-                "className": "small-12 medium-auto menu-container",
+                "className": "menu-container",
+                "medium": "auto",
+                "small": 12,
               },
               "ref": null,
               "rendered": Object {
@@ -942,7 +1094,9 @@ ShallowWrapper {
                   "children": <ul
                     className="menu"
 >
-                    <li>
+                    <li
+                                        className="border"
+                    >
                                         <NavLink
                                                             activeClassName="active"
                                                             ariaCurrent="true"
@@ -952,7 +1106,9 @@ ShallowWrapper {
                                                             Discover
                                         </NavLink>
                     </li>
-                    <li>
+                    <li
+                                        className="border"
+                    >
                                         <NavLink
                                                             activeClassName="active"
                                                             ariaCurrent="true"
@@ -961,6 +1117,11 @@ ShallowWrapper {
                                         >
                                                             Shows
                                         </NavLink>
+                    </li>
+                    <li
+                                        className="search"
+                    >
+                                        <ShowSearchForm />
                     </li>
                     <li
                                         className="logout"
@@ -982,7 +1143,9 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": Array [
-                      <li>
+                      <li
+                        className="border"
+>
                         <NavLink
                                                 activeClassName="active"
                                                 ariaCurrent="true"
@@ -992,7 +1155,9 @@ ShallowWrapper {
                                                 Discover
                         </NavLink>
 </li>,
-                      <li>
+                      <li
+                        className="border"
+>
                         <NavLink
                                                 activeClassName="active"
                                                 ariaCurrent="true"
@@ -1001,6 +1166,11 @@ ShallowWrapper {
                         >
                                                 Shows
                         </NavLink>
+</li>,
+                      <li
+                        className="search"
+>
+                        <ShowSearchForm />
 </li>,
                       <li
                         className="logout"
@@ -1031,6 +1201,7 @@ ShallowWrapper {
 >
                           Discover
 </NavLink>,
+                        "className": "border",
                       },
                       "ref": null,
                       "rendered": Object {
@@ -1063,6 +1234,7 @@ ShallowWrapper {
 >
                           Shows
 </NavLink>,
+                        "className": "border",
                       },
                       "ref": null,
                       "rendered": Object {
@@ -1078,6 +1250,26 @@ ShallowWrapper {
                         },
                         "ref": null,
                         "rendered": "Shows",
+                        "type": [Function],
+                      },
+                      "type": "li",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <ShowSearchForm />,
+                        "className": "search",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {},
+                        "ref": null,
+                        "rendered": null,
                         "type": [Function],
                       },
                       "type": "li",

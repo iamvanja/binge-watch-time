@@ -28,7 +28,12 @@ class ContentBoxSelect extends Component {
             <Cell small={6}>
               <h2>{this.props.titleText}</h2>
             </Cell>
-            <Cell small={6} medium={4} className='medium-offset-2'>
+            <Cell
+              small={6}
+              medium={3}
+              large={2}
+              className='medium-offset-3 large-offset-4'
+            >
               <Select
                 onChange={this.onChange}
                 options={this.props.selectOptions}

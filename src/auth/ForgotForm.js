@@ -35,7 +35,9 @@ class ForgotForm extends Component {
               <FieldWrap
                 type='email'
                 label='Email'
+                placeholder='Enter your email'
                 name='email'
+                autoComplete='email'
                 component={InputField}
               />
 

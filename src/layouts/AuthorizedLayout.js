@@ -7,7 +7,6 @@ import Footer from 'components/Footer'
 import SessionTimeout from 'components/SessionTimeout'
 import NotFoundLayout from 'layouts/NotFoundLayout'
 import ShowsSubLayout from 'layouts/ShowsSubLayout'
-import { GridContainer } from 'components/Grid'
 import DiscoverPage from 'discover/DiscoverPage'
 
 export const AuthorizedLayout = ({ timeout }) => {
@@ -15,14 +14,12 @@ export const AuthorizedLayout = ({ timeout }) => {
     <div className='layout authorized sticky-footer'>
       <HeaderPrimary />
       <main className='primary-content'>
-        <GridContainer>
-          <Switch>
-            <Redirect exact from='/' to='/discover' />
-            <Route path='/discover' component={DiscoverPage} />
-            <Route path='/shows' component={ShowsSubLayout} />
-            <Route component={NotFoundLayout} />
-          </Switch>
-        </GridContainer>
+        <Switch>
+          <Redirect exact from='/' to='/discover' />
+          <Route path='/discover' component={DiscoverPage} />
+          <Route path='/shows' component={ShowsSubLayout} />
+          <Route component={NotFoundLayout} />
+        </Switch>
       </main>
       { Number.isInteger(timeout) && <SessionTimeout timeout={timeout} /> }
       <Footer />

@@ -27,8 +27,9 @@
     padding: rem-calc(10px) 0;
 
     > img {
+      transition: max-height 0.2s linear;
       margin-bottom: 0;
-      max-height: 260px;
+      max-height: 360px;
     }
   }
 
@@ -48,28 +49,6 @@
     }
   }
 
-  .show-follow-toggle {
-    height: rem-calc(50px);
-    width: rem-calc(50px);
-    padding: 0;
-    margin: 0;
-    text-align: center;
-    border-radius: 50%;
-    font-size: rem-calc(24px);
-    border: 1px solid $light-gray;
-    color: $medium-gray;
-    background: transparent;
-
-    &:hover {
-      background: rgba($light-gray, 0.3);
-    }
-
-    &.active {
-      background: $app-tertiary-color;
-      color: $white;
-    }
-  }
-
   @include breakpoint(medium down) {
     &:not(.mini) {
       .title {
@@ -84,6 +63,10 @@
       .poster {
         order: 2;
         text-align: left;
+
+        > img {
+          max-height: 220px;
+        }
       }
     }
   }

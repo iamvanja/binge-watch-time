@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import Button from 'components/Button'
 import { GridContainer, Grid, Cell } from 'components/Grid'
 import logo from 'images/logo.svg'
+import ShowSearchForm from 'shows/ShowSearchForm'
 
 class HeaderPrimary extends Component {
   constructor () {
@@ -25,12 +26,12 @@ class HeaderPrimary extends Component {
       <div className='header-primary'>
         <GridContainer>
           <Grid align='middle'>
-            <Cell className='small-6 medium-shrink main-content-container'>
+            <Cell small={6} medium='shrink' className='main-content-container'>
               <Link to='/' title='Home'>
                 <img src={logo} alt='Logo' className='logo' />
               </Link>
             </Cell>
-            <Cell className='small-6 hide-for-medium text-right'>
+            <Cell small={6} className='hide-for-medium text-right'>
               <Button
                 className='menu-button hollow'
                 onClick={this.toggleMenu}
@@ -40,17 +41,22 @@ class HeaderPrimary extends Component {
               </Button>
             </Cell>
             <Cell
-              className={classnames('small-12 medium-auto menu-container', {
+              small={12}
+              medium='auto'
+              className={classnames('menu-container', {
                 'is-mobile-active': isMobileActive
               })}
             >
               <nav>
                 <ul className='menu'>
-                  <li>
+                  <li className='border'>
                     <NavLink to='/discover' title='Discover'>Discover</NavLink>
                   </li>
-                  <li>
+                  <li className='border'>
                     <NavLink to='/shows' title='Shows'>Shows</NavLink>
+                  </li>
+                  <li className='search'>
+                    <ShowSearchForm />
                   </li>
                   <li className='logout'>
                     <NavLink to='/auth/logout'>Logout</NavLink>

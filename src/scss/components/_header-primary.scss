@@ -11,6 +11,8 @@
   }
 
   .menu {
+    $global-padding: rem-calc(20px);
+
     margin-left: rem-calc(12px);
     position: relative;
 
@@ -18,9 +20,17 @@
       display: inline-block;
       cursor: pointer;
 
-      a {
+      &.border {
+        border-right: 1px solid lighten($app-body-background, 3%);
+      }
+
+      &.search {
+        padding: 0 $global-padding;
+      }
+
+      > a {
         color: $app-medium-gray;
-        padding: rem-calc(20px);
+        padding: $global-padding;
         display: block;
         transition: all 0.15s ease-out;
 
@@ -37,17 +47,48 @@
     }
   }
 
+  .show-search-form {
+    position: relative;
+
+    .results {
+      position: absolute;
+      top: 32px;
+      left: 0;
+      box-shadow: 0 2px 5px rgba($black, 0.4);
+    }
+  }
+
   @include breakpoint(medium up) {
     .menu {
       li.logout {
         position: absolute;
         right: 0;
       }
+
+      li.search {
+        display: flex;
+        align-items: center;
+      }
+
+      .show-search-form {
+        width: rem-calc(350px);
+      }
+    }
+  }
+
+  @include breakpoint(medium only) {
+    .show-search-form.show-search-form {
+      width: rem-calc(240px);
     }
   }
 
   @include breakpoint(small only) {
+    $gutter: map-get($grid-margin-gutters, 'small');
+
     .menu-container {
+      margin-left: rem-calc($gutter / -2);
+      margin-right: rem-calc($gutter / -2);
+      width: calc(100% + #{rem-calc($gutter)});
       display: none;
 
       &.is-mobile-active {
@@ -68,21 +109,15 @@
             color: $app-white;
           }
         }
+
+        &.search {
+          order: 4;
+        }
       }
     }
-  }
-
-  @include breakpoint(small only) {
-    $gutter: map-get($grid-margin-gutters, 'small');
 
     .main-content-container {
       padding: rem-calc($gutter / 2) 0;
-    }
-
-    .menu-container {
-      margin-left: rem-calc($gutter / -2);
-      margin-right: rem-calc($gutter / -2);
-      width: calc(100% + #{rem-calc($gutter)});
     }
   }
 }

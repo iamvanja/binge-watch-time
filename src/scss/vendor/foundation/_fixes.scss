@@ -2,6 +2,20 @@ select {
   line-height: 1 !important;
 }
 
+input,
+select,
+textarea {
+  border-width: 0 0 1px 0 !important;
+}
+
+input:disabled,
+input[readonly],
+textarea:disabled,
+textarea[readonly] {
+  border-style: dotted;
+  opacity: 0.5;
+}
+
 .is-invalid-label {
   input,
   select {
@@ -9,7 +23,17 @@ select {
   }
 
   .form-error {
-    margin-bottom: 0;
+    margin-bottom: rem-calc(4px);
     margin-top: 0;
   }
+}
+
+.is-invalid-input:not(:focus) {
+  background-color: transparent;
+  border-color: get-color(alert);
+}
+
+.input-group-label {
+  padding: $input-prefix-padding;
+  font-size: rem-calc(20px);
 }

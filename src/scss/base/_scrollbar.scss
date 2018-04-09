@@ -1,0 +1,17 @@
+::-webkit-scrollbar {
+  height: rem-calc(14px);
+  width: rem-calc(14px);
+}
+
+::-webkit-scrollbar-track {
+  background-color: darken($app-secondary-color, 3%);
+}
+
+// Handle
+::-webkit-scrollbar-thumb {
+  background: rgba($app-black, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba($app-black, 0.8);
+}

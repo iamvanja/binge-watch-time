@@ -1,6 +1,8 @@
 .sub-nav {
-  border-bottom: 3px solid $app-secondary-color;
-  background: $app-secondary-color;
+  $inactive-color: darken($app-white, 38%);
+
+  border-bottom: 2px solid darken($inactive-color, 20%);
+  background-color: $app-secondary-color;
 
   .menu {
     &.grid-container {
@@ -12,12 +14,21 @@
       text-align: center;
 
       a {
+        font-weight: bold;
         padding-top: rem-calc(18px);
         padding-bottom: rem-calc(18px);
+        color: $inactive-color;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        transition: color 0.5s ease, border-color 0.5s ease;
+
+        &:hover {
+          color: lighten($inactive-color, 10%);
+        }
 
         &.active {
-          border-bottom: 3px solid $app-tertiary-color;
-          margin-bottom: -3px;
+          border-bottom: 2px solid $app-primary-color;
+          color: $app-primary-color;
         }
       }
     }

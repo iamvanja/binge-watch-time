@@ -7,23 +7,6 @@
   width: 100%;
   -webkit-overflow-scrolling: touch;
 
-  &::-webkit-scrollbar {
-    height: rem-calc(14px);
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: darken($app-secondary-color, 5%);
-  }
-
-  // Handle
-  &::-webkit-scrollbar-thumb {
-    background: rgba($app-black, 0.4);
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: rgba($app-black, 0.8);
-  }
-
   .horizontal-item {
     width: rem-calc(100px);
     margin-right: rem-calc(6px);

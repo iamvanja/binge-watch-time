@@ -52,16 +52,20 @@ class LoginForm extends Component {
               </InlineNotice>
 
               <FieldWrap
-                type='email'
                 label='Email'
+                type='email'
+                placeholder='Enter your email'
                 name='email'
+                autoComplete='email'
                 component={InputField}
               />
 
               <FieldWrap
                 label='Password'
                 name='password'
+                placeholder='Enter your password'
                 type='password'
+                autoComplete='current-password'
                 component={InputField}
               />
 

@@ -91,12 +91,17 @@ const Cell = ({
   )
 }
 
+const cellSizePropType = PropTypes.oneOf(
+  [...Array(13).keys()]
+    .concat('auto', 'shrink')
+    .filter(i => i)
+)
 Cell.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  small: PropTypes.number,
-  medium: PropTypes.number,
-  large: PropTypes.number,
+  small: cellSizePropType,
+  medium: cellSizePropType,
+  large: cellSizePropType,
   alignSelf: PropTypes.oneOf([...horizontalAlignments, ...verticalAlignments])
 }
 

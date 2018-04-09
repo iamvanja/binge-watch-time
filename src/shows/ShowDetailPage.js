@@ -5,6 +5,7 @@ import api from 'api'
 import ShowHero from './ShowHero'
 import ShowDetailOverview from './ShowDetailOverview'
 import Loader from 'components/Loader'
+import { GridContainer } from 'components/Grid'
 
 const Stub = () =>
   <div>Stub</div>
@@ -20,20 +21,25 @@ class ShowDetailPage extends Component {
   }
 
   componentDidMount () {
-    const { params } = this.props.match
-    api.shows.one(params.showId)
+    this.loadData(this.props.match.params.showId)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const nextShowId = nextProps.match.params.showId
+    if (this.props.match.params.showId !== nextShowId) {
+      this.loadData(nextShowId)
+    }
+  }
+
+  loadData (showId) {
+    this.setState({ isPending: true, isError: false })
+    api.shows.one(showId)
       .then(show => {
-        this.setState({
-          show,
-          isPending: false
-        })
+        this.setState({ show, isPending: false })
       })
       // eslint-disable-next-line handle-callback-err
       .catch(err => {
-        this.setState({
-          isPending: false,
-          isError: true
-        })
+        this.setState({ isPending: false, isError: true })
       })
   }
 
@@ -41,7 +47,7 @@ class ShowDetailPage extends Component {
     const { show, isPending } = this.state
     const { match } = this.props
 
-    if (isPending && !show) {
+    if (isPending) {
       return <Loader />
     }
 
@@ -60,24 +66,26 @@ class ShowDetailPage extends Component {
           </ul>
         </nav>
 
-        <Switch>
-          <Route
-            path={match.path}
-            exact
-            component={() => ShowDetailOverview(show)}
-          />
-          <Route
-            path={`${match.path}/episodes`}
-            exact
-            component={Stub}
-          />
-          <Route
-            path={`${match.path}/episodes/next`}
-            exact
-            component={Stub}
-          />
-          <Redirect to={match.url} />
-        </Switch>
+        <GridContainer>
+          <Switch>
+            <Route
+              path={match.path}
+              exact
+              component={() => <ShowDetailOverview {...show} />}
+            />
+            <Route
+              path={`${match.path}/episodes`}
+              exact
+              component={Stub}
+            />
+            <Route
+              path={`${match.path}/episodes/next`}
+              exact
+              component={Stub}
+            />
+            <Redirect to={match.url} />
+          </Switch>
+        </GridContainer>
       </div>
     )
   }

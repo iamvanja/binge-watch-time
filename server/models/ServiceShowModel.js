@@ -15,6 +15,10 @@ class ServiceShowModel {
   discover (query) {
     return mdb('discoverTv', query)
   }
+
+  search (query) {
+    return mdb('searchTv', query)
+  }
 }
 
 export default new ServiceShowModel()

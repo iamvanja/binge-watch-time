@@ -42,30 +42,38 @@ class RegisterForm extends React.Component {
               method='POST'
             >
               <FieldWrap
-                label='First
-                Name'
+                label='First Name'
+                type='text'
+                placeholder='Enter First Name'
                 name='firstName'
+                autoComplete='given-name'
                 component={InputField}
               />
 
               <FieldWrap
-                label='Last
-                Name'
+                label='Last Name'
+                type='text'
+                placeholder='Enter Last Name'
                 name='lastName'
+                autoComplete='family-name'
                 component={InputField}
               />
 
               <FieldWrap
-                type='email'
                 label='Email'
+                type='email'
+                placeholder='Enter Email'
                 name='email'
+                autoComplete='username'
                 component={InputField}
               />
 
               <FieldWrap
                 label='Password'
-                name='password'
                 type='password'
+                placeholder='Enter Password'
+                name='password'
+                autoComplete='new-password'
                 component={InputField}
               />
 

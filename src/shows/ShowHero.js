@@ -20,33 +20,40 @@ const ShowHero = ({
   episodeRunTime,
   backdropPath,
   posterPath,
-  lastAirDate
+  lastAirDate,
+  status
 }) => {
   const heroStyle = {
     backgroundImage: backdropPath
       ? `url('${IMG_BASE_URL}/${BACKDROP_SIZES.large}${backdropPath}')`
       : undefined
   }
-  const classes = classnames('show-hero overlay-bg', isMini && 'mini')
-  const titleClasses = classnames(
-    'title',
-    isMini ? 'auto' : 'small-12 large-auto'
-  )
   return (
-    <div className={classes} style={heroStyle}>
+    <div
+      className={classnames('show-hero overlay-bg', { 'mini': isMini })}
+      style={heroStyle}
+    >
       <GridContainer>
         <Grid gutters='margin'>
-          <Cell className={titleClasses} alignSelf='bottom'>
-            <h1>
-              {name}
-            </h1>
+          <Cell
+            alignSelf='bottom'
+            className={classnames(
+              'title',
+              isMini ? 'auto' : 'small-12 large-auto'
+            )}
+          >
+            <h1>{name}</h1>
           </Cell>
 
           {!isMini && (
             <Cell className='auto large-shrink info text-right' alignSelf='middle'>
               <ul className='no-bullet'>
                 <li className='airs-day'>
-                  {formatDate(lastAirDate, 'dddd')}s
+                  {
+                    status !== 'Ended'
+                      ? formatDate(lastAirDate, 'dddd') + 's'
+                      : 'Dead 😢'
+                  }
                 </li>
                 <li className='ratings'>
                   <Rater total={5} rating={(voteAverage / 10) * 5} />
@@ -86,7 +93,8 @@ ShowHero.propTypes = {
   episodeRunTime: PropTypes.array.isRequired,
   backdropPath: PropTypes.string,
   posterPath: PropTypes.string,
-  lastAirDate: PropTypes.string.isRequired
+  lastAirDate: PropTypes.string,
+  status: PropTypes.string
 }
 
 export default ShowHero

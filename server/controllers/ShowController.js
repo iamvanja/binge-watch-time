@@ -45,3 +45,9 @@ export const one = (req, res, next) => {
     .then(show => res.json(show))
     .catch(next)
 }
+
+export const search = (req, res, next) => {
+  ServiceShowModel.search({ query: req.params.name })
+    .then(data => res.json(data))
+    .catch(next)
+}

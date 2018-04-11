@@ -1,0 +1,26 @@
+.season-list-item {
+  color: $app-white;
+
+  .poster {
+    max-height: rem-calc(82px);
+    min-height: rem-calc(82px);
+  }
+
+  .content {
+    padding: 0 rem-calc(10px);
+  }
+
+  .title,
+  .air-date {
+    margin: 0;
+  }
+
+  .title {
+    display: inline-block;
+    padding-right: rem-calc(4px);
+  }
+
+  .air-date {
+    display: block;
+  }
+}

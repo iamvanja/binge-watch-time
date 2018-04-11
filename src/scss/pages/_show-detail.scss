@@ -33,4 +33,17 @@
       margin: 0 rem-calc(2px) rem-calc(2px) 0;
     }
   }
+
+  .show-episodes-list {
+    .accordion-title,
+    .accordion-content {
+      padding: 0;
+    }
+
+    .accordion-title {
+      &:before {
+        font-size: rem-calc(20px);
+      }
+    }
+  }
 }

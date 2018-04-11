@@ -4,6 +4,7 @@ import { Switch, Route, Redirect, NavLink } from 'react-router-dom'
 import api from 'api'
 import ShowHero from './ShowHero'
 import ShowDetailOverview from './ShowDetailOverview'
+import ShowEpisodesList from './ShowEpisodesList'
 import Loader from 'components/Loader'
 import { GridContainer } from 'components/Grid'
 
@@ -16,7 +17,7 @@ class ShowDetailPage extends Component {
     this.state = {
       isPending: true,
       isError: false,
-      show: null
+      show: {}
     }
   }
 
@@ -45,6 +46,7 @@ class ShowDetailPage extends Component {
 
   render () {
     const { show, isPending } = this.state
+    const { id, seasons } = show
     const { match } = this.props
 
     if (isPending) {
@@ -76,7 +78,10 @@ class ShowDetailPage extends Component {
             <Route
               path={`${match.path}/episodes`}
               exact
-              component={Stub}
+              component={() => <ShowEpisodesList
+                showId={id}
+                seasons={seasons}
+              />}
             />
             <Route
               path={`${match.path}/episodes/next`}

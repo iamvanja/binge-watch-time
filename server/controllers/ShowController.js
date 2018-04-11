@@ -1,4 +1,5 @@
 import ServiceShowModel from 'models/ServiceShowModel'
+import ServiceShowEpisodeModel from 'models/ServiceShowEpisodeModel'
 import moment from 'moment'
 
 const defaultQuery = {
@@ -48,6 +49,13 @@ export const one = (req, res, next) => {
 
 export const search = (req, res, next) => {
   ServiceShowModel.search({ query: req.params.name })
+    .then(data => res.json(data))
+    .catch(next)
+}
+
+export const episodes = (req, res, next) => {
+  const { showId, seasonNumber } = req.params
+  ServiceShowEpisodeModel.search({ id: showId, seasonNumber })
     .then(data => res.json(data))
     .catch(next)
 }

@@ -20,7 +20,7 @@ const SeasonListItem = ({ name, episodeCount, airDate, posterPath }) => {
         <Cell className='auto content'>
           <h2 className='title h3'>{name}</h2>
           <span className='episode-count subheader'>{episodeCount} episodes</span>
-          <span className='air-date subheader'>First aired: {airDate}</span>
+          {airDate && <span className='air-date subheader'>First aired: {airDate}</span>}
         </Cell>
       </Grid>
     </div>
@@ -30,7 +30,7 @@ const SeasonListItem = ({ name, episodeCount, airDate, posterPath }) => {
 SeasonListItem.propTypes = {
   name: PropTypes.string.isRequired,
   episodeCount: PropTypes.number.isRequired,
-  airDate: PropTypes.string.isRequired,
+  airDate: PropTypes.string,
   posterPath: PropTypes.string.isRequired
 }
 

@@ -21,6 +21,7 @@ class ContentBoxSelect extends Component {
 
   render () {
     const { currentSelectValue } = this.state
+
     return (
       <ContentBox titleComponent={
         <div className='title'>

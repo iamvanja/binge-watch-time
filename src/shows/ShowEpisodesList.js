@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import api from 'api'
-import { Grid, Cell } from 'components/Grid'
 import AccordionItem from 'components/AccordionItem'
+import Fetch from 'components/Fetch'
 import SeasonListItem from './SeasonListItem'
 import EpisodeListItem from './EpisodeListItem'
+import Loader from 'components/Loader'
+import Button from 'components/Button'
 
 const ShowEpisodesList = ({ seasons, showId, match }) => {
   return (
@@ -23,11 +25,43 @@ const ShowEpisodesList = ({ seasons, showId, match }) => {
               posterPath={season.posterPath}
             />}
           >
-            <SeasonEpisodes
-              showId={showId}
-              seasonNumber={seasonNumber}
-              baseUrl={match.url}
-            />
+            <Fetch api={() => api.episodes.get(showId, seasonNumber)}>
+              {({ episodes = [] } = {}, isPending, error, api) => {
+                if (isPending) {
+                  return <Loader />
+                }
+
+                if (error) {
+                  return (
+                    <div className='text-center'>
+                      <p className='subheader'>
+                      Error while loading episodes...
+                      </p>
+                      <Button onClick={api} className='hollow'>
+                      Try loading again
+                      </Button>
+                    </div>
+                  )
+                }
+
+                return episodes.length
+                  ? (episodes.map(episode =>
+                    <EpisodeListItem
+                      key={episode.id}
+                      link={`${match.url}/${episode.id}`}
+                      name={episode.name}
+                      showId={showId}
+                      episodeId={episode.id}
+                      seasonNumber={episode.seasonNumber}
+                      episodeNumber={episode.episodeNumber}
+                      firstAired={episode.airDate}
+                    />
+                  ))
+                  : <p className='text-center subheader'>
+                      No episodes...
+                  </p>
+              }}
+            </Fetch>
           </AccordionItem>
         )}
       </ul>
@@ -41,7 +75,7 @@ ShowEpisodesList.propTypes = {
       seasonNumber: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       episodeCount: PropTypes.number.isRequired,
-      airDate: PropTypes.string.isRequired,
+      airDate: PropTypes.string,
       posterPath: PropTypes.string
     })
   ).isRequired,
@@ -49,72 +83,6 @@ ShowEpisodesList.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string.isRequired
   }).isRequired
-}
-
-// todo: Fetch component
-
-class SeasonEpisodes extends Component {
-  constructor () {
-    super()
-    this.state = {
-      episodes: []
-    }
-  }
-
-  componentDidMount () {
-    this.loadData()
-  }
-
-  loadData () {
-    const { showId, seasonNumber } = this.props
-
-    this.setState({ isPending: true, isError: false })
-    api.episodes.get(showId, seasonNumber)
-      .then(({ episodes }) => {
-        this.setState({
-          episodes,
-          isPending: false
-        })
-      })
-      // eslint-disable-next-line handle-callback-err
-      .catch(err => {
-        this.setState({ isPending: false, isError: true })
-      })
-  }
-
-  render () {
-    const { episodes } = this.state
-    const { showId, baseUrl } = this.props
-
-    return (
-      <div className='show-episodes-list'>
-        <Grid gutters='margin'>
-          <Cell small={12}>
-            {
-              episodes.map(episode =>
-                <EpisodeListItem
-                  key={episode.id}
-                  link={`${baseUrl}/${episode.id}`}
-                  name={episode.name}
-                  showId={showId}
-                  episodeId={episode.id}
-                  seasonNumber={episode.seasonNumber}
-                  episodeNumber={episode.episodeNumber}
-                  firstAired={episode.airDate}
-                />
-              )
-            }
-          </Cell>
-        </Grid>
-      </div>
-    )
-  }
-}
-
-SeasonEpisodes.propTypes = {
-  showId: PropTypes.number.isRequired,
-  seasonNumber: PropTypes.number.isRequired,
-  baseUrl: PropTypes.string.isRequired
 }
 
 export default withRouter(ShowEpisodesList)

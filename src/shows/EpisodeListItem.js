@@ -26,7 +26,7 @@ const EpisodeListItem = ({
       <Cell className='auto'>
         <Link to={link}>
           <h3 className='h4 episode-name'>{name}</h3>
-          <span className='subheader'>First aired: {firstAired}</span>
+          {firstAired && <span className='subheader'>First aired: {firstAired}</span>}
         </Link>
       </Cell>
       <Cell className='shrink'>
@@ -45,7 +45,7 @@ EpisodeListItem.propTypes = {
   episodeId: PropTypes.number.isRequired,
   seasonNumber: PropTypes.number.isRequired,
   episodeNumber: PropTypes.number.isRequired,
-  firstAired: PropTypes.string.isRequired
+  firstAired: PropTypes.string
 }
 
 export default EpisodeListItem

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom'
 import api from 'api'
@@ -7,93 +7,92 @@ import ShowDetailOverview from './ShowDetailOverview'
 import ShowEpisodesList from './ShowEpisodesList'
 import Loader from 'components/Loader'
 import { GridContainer } from 'components/Grid'
+import Button from 'components/Button'
+import Fetch from 'components/Fetch'
 
 const Stub = () =>
   <div>Stub</div>
 
-class ShowDetailPage extends Component {
-  constructor () {
-    super()
-    this.state = {
-      isPending: true,
-      isError: false,
-      show: {}
-    }
+const ShowDetailPage = ({ match }) => {
+  let { showId } = match.params
+  if (!showId) {
+    return null
   }
 
-  componentDidMount () {
-    this.loadData(this.props.match.params.showId)
-  }
+  showId = parseInt(showId, 10)
 
-  componentWillReceiveProps (nextProps) {
-    const nextShowId = nextProps.match.params.showId
-    if (this.props.match.params.showId !== nextShowId) {
-      this.loadData(nextShowId)
-    }
-  }
+  return (
+    <Fetch api={api.shows.one} apiParams={showId}>
+      {(show = {}, isPending, error, api) => {
+        const { id, seasons } = show
 
-  loadData (showId) {
-    this.setState({ isPending: true, isError: false })
-    api.shows.one(showId)
-      .then(show => {
-        this.setState({ show, isPending: false })
-      })
-      // eslint-disable-next-line handle-callback-err
-      .catch(err => {
-        this.setState({ isPending: false, isError: true })
-      })
-  }
+        if (isPending) {
+          return <Loader />
+        }
 
-  render () {
-    const { show, isPending } = this.state
-    const { id, seasons } = show
-    const { match } = this.props
+        if (error) {
+          return (
+            <div className='text-center'>
+              <p className='subheader'>
+                Error while loading the show...
+              </p>
+              <Button onClick={api} className='hollow'>
+                Try loading again
+              </Button>
+            </div>
+          )
+        }
 
-    if (isPending) {
-      return <Loader />
-    }
+        if (!id) {
+          return (
+            <p className='text-center subheader'>
+              No data found...
+            </p>)
+        }
 
-    return (
-      <div className='page show-detail'>
-        <ShowHero
-          {...show}
-          isMini={!match.isExact}
-        />
-
-        <nav className='sub-nav'>
-          <ul className='menu expanded grid-container'>
-            <li><NavLink to={`${match.url}/episodes/next`} exact>Next</NavLink></li>
-            <li><NavLink to={match.url} exact>Overview</NavLink></li>
-            <li><NavLink to={`${match.url}/episodes`} exact>Episodes</NavLink></li>
-          </ul>
-        </nav>
-
-        <GridContainer>
-          <Switch>
-            <Route
-              path={match.path}
-              exact
-              component={() => <ShowDetailOverview {...show} />}
+        return (
+          <div className='page show-detail'>
+            <ShowHero
+              {...show}
+              isMini={!match.isExact}
             />
-            <Route
-              path={`${match.path}/episodes`}
-              exact
-              component={() => <ShowEpisodesList
-                showId={id}
-                seasons={seasons}
-              />}
-            />
-            <Route
-              path={`${match.path}/episodes/next`}
-              exact
-              component={Stub}
-            />
-            <Redirect to={match.url} />
-          </Switch>
-        </GridContainer>
-      </div>
-    )
-  }
+
+            <nav className='sub-nav'>
+              <ul className='menu expanded grid-container'>
+                <li><NavLink to={`${match.url}/episodes/next`} exact>Next</NavLink></li>
+                <li><NavLink to={match.url} exact>Overview</NavLink></li>
+                <li><NavLink to={`${match.url}/episodes`} exact>Episodes</NavLink></li>
+              </ul>
+            </nav>
+
+            <GridContainer>
+              <Switch>
+                <Route
+                  path={match.path}
+                  exact
+                  component={() => <ShowDetailOverview {...show} />}
+                />
+                <Route
+                  path={`${match.path}/episodes`}
+                  exact
+                  component={() => <ShowEpisodesList
+                    showId={id}
+                    seasons={seasons}
+                  />}
+                />
+                <Route
+                  path={`${match.path}/episodes/next`}
+                  exact
+                  component={Stub}
+                />
+                <Redirect to={match.url} />
+              </Switch>
+            </GridContainer>
+          </div>
+        )
+      }}
+    </Fetch>
+  )
 }
 
 ShowDetailPage.propTypes = {

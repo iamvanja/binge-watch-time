@@ -19,6 +19,12 @@ export const LOGO_SIZES = {
   large: 'w500',
   original: 'original'
 }
+export const STILL_SIZES = {
+  thumb: 'w92',
+  small: 'w185',
+  medium: 'w300',
+  original: 'original'
+}
 // todo: fetch this from api
 export const GENRES = [{
   id: 28,

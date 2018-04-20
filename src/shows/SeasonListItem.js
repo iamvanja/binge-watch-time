@@ -31,7 +31,7 @@ SeasonListItem.propTypes = {
   name: PropTypes.string.isRequired,
   episodeCount: PropTypes.number.isRequired,
   airDate: PropTypes.string,
-  posterPath: PropTypes.string.isRequired
+  posterPath: PropTypes.string
 }
 
 export default SeasonListItem

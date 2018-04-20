@@ -8,6 +8,7 @@ import SeasonListItem from './SeasonListItem'
 import EpisodeListItem from './EpisodeListItem'
 import Loader from 'components/Loader'
 import Button from 'components/Button'
+import { formatSeasonEpisode } from 'utils/string'
 
 const ShowEpisodesList = ({ seasons, showId, match }) => {
   return (
@@ -17,7 +18,7 @@ const ShowEpisodesList = ({ seasons, showId, match }) => {
           <AccordionItem
             key={seasonNumber}
             isLazyRender
-            isOpen={i === 0}
+            isOpen={seasonNumber === 1}
             title={<SeasonListItem
               name={season.name}
               episodeCount={season.episodeCount}
@@ -48,7 +49,7 @@ const ShowEpisodesList = ({ seasons, showId, match }) => {
                   ? (episodes.map(episode =>
                     <EpisodeListItem
                       key={episode.id}
-                      link={`${match.url}/${episode.id}`}
+                      link={`${match.url}/${formatSeasonEpisode(episode.seasonNumber, episode.episodeNumber)}`}
                       name={episode.name}
                       showId={showId}
                       episodeId={episode.id}

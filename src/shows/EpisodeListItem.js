@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Icon from 'components/Icon'
 import { Grid, Cell } from 'components/Grid'
+import { padSeasonEpisode } from 'utils/string'
 
 const EpisodeListItem = ({
   link,
@@ -18,8 +19,7 @@ const EpisodeListItem = ({
       <Cell className='shrink'>
         <Link to={link}>
           <span>
-            S{`${seasonNumber}`.padStart(2, '0')}
-            E{`${episodeNumber}`.padStart(2, '0')}
+            {padSeasonEpisode(episodeNumber)}
           </span>
         </Link>
       </Cell>

@@ -5,6 +5,7 @@ import api from 'api'
 import ShowHero from './ShowHero'
 import ShowDetailOverview from './ShowDetailOverview'
 import ShowEpisodesList from './ShowEpisodesList'
+import EpisodeDetailPage from './EpisodeDetailPage'
 import Loader from 'components/Loader'
 import { GridContainer } from 'components/Grid'
 import Button from 'components/Button'
@@ -14,12 +15,11 @@ const Stub = () =>
   <div>Stub</div>
 
 const ShowDetailPage = ({ match }) => {
-  let { showId } = match.params
+  const { showId } = match.params
+
   if (!showId) {
     return null
   }
-
-  showId = parseInt(showId, 10)
 
   return (
     <Fetch api={api.shows.one} apiParams={showId}>
@@ -61,7 +61,7 @@ const ShowDetailPage = ({ match }) => {
               <ul className='menu expanded grid-container'>
                 <li><NavLink to={`${match.url}/episodes/next`} exact>Next</NavLink></li>
                 <li><NavLink to={match.url} exact>Overview</NavLink></li>
-                <li><NavLink to={`${match.url}/episodes`} exact>Episodes</NavLink></li>
+                <li><NavLink to={`${match.url}/episodes`}>Episodes</NavLink></li>
               </ul>
             </nav>
 
@@ -79,6 +79,11 @@ const ShowDetailPage = ({ match }) => {
                     showId={id}
                     seasons={seasons}
                   />}
+                />
+                <Route
+                  path={`${match.path}/episodes/s:seasonNumber(\\d+)e:episodeNumber(\\d+)`}
+                  exact
+                  component={EpisodeDetailPage}
                 />
                 <Route
                   path={`${match.path}/episodes/next`}

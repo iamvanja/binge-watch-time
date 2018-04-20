@@ -11,9 +11,6 @@ import { GridContainer } from 'components/Grid'
 import Button from 'components/Button'
 import Fetch from 'components/Fetch'
 
-const Stub = () =>
-  <div>Stub</div>
-
 const ShowDetailPage = ({ match }) => {
   const { showId } = match.params
 
@@ -59,7 +56,7 @@ const ShowDetailPage = ({ match }) => {
 
             <nav className='sub-nav'>
               <ul className='menu expanded grid-container'>
-                <li><NavLink to={`${match.url}/episodes/next`} exact>Next</NavLink></li>
+                <li><NavLink to={`${match.url}/next`} exact>Next</NavLink></li>
                 <li><NavLink to={match.url} exact>Overview</NavLink></li>
                 <li><NavLink to={`${match.url}/episodes`}>Episodes</NavLink></li>
               </ul>
@@ -90,9 +87,15 @@ const ShowDetailPage = ({ match }) => {
                   }
                 />
                 <Route
-                  path={`${match.path}/episodes/next`}
+                  path={`${match.path}/next`}
                   exact
-                  component={Stub}
+                  component={() =>
+                    <EpisodeDetailPage
+                      showId={id}
+                      seasonNumber={1}
+                      episodeNumber={1}
+                    />
+                  }
                 />
                 <Redirect to={match.url} />
               </Switch>

@@ -83,7 +83,11 @@ const ShowDetailPage = ({ match }) => {
                 <Route
                   path={`${match.path}/episodes/s:seasonNumber(\\d+)e:episodeNumber(\\d+)`}
                   exact
-                  component={EpisodeDetailPage}
+                  component={(props) =>
+                    <EpisodeDetailPage
+                      {...props.match.params}
+                    />
+                  }
                 />
                 <Route
                   path={`${match.path}/episodes/next`}
@@ -101,7 +105,14 @@ const ShowDetailPage = ({ match }) => {
 }
 
 ShowDetailPage.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      showId: PropTypes.string
+    }),
+    isExact: PropTypes.bool,
+    url: PropTypes.string,
+    path: PropTypes.string
+  }).isRequired
 }
 
 export default ShowDetailPage

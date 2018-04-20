@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
+import { stringOrNumber } from 'constants/propTypes'
 import api from 'api'
 import Fetch from 'components/Fetch'
 import Loader from 'components/Loader'
@@ -8,9 +8,7 @@ import { IMG_BASE_URL, STILL_SIZES } from 'constants/tmdb'
 import { formatDate } from 'utils/date'
 import { formatSeasonEpisode } from 'utils/string'
 
-const EpisodeDetailPage = ({ match }) => {
-  const { showId, seasonNumber, episodeNumber } = match.params
-
+const EpisodeDetailPage = ({ showId, seasonNumber, episodeNumber }) => {
   return (
     <div className='episode-detail-page'>
       <Fetch api={() => api.episodes.one(showId, seasonNumber, episodeNumber)}>
@@ -73,13 +71,9 @@ const EpisodeDetailPage = ({ match }) => {
 }
 
 EpisodeDetailPage.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      showId: PropTypes.string.isRequired,
-      seasonNumber: PropTypes.string.isRequired,
-      episodeNumber: PropTypes.string.isRequired
-    }).isRequired
-  }).isRequired
+  showId: stringOrNumber.isRequired,
+  seasonNumber: stringOrNumber.isRequired,
+  episodeNumber: stringOrNumber.isRequired
 }
 
 export default EpisodeDetailPage

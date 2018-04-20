@@ -10,7 +10,7 @@ import Loader from 'components/Loader'
 import Button from 'components/Button'
 import { formatSeasonEpisode } from 'utils/string'
 
-const ShowEpisodesList = ({ seasons, showId, match }) => {
+const EpisodesList = ({ seasons, showId, match }) => {
   return (
     <div className='show-episodes-list'>
       <ul className='accordion'>
@@ -70,7 +70,7 @@ const ShowEpisodesList = ({ seasons, showId, match }) => {
   )
 }
 
-ShowEpisodesList.propTypes = {
+EpisodesList.propTypes = {
   seasons: PropTypes.arrayOf(
     PropTypes.shape({
       seasonNumber: PropTypes.number.isRequired,
@@ -86,4 +86,4 @@ ShowEpisodesList.propTypes = {
   }).isRequired
 }
 
-export default withRouter(ShowEpisodesList)
+export default withRouter(EpisodesList)

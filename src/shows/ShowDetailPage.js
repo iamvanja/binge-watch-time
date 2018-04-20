@@ -4,7 +4,7 @@ import { Switch, Route, Redirect, NavLink } from 'react-router-dom'
 import api from 'api'
 import ShowHero from './ShowHero'
 import ShowDetailOverview from './ShowDetailOverview'
-import ShowEpisodesList from './ShowEpisodesList'
+import EpisodesList from './EpisodesList'
 import EpisodeDetailPage from './EpisodeDetailPage'
 import Loader from 'components/Loader'
 import { GridContainer } from 'components/Grid'
@@ -75,7 +75,7 @@ const ShowDetailPage = ({ match }) => {
                 <Route
                   path={`${match.path}/episodes`}
                   exact
-                  component={() => <ShowEpisodesList
+                  component={() => <EpisodesList
                     showId={id}
                     seasons={seasons}
                   />}

@@ -11,6 +11,7 @@ export class AccordionItem extends Component {
       hasBeenOpened: false
     }
     this.toggle = this.toggle.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
   }
 
   componentDidMount () {
@@ -23,18 +24,29 @@ export class AccordionItem extends Component {
     this.setState(({ isOpen }) => ({ isOpen: !isOpen, hasBeenOpened: true }))
   }
 
+  handleKeyUp (e) {
+    if (e.key === 'Enter') {
+      this.toggle()
+      e.preventDefault()
+    }
+  }
+
   render () {
-    const { isLazyRender, title, children } = this.props
+    const { isLazyRender, title, children, tabIndex } = this.props
     const { isOpen, hasBeenOpened } = this.state
-    const content = isLazyRender && !hasBeenOpened ? null : children
+    const content = isLazyRender && !hasBeenOpened
+      ? null
+      : children
 
     return (
       <li className={classnames('accordion-item', { 'is-active': isOpen })}>
-        {/* eslint-disable-next-line */}
         <div
           className='accordion-title'
           onClick={this.toggle}
+          onKeyUp={this.handleKeyUp}
           role='button'
+          tabIndex={tabIndex}
+          aria-current={isOpen ? 'true' : 'false'}
         >
           {title}
         </div>
@@ -57,6 +69,7 @@ AccordionItem.defaultProps = {
 AccordionItem.propTypes = {
   isOpen: PropTypes.bool,
   isLazyRender: PropTypes.bool,
+  tabIndex: PropTypes.number.isRequired,
   title: renderable.isRequired,
   children: renderable.isRequired
 }

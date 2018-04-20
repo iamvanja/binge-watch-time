@@ -17,6 +17,7 @@ const EpisodesList = ({ seasons, showId, match }) => {
         {seasons.map(({ seasonNumber, ...season } = {}, i) =>
           <AccordionItem
             key={seasonNumber}
+            tabIndex={i}
             isLazyRender
             isOpen={seasonNumber === 1}
             title={<SeasonListItem

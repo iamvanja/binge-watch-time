@@ -1,5 +1,6 @@
 .season-list-item {
   color: $app-white;
+  cursor: pointer;
 
   .poster {
     max-height: rem-calc(82px);

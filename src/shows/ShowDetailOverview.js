@@ -118,7 +118,7 @@ ShowDetailOverview.propTypes = {
   networks: PropTypes.array.isRequired,
   type: PropTypes.string.isRequired,
   genres: PropTypes.array,
-  homepage: PropTypes.string.isRequired,
+  homepage: PropTypes.string,
   videos: PropTypes.array
 }
 

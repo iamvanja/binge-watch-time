@@ -1,0 +1,65 @@
+.episode-list-item {
+  border-bottom: 1px solid $light-gray;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  .episode-watch-toggle {
+    height: rem-calc(50px);
+    width: rem-calc(50px);
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    border-radius: 50%;
+    font-size: rem-calc(24px);
+    border: 1px solid $light-gray;
+    color: $medium-gray;
+    background: transparent;
+
+    &:hover {
+      background: rgba($light-gray, 0.3);
+    }
+
+    &.active {
+      background: $app-tertiary-color;
+      color: $white;
+    }
+  }
+
+  a {
+    color: $body-font-color;
+    display: block;
+    height: 100%;
+    padding: rem-calc(20px 0);
+    line-height: 1;
+
+    &:hover {
+      color: darken($body-font-color, 10%);
+      // color: $app-tertiary-color;
+      // background: darken($app-body-background, 3%);
+    }
+  }
+
+  .episode-name {
+    margin-bottom: 0;
+    display: block;
+    line-height: 1.1;
+  }
+
+  .subheader {
+    font-size: rem-calc(12px);
+  }
+
+  @include breakpoint(medium only) {
+    .episode-name {
+      font-size: rem-calc(18px);
+    }
+  }
+
+  @include breakpoint(small only) {
+    .episode-name {
+      font-size: rem-calc(16px);
+    }
+  }
+}

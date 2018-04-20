@@ -1,4 +1,5 @@
 import ServiceShowModel from 'models/ServiceShowModel'
+import ServiceShowEpisodeModel from 'models/ServiceShowEpisodeModel'
 import moment from 'moment'
 
 const defaultQuery = {
@@ -41,13 +42,44 @@ export const discoverByGenreId = (req, res, next) => {
 
 export const one = (req, res, next) => {
   const { showId } = req.params
-  ServiceShowModel.findOne(showId)
+
+  ServiceShowModel.one({
+    id: showId,
+    appendToResponse: 'external_ids,videos'
+  })
+    .then(({ videos, ...rest }) => ({
+      ...rest,
+      videos: videos.results
+    }))
     .then(show => res.json(show))
     .catch(next)
 }
 
 export const search = (req, res, next) => {
   ServiceShowModel.search({ query: req.params.name })
+    .then(data => res.json(data))
+    .catch(next)
+}
+
+export const seasonEpisodes = (req, res, next) => {
+  const { showId, seasonNumber } = req.params
+  ServiceShowEpisodeModel.search({ id: showId, seasonNumber })
+    .then(data => res.json(data))
+    .catch(next)
+}
+
+export const seasonEpisode = (req, res, next) => {
+  const { showId, ...rest } = req.params
+  ServiceShowEpisodeModel.one({
+    id: showId,
+    ...rest,
+    appendToResponse: 'external_ids,videos,images'
+  })
+    .then(({ videos, images, ...data }) => ({
+      ...data,
+      videos: videos.results,
+      images: images.stills
+    }))
     .then(data => res.json(data))
     .catch(next)
 }

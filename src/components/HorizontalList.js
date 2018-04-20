@@ -1,67 +1,33 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { renderable } from 'constants/propTypes'
-import isEqual from 'lodash/isEqual'
 import Loader from 'components/Loader'
+import Fetch from 'components/Fetch'
 
-class HorizontalList extends Component {
-  constructor () {
-    super()
-    this.state = {
-      isPending: true,
-      list: []
-    }
+const HorizontalList = ({ api, params, item: Item }) => {
+  return (
+    <div className='horizontal-list'>
+      <Fetch api={api} apiParams={params}>
+        {({ results = [] } = {}, isPending, error, api) => {
+          if (isPending) {
+            return <Loader />
+          }
 
-    this.fetch = this.fetch.bind(this)
-  }
+          if (!results.length) {
+            return (
+              <p className='text-center subheader'>
+                No data found...
+              </p>
+            )
+          }
 
-  componentDidMount () {
-    this.fetch()
-  }
-
-  componentDidUpdate (prevProps, prevState) {
-    if (!isEqual(prevProps.params, this.props.params)) {
-      this.fetch()
-    }
-  }
-
-  fetch () {
-    this.setState({ isPending: true })
-    this.props.api(this.props.params)
-      .then(data => {
-        this.setState({
-          list: data.results,
-          isPending: false
-        })
-      })
-      // eslint-disable-next-line handle-callback-err
-      .catch(err => {
-        this.setState({
-          isPending: false
-        })
-      })
-  }
-
-  render () {
-    const { isPending, list } = this.state
-    const { item: Item } = this.props
-    return (
-      <div className='horizontal-list'>
-        {
-          isPending
-            ? <Loader />
-            : list.length
-              ? list
-                .map(show =>
-                  <Item
-                    key={show.id}
-                    {...show}
-                  />)
-              : 'No data'
-        }
-      </div>
-    )
-  }
+          return results.map(show =>
+            <Item key={show.id} {...show} />
+          )
+        }}
+      </Fetch>
+    </div>
+  )
 }
 
 HorizontalList.propTypes = {

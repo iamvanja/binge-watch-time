@@ -230,15 +230,14 @@ $input-error-font-size: 0.7rem; // (default: rem-calc(12); => 0.75rem)
 
 // // 7. Accordion
 // // ------------
-
-// $accordion-background: $white;
+$accordion-background: $app-secondary-color;
 // $accordion-plusminus: true;
 // $accordion-title-font-size: rem-calc(12);
 // $accordion-item-color: $primary-color;
-// $accordion-item-background-hover: $light-gray;
+$accordion-item-background-hover: lighten($app-secondary-color, 2%);
 // $accordion-item-padding: 1.25rem 1rem;
-// $accordion-content-background: $white;
-// $accordion-content-border: 1px solid $light-gray;
+$accordion-content-background: $app-body-background;
+$accordion-content-border: 1px solid $app-tertiary-color;
 // $accordion-content-color: $body-font-color;
 // $accordion-content-padding: 1rem;
 

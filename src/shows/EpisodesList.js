@@ -28,7 +28,7 @@ const EpisodesList = ({ seasons, showId, match }) => {
             />}
           >
             <Fetch api={() => api.episodes.get(showId, seasonNumber)}>
-              {({ episodes = [] } = {}, isPending, error, api) => {
+              {({ episodes = [] } = {}, isPending, error, refresh) => {
                 if (isPending) {
                   return <Loader />
                 }
@@ -39,7 +39,7 @@ const EpisodesList = ({ seasons, showId, match }) => {
                       <p className='subheader'>
                       Error while loading episodes...
                       </p>
-                      <Button onClick={api} className='hollow'>
+                      <Button onClick={refresh} className='hollow'>
                       Try loading again
                       </Button>
                     </div>

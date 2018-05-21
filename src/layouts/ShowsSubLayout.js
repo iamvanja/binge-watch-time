@@ -3,15 +3,13 @@ import PropTypes from 'prop-types'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import ShowDetailPage from 'shows/ShowDetailPage'
-
-const ShowListPage = () =>
-  <div>ShowListPage</div>
+import StarredShowList from 'shows/StarredShowList'
 
 const ShowsSubLayout = ({ match }) => {
   return (
     <div className='sub-layout shows'>
       <Switch>
-        <Route exact path={`${match.path}`} component={ShowListPage} />
+        <Route exact path={`${match.path}`} component={StarredShowList} />
         <Route path={`${match.path}/:showId(\\d+)`} component={ShowDetailPage} />
         <Redirect to={match.url} />
       </Switch>

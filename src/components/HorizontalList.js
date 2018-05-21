@@ -2,43 +2,60 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { renderable } from 'constants/propTypes'
 import Loader from 'components/Loader'
-import Fetch from 'components/Fetch'
+import isEqual from 'lodash/isEqual'
 
-const HorizontalList = ({ api, params, item: Item }) => {
-  return (
-    <div className='horizontal-list'>
-      <Fetch api={api} apiParams={params}>
-        {({ results = [] } = {}, isPending, error, api) => {
-          if (isPending) {
-            return <Loader />
-          }
+class HorizontalListNew extends React.Component {
+  componentDidMount () {
+    this.getData()
+  }
 
-          if (!results.length) {
-            return (
-              <p className='text-center subheader'>
-                No data found...
-              </p>
+  componentDidUpdate (prevProps) {
+    if (!isEqual(prevProps.params, this.props.params)) {
+      this.getData()
+    }
+  }
+
+  getData () {
+    const { results, params } = this.props
+    if (!results.length) {
+      this.props.onLoad(params)
+    }
+  }
+
+  render () {
+    const { item: Item, results, isPending } = this.props
+    return (
+      <div className='horizontal-list'>
+        {isPending
+          ? <Loader />
+          : !results.length
+            ? (<p className='text-center subheader'>
+              No data found...
+            </p>)
+            : results.map(show =>
+              <Item key={show.id} {...show} />
             )
-          }
-
-          return results.map(show =>
-            <Item key={show.id} {...show} />
-          )
-        }}
-      </Fetch>
-    </div>
-  )
+        }
+      </div>
+    )
+  }
 }
 
-HorizontalList.propTypes = {
-  api: PropTypes.func.isRequired,
+HorizontalListNew.defaultProps = {
+  onLoad: () => { },
+  results: []
+}
+
+HorizontalListNew.propTypes = {
+  onLoad: PropTypes.func,
+  results: PropTypes.array,
+  isPending: PropTypes.bool,
   params: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.object
   ]),
   item: renderable.isRequired
-
 }
 
-export default HorizontalList
+export default HorizontalListNew

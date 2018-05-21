@@ -26,7 +26,7 @@ class Fetch extends Component {
   refresh () {
     this.setState({ isPending: true, error: null })
 
-    this.props.api(this.props.apiParams)
+    Promise.resolve(this.props.api(this.props.apiParams))
       .then(results => this.setState({
         results,
         isPending: false

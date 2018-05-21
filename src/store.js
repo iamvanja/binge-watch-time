@@ -1,11 +1,7 @@
-import { createStore, compose } from 'redux'
+import { createStore } from 'redux'
 import reducers from './reducers'
+import enhancer from './middleware'
 
-const store = createStore(
-  reducers,
-  compose( // for multiple enhancers
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-  )
-)
+const store = createStore(reducers, enhancer)
 
 export default store

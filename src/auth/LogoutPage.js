@@ -1,14 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { isLoggedIn } from 'reducers'
 import { Link } from 'react-router-dom'
-import api from 'api'
+import { logout } from 'actions/auth'
 import LoadingResults from 'components/Loader'
 import Icon from 'components/Icon'
 
 export class LogoutPage extends React.Component {
   componentDidMount () {
-    api.auth.logout()
+    this.props.onLogout()
   }
 
   render () {
@@ -26,7 +27,9 @@ export class LogoutPage extends React.Component {
                   <span>You are successfully logged out.</span>
                 </p>
               </div>
-              <Link className='button expanded large' to='/auth/login'>Login Page</Link>
+              <Link className='button expanded large' to='/auth/login'>
+                Login Page
+              </Link>
             </div>
           )
         }
@@ -36,11 +39,15 @@ export class LogoutPage extends React.Component {
 }
 
 LogoutPage.propTypes = {
-  isLogged: PropTypes.bool.isRequired
+  isLogged: PropTypes.bool.isRequired,
+  onLogout: PropTypes.func.isRequired
 }
 
-const stateToProps = ({ loggedUserState }) => ({
-  isLogged: loggedUserState.isLogged
-})
-
-export default connect(stateToProps)(LogoutPage)
+export default connect(
+  state => ({
+    isLogged: isLoggedIn(state)
+  }),
+  dispatch => ({
+    onLogout: () => dispatch(logout())
+  })
+)(LogoutPage)

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { getTimeout } from 'reducers'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import HeaderPrimary from 'components/HeaderPrimary'
 import Footer from 'components/Footer'
@@ -21,7 +22,7 @@ export const AuthorizedLayout = ({ timeout }) => {
           <Route component={NotFoundLayout} />
         </Switch>
       </main>
-      { Number.isInteger(timeout) && <SessionTimeout timeout={timeout} /> }
+      {Number.isInteger(timeout) && <SessionTimeout timeout={timeout} />}
       <Footer />
     </div>
   )
@@ -30,8 +31,9 @@ export const AuthorizedLayout = ({ timeout }) => {
 AuthorizedLayout.propTypes = {
   timeout: PropTypes.number
 }
-const stateToProps = ({ loggedUserState }) => ({
-  timeout: loggedUserState.timeout
-})
 
-export default connect(stateToProps)(AuthorizedLayout)
+export default connect(
+  state => ({
+    timeout: getTimeout(state)
+  })
+)(AuthorizedLayout)

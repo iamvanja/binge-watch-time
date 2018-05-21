@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import queryString from 'query-string'
-import api from 'api'
+import { me } from 'actions/auth'
+import { isAuthPending, isLoggedIn } from 'reducers'
 import LoaderPage from 'components/LoaderPage'
 
 export class AuthorizedRoute extends React.Component {
   componentWillMount () {
-    if (this.props.isPending) {
-      api.auth.me()
+    if (this.props.isLogged === null) {
+      this.props.onCheckAuth()
     }
   }
 
@@ -18,16 +18,15 @@ export class AuthorizedRoute extends React.Component {
 
     return (
       <Route {...rest} render={props => {
-        if (isPending) {
+        if (isPending || isLogged === null) {
           return <LoaderPage />
         }
-        const query = queryString.stringify({
-          next: props.location.pathname + props.location.search
-        })
 
-        return isLogged
-          ? <Component {...props} />
-          : <Redirect to={`/auth/login?${query}`} />
+        if (!isLogged) {
+          return 'You are not authorized.'
+        }
+
+        return <Component {...props} />
       }} />
     )
   }
@@ -39,12 +38,16 @@ AuthorizedRoute.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.func
-  ]).isRequired
+  ]).isRequired,
+  onCheckAuth: PropTypes.func.isRequired
 }
 
-const stateToProps = ({ loggedUserState }) => ({
-  isPending: loggedUserState.isPending,
-  isLogged: loggedUserState.isLogged
-})
-
-export default connect(stateToProps)(AuthorizedRoute)
+export default connect(
+  state => ({
+    isPending: isAuthPending(state),
+    isLogged: isLoggedIn(state)
+  }),
+  dispatch => ({
+    onCheckAuth: () => dispatch(me())
+  })
+)(AuthorizedRoute)

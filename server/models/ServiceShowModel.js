@@ -1,8 +1,15 @@
 import mdb from 'utils/services/moviedb'
 
 class ServiceShowModel {
-  one (query) {
-    return mdb('tvInfo', query)
+  one (query = {}) {
+    return mdb('tvInfo', {
+      appendToResponse: 'external_ids,videos',
+      ...query
+    })
+      .then(({ videos, ...rest }) => ({
+        ...rest,
+        videos: videos.results || []
+      }))
   }
 
   discover (query) {

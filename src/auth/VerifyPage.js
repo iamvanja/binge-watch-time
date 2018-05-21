@@ -1,11 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import queryString from 'query-string'
-import api from 'api'
+import { verify } from 'actions/auth'
 import Loader from 'components/Loader'
 import InlineNotice from 'components/InlineNotice'
 
-class VerifyPage extends React.Component {
+export class VerifyPage extends React.Component {
   constructor () {
     super()
     this.state = {
@@ -27,7 +29,7 @@ class VerifyPage extends React.Component {
       return
     }
 
-    api.auth.verify({ email, verificationCode })
+    Promise.resolve(this.props.onVerify({ email, verificationCode })
       .then(() => this.setState({
         title: 'Email Verified',
         verified: true
@@ -39,6 +41,7 @@ class VerifyPage extends React.Component {
           verified: false
         })
       )
+    )
   }
 
   render () {
@@ -57,4 +60,13 @@ class VerifyPage extends React.Component {
   }
 }
 
-export default VerifyPage
+VerifyPage.propTypes = {
+  onVerify: PropTypes.func
+}
+
+export default connect(
+  null,
+  dispatch => ({
+    onVerify: (verifyData) => dispatch(verify(verifyData))
+  })
+)(VerifyPage)

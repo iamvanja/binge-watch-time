@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import api from 'api'
+import { connect } from 'react-redux'
+import { register } from 'actions/users'
 import { Form, InputField } from 'informative'
 import houseSchema from 'shared/houseSchema'
 import FieldWrap from 'components/informative/FieldWrap'
@@ -10,16 +11,17 @@ import withNotice from 'components/withNotice'
 
 const schema = houseSchema.clone(['firstName', 'lastName', 'email', 'password'])
 
-class RegisterForm extends React.Component {
+export class RegisterForm extends React.Component {
   constructor () {
     super()
     this.onSubmit = this.onSubmit.bind(this)
   }
 
   onSubmit (formValues) {
-    const { addNotice, clearNotice } = this.props
+    const { addNotice, clearNotice, onRegister } = this.props
     clearNotice()
-    return api.users.register(formValues)
+
+    return Promise.resolve(onRegister(formValues))
       .then((response = {}) => {
         if (response.userId) {
           addNotice(`Last step! Please check your ${formValues.email} inbox for verification instructions.`, 'success')
@@ -98,7 +100,7 @@ class RegisterForm extends React.Component {
         <InlineNotice type={noticeType}>
           {noticeMessage}
         </InlineNotice>
-        { noticeType !== 'success' && this.renderForm() }
+        {noticeType !== 'success' && this.renderForm()}
       </Fragment>
 
     )
@@ -109,7 +111,13 @@ RegisterForm.propTypes = {
   addNotice: PropTypes.func.isRequired,
   clearNotice: PropTypes.func.isRequired,
   noticeMessage: PropTypes.string,
-  noticeType: PropTypes.string
+  noticeType: PropTypes.string,
+  onRegister: PropTypes.func.isRequired
 }
 
-export default withNotice(RegisterForm)
+export default connect(
+  null,
+  dispatch => ({
+    onRegister: registerData => dispatch(register(registerData))
+  })
+)(withNotice(RegisterForm))

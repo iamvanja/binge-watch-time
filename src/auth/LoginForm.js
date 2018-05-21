@@ -3,40 +3,30 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { Form, InputField } from 'informative'
 import Cookies from 'js-cookie'
-import queryString from 'query-string'
+import { connect } from 'react-redux'
+import { isAuthPending, getAuthErrorMessage } from 'reducers'
+import { login } from 'actions/auth'
+
 import houseSchema from 'shared/houseSchema'
-import api from 'api'
 import FieldWrap from 'components/informative/FieldWrap'
 import CheckboxWrap from 'components/informative/CheckboxWrap'
 import ButtonLoader from 'components/ButtonLoader'
 import InlineNotice from 'components/InlineNotice'
-import withNotice from 'components/withNotice'
 
 const schema = houseSchema.clone(['email', 'password'])
 
 class LoginForm extends Component {
   constructor () {
     super()
-    this.state = {
-      errorMessage: null
-    }
     this.onSubmit = this.onSubmit.bind(this)
   }
 
   onSubmit (formValues) {
-    const { addNotice, clearNotice, history } = this.props
-
-    clearNotice()
-    return api.auth.login(formValues)
-      .then(loggedUser => {
-        const next = queryString.parse(window.location.search).next || '/'
-        history.push(next)
-      })
-      .catch(err => addNotice(err.message, 'alert'))
+    return Promise.resolve(this.props.onLogin(formValues))
   }
 
   render () {
-    const { noticeMessage, noticeType } = this.props
+    const { noticeMessage, isPending } = this.props
     return (
       <Form onSubmit={this.onSubmit} validate={schema.validate}
         render={(formProps, formState) => {
@@ -47,7 +37,7 @@ class LoginForm extends Component {
               noValidate
               method='POST'
             >
-              <InlineNotice type={noticeType}>
+              <InlineNotice type='alert'>
                 {noticeMessage}
               </InlineNotice>
 
@@ -84,7 +74,7 @@ class LoginForm extends Component {
               <ButtonLoader
                 type='submit'
                 className='expanded large'
-                isLoading={formState.submitting}
+                isLoading={isPending}
                 disabled={!formState.dirty}
               >
                 Login
@@ -98,13 +88,17 @@ class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-  addNotice: PropTypes.func.isRequired,
-  clearNotice: PropTypes.func.isRequired,
   noticeMessage: PropTypes.string,
-  noticeType: PropTypes.string,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired
+  isPending: PropTypes.bool,
+  onLogin: PropTypes.func.isRequired
 }
 
-export default withRouter(withNotice(LoginForm))
+export default withRouter(connect(
+  state => ({
+    isPending: isAuthPending(state),
+    noticeMessage: getAuthErrorMessage(state)
+  }),
+  dispatch => ({
+    onLogin: credentials => dispatch(login(credentials))
+  })
+)(LoginForm))

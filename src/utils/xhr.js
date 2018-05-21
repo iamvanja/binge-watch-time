@@ -1,5 +1,7 @@
 import axios from 'axios'
-import queryString from 'query-string'
+import store from 'store'
+import { unauthorized } from 'actions/auth'
+import { SESSION_TIMEOUT_MESSAGE } from 'constants/app'
 
 const xhr = axios.create()
 
@@ -15,16 +17,9 @@ xhr.interceptors.response.use(response => {
 
   switch (status) {
     case 401:
-      const { pathname, search } = window.location
-      const query = queryString.stringify({ next: pathname + search })
-      // Often times the cause of a 401 is a network request that happens after
-      // the user's session has expired, if we handle this error by redirecting
-      // before allowing the promise deal with the error, JS will get an error.
-      // So this timeout does the redirect on the "next tick" after the promise
-      // handles it.
-      setTimeout(() => {
-        window.location.href = `/auth/login?${query}`
-      }, 1)
+      store.dispatch(unauthorized({
+        message: SESSION_TIMEOUT_MESSAGE
+      }))
   }
 
   return Promise.reject(data)

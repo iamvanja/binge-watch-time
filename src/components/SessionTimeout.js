@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
+import { connect } from 'react-redux'
+import { unauthorized } from 'actions/auth'
 import PropTypes from 'prop-types'
-import { Redirect, withRouter } from 'react-router-dom'
-import queryString from 'query-string'
+import { withRouter } from 'react-router-dom'
 import { getLastCall } from 'utils/xhr'
+import { SESSION_TIMEOUT_MESSAGE } from 'constants/app'
 
-class SessionTimeout extends Component {
+export class SessionTimeout extends Component {
   constructor () {
     super()
     this.state = {
@@ -37,21 +39,22 @@ class SessionTimeout extends Component {
   }
 
   render () {
-    if (this.state.valid) {
-      return null
+    if (!this.state.valid) {
+      this.props.onTimeout(SESSION_TIMEOUT_MESSAGE)
     }
-    const { pathname, search } = this.props.location
-    const query = queryString.stringify({ next: pathname + search })
-    return <Redirect to={`/auth/login?${query}`} />
+
+    return null
   }
 }
 
 SessionTimeout.propTypes = {
   timeout: PropTypes.number.isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-    search: PropTypes.string.isRequired
-  }).isRequired
+  onTimeout: PropTypes.func.isRequired
 }
 
-export default withRouter(SessionTimeout)
+export default connect(
+  null,
+  dispatch => ({
+    onTimeout: message => dispatch(unauthorized({ message }))
+  })
+)(withRouter(SessionTimeout))

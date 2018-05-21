@@ -9,18 +9,15 @@ import { Grid, Cell } from 'components/Grid'
 class ContentBoxSelect extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      currentSelectValue: props.selectOptions[0].value
-    }
     this.onChange = this.onChange.bind(this)
   }
 
   onChange (e) {
-    this.setState({ currentSelectValue: e.target.value })
+    this.props.onChange(e.target.value)
   }
 
   render () {
-    const { currentSelectValue } = this.state
+    const { currentSelectValue } = this.props
 
     return (
       <ContentBox titleComponent={
@@ -45,7 +42,9 @@ class ContentBoxSelect extends Component {
         </div>
       }>
         <HorizontalList
-          api={this.props.api}
+          isPending={this.props.isPending}
+          results={this.props.results}
+          onLoad={this.props.onLoad}
           params={currentSelectValue}
           item={this.props.item}
         />
@@ -62,7 +61,11 @@ ContentBoxSelect.propTypes = {
     })
   ).isRequired,
   titleText: PropTypes.string,
-  api: PropTypes.func.isRequired,
+  currentSelectValue: stringOrNumber.isRequired,
+  isPending: PropTypes.bool,
+  results: PropTypes.array,
+  onChange: PropTypes.func.isRequired,
+  onLoad: PropTypes.func,
   item: renderable.isRequired
 }
 

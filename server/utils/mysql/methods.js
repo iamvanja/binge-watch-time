@@ -12,6 +12,15 @@ const insert = (table, values = {}) => {
 }
 
 /**
+ * Try running an INSERT statement. If the record already exists,
+ * ignore the request without error.
+ */
+const insertIgnore = (table, values) => {
+  const sql = `INSERT IGNORE INTO \`${table}\` SET ${utils.prepareInsertValues(values)}`
+  return query(sql)
+}
+
+/**
  * Run a SELECT statement
  */
 const select = (sql, values = {}) =>
@@ -27,6 +36,17 @@ const update = (table, values, where) => {
     .then(({ results }) => results)
 }
 
+/**
+ * Build and run a DELETE statement
+ */
+const deleteQuery = (table, where) => {
+  const sql = `DELETE FROM \`${table}\` ${utils.sqlWhere(where)}`
+  return query(sql)
+}
+
+/**
+ * Prepare and run a query with bound values. Return a promise
+ */
 const query = (sql) => {
   return new Promise((resolve, reject) => {
     opts.conn.query(sql, (error, results, fields) => {
@@ -49,8 +69,10 @@ const augment = (connection, transformResults) => {
 
   return {
     insert,
+    insertIgnore,
     select,
     update,
+    delete: deleteQuery,
     sqlWhere: utils.sqlWhere
   }
 }

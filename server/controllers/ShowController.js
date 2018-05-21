@@ -43,14 +43,7 @@ export const discoverByGenreId = (req, res, next) => {
 export const one = (req, res, next) => {
   const { showId } = req.params
 
-  ServiceShowModel.one({
-    id: showId,
-    appendToResponse: 'external_ids,videos'
-  })
-    .then(({ videos, ...rest }) => ({
-      ...rest,
-      videos: videos.results
-    }))
+  ServiceShowModel.one({ id: showId })
     .then(show => res.json(show))
     .catch(next)
 }

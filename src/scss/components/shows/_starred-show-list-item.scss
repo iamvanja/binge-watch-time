@@ -1,0 +1,36 @@
+.starred-show-list-item {
+  color: $app-white;
+  margin-bottom: rem-calc(2px);
+  background: no-repeat center;
+  background-size: cover;
+
+  &.overlay-bg {
+    &:after {
+      background: rgba($app-secondary-color, 0.7);
+    }
+
+    &:hover {
+      &:after {
+        background: rgba($app-secondary-color, 0.45);
+      }
+    }
+  }
+
+  > a {
+    display: block;
+    color: $app-white;
+    text-shadow: 1px 1px 3px rgba($app-black, 0.4);
+  }
+
+  .grid-x {
+    height: rem-calc(140px);
+  }
+
+  hr {
+    margin: rem-calc(4px) auto;
+  }
+
+  .stat {
+    font-size: rem-calc(30px);
+  }
+}

@@ -5,12 +5,14 @@ import { GridContainer, Grid, Cell } from 'components/Grid'
 import Rater from 'components/Rater'
 import Image from 'components/Image'
 import ImagePlaceholder from 'components/ImagePlaceholder'
+import StarButton from 'components/StarButton'
+import Icon from 'components/Icon'
 import {
   IMG_BASE_URL,
   POSTER_SIZES,
   BACKDROP_SIZES
 } from 'constants/tmdb'
-import { formatDate } from 'utils/date'
+import ShowStatus from './ShowStatus'
 
 const ShowHero = ({
   name,
@@ -21,13 +23,15 @@ const ShowHero = ({
   backdropPath,
   posterPath,
   lastAirDate,
-  status
+  status,
+  id
 }) => {
   const heroStyle = {
     backgroundImage: backdropPath
       ? `url('${IMG_BASE_URL}/${BACKDROP_SIZES.large}${backdropPath}')`
       : undefined
   }
+
   return (
     <div
       className={classnames('show-hero overlay-bg', { 'mini': isMini })}
@@ -49,11 +53,10 @@ const ShowHero = ({
             <Cell className='auto large-shrink info text-right' alignSelf='middle'>
               <ul className='no-bullet'>
                 <li className='airs-day'>
-                  {
-                    status !== 'Ended'
-                      ? formatDate(lastAirDate, 'dddd') + 's'
-                      : 'Dead 😢'
-                  }
+                  <ShowStatus
+                    tmdbStatus={status}
+                    lastAired={lastAirDate}
+                  />
                 </li>
                 <li className='ratings'>
                   <Rater total={5} rating={(voteAverage / 10) * 5} />
@@ -68,6 +71,9 @@ const ShowHero = ({
                   }
                 </li>
               </ul>
+              <StarButton className='show-star-toggle' id={id}>
+                <Icon icon='star' />
+              </StarButton>
             </Cell>
           )}
 
@@ -94,7 +100,11 @@ ShowHero.propTypes = {
   backdropPath: PropTypes.string,
   posterPath: PropTypes.string,
   lastAirDate: PropTypes.string,
-  status: PropTypes.string
+  status: PropTypes.string,
+  id: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ])
 }
 
 export default ShowHero

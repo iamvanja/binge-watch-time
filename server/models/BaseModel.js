@@ -59,7 +59,7 @@ class Model {
     return db.update(this.table, attrs, where)
   }
 
-  remove (where) {
+  delete (where) {
     where = this.normalizeWhere(where)
     return db.delete(this.table, where)
   }

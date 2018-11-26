@@ -5,6 +5,8 @@ import { Grid, Cell } from 'components/Grid'
 import Button from 'components/Button'
 import YouTubeEmbed from 'components/YouTubeEmbed'
 import DescriptionItem from 'components/DescriptionItem'
+import { connect } from 'react-redux'
+import { getShow } from 'reducers'
 
 class ShowDetailOverview extends Component {
   constructor () {
@@ -53,7 +55,7 @@ class ShowDetailOverview extends Component {
             <h2>Overview</h2>
             <p>{overview || 'N/A'}</p>
 
-            { youtubeVideo
+            {youtubeVideo
               ? <Grid>
                 <Cell
                   small={12}
@@ -108,6 +110,12 @@ class ShowDetailOverview extends Component {
   }
 }
 
+ShowDetailOverview.defaultProps = {
+  networks: [],
+  genres: [],
+  videos: []
+}
+
 ShowDetailOverview.propTypes = {
   overview: PropTypes.string.isRequired,
   status: PropTypes.string,
@@ -122,4 +130,8 @@ ShowDetailOverview.propTypes = {
   videos: PropTypes.array
 }
 
-export default ShowDetailOverview
+export default connect(
+  (state, initialProps) => ({
+    ...getShow(state, initialProps.match.params.showId)
+  })
+)(ShowDetailOverview)

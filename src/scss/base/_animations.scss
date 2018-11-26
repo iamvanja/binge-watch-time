@@ -1,0 +1,24 @@
+@keyframes pulse-loader {
+  20% {
+    transform: scale(1.8);
+    color: $loading-color-2;
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-toggle {
+  0% {
+    box-shadow: 0 0 0 0 rgba($app-tertiary-color, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 20px rgba($app-tertiary-color, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba($app-tertiary-color, 0);
+  }
+}

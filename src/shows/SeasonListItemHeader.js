@@ -5,7 +5,7 @@ import Image from 'components/Image'
 import ImagePlaceholder from 'components/ImagePlaceholder'
 import { IMG_BASE_URL, POSTER_SIZES } from 'constants/tmdb'
 
-const SeasonListItem = ({ name, episodeCount, airDate, posterPath }) => {
+const SeasonListItemHeader = ({ name, episodeCount, airDate, posterPath }) => {
   return (
     <div className='season-list-item'>
       <Grid align='middle'>
@@ -27,11 +27,11 @@ const SeasonListItem = ({ name, episodeCount, airDate, posterPath }) => {
   )
 }
 
-SeasonListItem.propTypes = {
+SeasonListItemHeader.propTypes = {
   name: PropTypes.string.isRequired,
   episodeCount: PropTypes.number.isRequired,
   airDate: PropTypes.string,
   posterPath: PropTypes.string
 }
 
-export default SeasonListItem
+export default SeasonListItemHeader

@@ -1,79 +1,204 @@
-import React, { Fragment } from 'react'
-import { stringOrNumber } from 'constants/propTypes'
-import api from 'api'
-import Fetch from 'components/Fetch'
+import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import Loader from 'components/Loader'
 import Image from 'components/Image'
+import Icon from 'components/Icon'
+import { Grid, Cell } from 'components/Grid'
+import StarButtonEpisode from './StarButtonEpisode'
 import { IMG_BASE_URL, STILL_SIZES } from 'constants/tmdb'
 import { formatDate } from 'utils/date'
 import { formatSeasonEpisode } from 'utils/string'
+import * as episodes from 'actions/episodes'
+import {
+  isRequestPending,
+  isRequestErrored,
+  isShowStarred,
+  getEpisodeByQuery,
+  getNextEpisode
+} from 'reducers'
+import mapValues from 'lodash/mapValues'
 
-const EpisodeDetailPage = ({ showId, seasonNumber, episodeNumber }) => {
-  return (
-    <div className='episode-detail-page'>
-      <Fetch api={() => api.episodes.one(showId, seasonNumber, episodeNumber)}>
-        {({ id, airDate, ...episode } = {}, isPending, error, api) => {
-          if (isPending) {
-            return <Loader />
-          }
+class EpisodeDetailPage extends Component {
+  constructor () {
+    super()
 
-          if (error) {
-            return (
-              <p className='text-center subheader'>
-                Error...
-              </p>
-            )
-          }
+    this.getData = this.getData.bind(this)
+  }
 
-          if (!id) {
-            return (
-              <p className='text-center subheader'>
-                No data found...
-              </p>
-            )
-          }
+  componentWillMount () {
+    if (!this.props.id) {
+      this.getData()
+    }
+  }
 
-          return (
-            <Fragment>
-              <h2>{episode.name}</h2>
-              <div className='episode-info'>
+  componentDidUpdate (prevProps) {
+    if (
+      prevProps.seasonNumber !== this.props.seasonNumber ||
+      prevProps.episodeNumber !== this.props.episodeNumber
+    ) {
+      this.getData()
+    }
+  }
+
+  getData () {
+    const { showId, seasonNumber, episodeNumber } = this.props
+
+    return this.props.onLoad(showId, seasonNumber, episodeNumber)
+  }
+
+  getContent () {
+    const {
+      isPending,
+      isErrored,
+      id,
+      airDate,
+      showId,
+      seasonNumber,
+      episodeNumber,
+      showWatchButton,
+      ...episode
+    } = this.props
+
+    if (isPending) {
+      return <Loader />
+    }
+
+    if (isErrored) {
+      return (
+        <p className='text-center subheader'>
+          Error...
+        </p>
+      )
+    }
+
+    if (!id) {
+      return (
+        <p className='text-center subheader'>
+          No data found...
+        </p>
+      )
+    }
+
+    return (
+      <Fragment>
+        <Grid align='middle'>
+          <Cell className='auto'>
+            <h2>{episode.name}</h2>
+            <div className='episode-info'>
+              <span>
+                {formatSeasonEpisode(seasonNumber, episodeNumber)}
+              </span>
+              |
+              {airDate && (
                 <span>
-                  {formatSeasonEpisode(seasonNumber, episodeNumber)}
+                  {formatDate(airDate, 'dddd, MMMM D, YYYY')}
                 </span>
-                |
-                {airDate && (
-                  <span>
-                    {formatDate(airDate, 'dddd, MMMM D, YYYY')}
-                  </span>
-                )}
-              </div>
-
-              <hr />
-
-              {episode.stillPath && (
-                <div className='text-center'>
-                  <Image
-                    src={`${IMG_BASE_URL}/${STILL_SIZES.medium}${episode.stillPath}`}
-                    alt={`${episode.name} still`}
-                  />
-                </div>
               )}
+            </div>
+          </Cell>
+          {showWatchButton && (
+            <Cell className='shrink'>
+              <StarButtonEpisode
+                className='episode-watch-toggle'
+                showId={showId}
+                episodeId={id}
+                seasonNumber={seasonNumber}
+                episodeNumber={episodeNumber}
+              >
+                <Icon icon='eye' />
+              </StarButtonEpisode>
+            </Cell>
+          )}
+        </Grid>
 
-              <h3>Overview</h3>
-              <p>{episode.overview || 'N/A'}</p>
+        <hr />
 
-            </Fragment>
-          )
-        }}
-      </Fetch>
-    </div>
-  )
+        {episode.stillPath && (
+          <div className='text-center'>
+            <Image
+              src={`${IMG_BASE_URL}/${STILL_SIZES.medium}${episode.stillPath}`}
+              alt={`${episode.name} still`}
+            />
+          </div>
+        )}
+
+        <h3>Overview</h3>
+        <p>{episode.overview || 'N/A'}</p>
+
+      </Fragment>
+    )
+  }
+
+  render () {
+    return (
+      <div className='episode-detail-page'>
+        {this.getContent()}
+      </div>
+    )
+  }
 }
 
 EpisodeDetailPage.propTypes = {
-  showId: stringOrNumber.isRequired,
-  seasonNumber: stringOrNumber.isRequired,
-  episodeNumber: stringOrNumber.isRequired
+  showId: PropTypes.number.isRequired,
+  seasonNumber: PropTypes.number.isRequired,
+  episodeNumber: PropTypes.number.isRequired,
+  id: PropTypes.number,
+  showWatchButton: PropTypes.bool,
+  isPending: PropTypes.bool,
+  isErrored: PropTypes.bool,
+  onLoad: PropTypes.func.isRequired,
+  airDate: PropTypes.string
+
 }
 
-export default EpisodeDetailPage
+const getBaseProps = (state, options) => {
+  options = mapValues(options, parseInt)
+  const { showId, seasonNumber, episodeNumber } = options
+
+  const action = episodes.one(showId, seasonNumber, episodeNumber)
+  const episode = getEpisodeByQuery(state, options)
+
+  return {
+    ...options,
+    isPending: isRequestPending(state, action),
+    isErrored: isRequestErrored(state, action),
+    showWatchButton: isShowStarred(state, showId),
+    ...episode
+  }
+}
+
+const mapDispatchToProps = {
+  onLoad: episodes.one
+}
+
+export const NextEpisode = connect(
+  (state, ownProps) => {
+    const showId = ownProps.match.params.showId
+    const { seasonNumber, episodeNumber } = getNextEpisode(state, showId)
+
+    return {
+      ...getBaseProps(state, {
+        showId,
+        seasonNumber,
+        episodeNumber
+      })
+    }
+  },
+  mapDispatchToProps
+)(EpisodeDetailPage)
+
+export default connect(
+  (state, ownProps) => {
+    const { showId, seasonNumber, episodeNumber } = ownProps.match.params
+
+    return {
+      ...getBaseProps(state, {
+        showId,
+        seasonNumber,
+        episodeNumber
+      })
+    }
+  },
+  mapDispatchToProps
+)(EpisodeDetailPage)

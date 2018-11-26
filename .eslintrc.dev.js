@@ -27,6 +27,7 @@ const devRules = {
 // front-end only
 if (process.env.ESLINT_MODE !== 'node') {
   devRules['react/prop-types'] = ERROR_LEVEL
+  devRules['react/no-unused-prop-types'] = ERROR_LEVEL
 }
 
 /**

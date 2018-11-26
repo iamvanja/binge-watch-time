@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import queryString from 'query-string'
-import { verify } from 'actions/auth'
+// import { verify } from 'actions/auth'
+import api from 'api'
 import Loader from 'components/Loader'
 import InlineNotice from 'components/InlineNotice'
 
@@ -67,6 +68,7 @@ VerifyPage.propTypes = {
 export default connect(
   null,
   dispatch => ({
-    onVerify: (verifyData) => dispatch(verify(verifyData))
+    // onVerify: (verifyData) => dispatch(verify(verifyData))
+    onVerify: api.auth.verify
   })
 )(VerifyPage)

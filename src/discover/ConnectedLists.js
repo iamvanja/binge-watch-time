@@ -9,7 +9,7 @@ import { DISCOVER_NEW, DISCOVER_POPULAR } from 'constants/discover'
 
 const getMapState = state =>
   type => ({
-    isPending: isRequestPending(state, `DISCOVER_${type}`),
+    isPending: isRequestPending(state, discover.fetch(type)),
     results: getDiscoverShows(state, type)
   })
 

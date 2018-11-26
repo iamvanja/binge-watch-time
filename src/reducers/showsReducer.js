@@ -6,7 +6,7 @@ export const initialState = {}
 
 export default createReducer({
   [setShows]: (shows, payload) =>
-    merge(shows, payload)
+    merge({}, shows, payload)
 
 }, initialState)
 

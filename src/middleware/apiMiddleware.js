@@ -1,11 +1,16 @@
 import xhr from 'utils/xhr'
+import { API_ACTION_PREFIX } from 'constants/app'
 import { apiStart, apiFinish, apiError } from 'actions/ui'
 import { isRequestPending } from 'reducers'
+
+export const getRequestLabel = action => {
+  return `${action.type}-${action.payload.url}`
+}
 
 const apiMiddleware = ({ dispatch, getState }) => next => action => {
   next(action)
 
-  if (!action.type.startsWith('CALL_API')) {
+  if (!action.type.startsWith(API_ACTION_PREFIX)) {
     return
   }
 
@@ -13,7 +18,6 @@ const apiMiddleware = ({ dispatch, getState }) => next => action => {
     url,
     data,
     method = 'GET',
-    label = url,
     onStart = () => { },
     onSuccess = () => { },
     onFailure = () => { },
@@ -23,8 +27,9 @@ const apiMiddleware = ({ dispatch, getState }) => next => action => {
   const dataProperty = ['GET', 'DELETE'].includes(method)
     ? 'params'
     : 'data'
+  const label = getRequestLabel(action)
 
-  if (isRequestPending(getState(), label)) {
+  if (isRequestPending(getState(), action)) {
     return
   }
 
@@ -38,13 +43,13 @@ const apiMiddleware = ({ dispatch, getState }) => next => action => {
   return xhr.request({ url, method, [dataProperty]: data })
     .then(response => {
       onSuccess({ dispatch, getState, response })
-      dispatch(apiFinish(label))
+      setTimeout(() => dispatch(apiFinish(label)), 0)
 
       return response
     })
     .catch(error => {
-      dispatch(apiError(label))
       onFailure({ dispatch, getState, error })
+      dispatch(apiError(label))
 
       // when consumer also wants to catch errors
       if (throwError) {

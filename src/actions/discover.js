@@ -1,7 +1,8 @@
 import { createAction } from 'redux-act'
+import { API_ACTION_PREFIX } from 'constants/app'
 import { normalize } from 'normalizr'
 import { setShows } from './shows'
-import { showsSchema } from 'schemas/shows'
+import { showsSchema } from 'schemas'
 import { DISCOVER_NEW, DISCOVER_POPULAR } from 'constants/discover'
 
 const API_BASE = '/api/discover'
@@ -16,10 +17,9 @@ const getUrl = type => {
   }
 }
 
-export const fetch = createAction('CALL_API_DISCOVER', type => {
+export const fetch = createAction(`${API_ACTION_PREFIX}_DISCOVER`, type => {
   return {
     url: getUrl(type),
-    label: `DISCOVER_${type}`.toUpperCase(),
     onSuccess: ({ dispatch, getState, response = {} }) => {
       const data = normalize(response.results || [], showsSchema)
 

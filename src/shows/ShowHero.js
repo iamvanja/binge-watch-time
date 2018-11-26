@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { stringOrNumber } from 'constants/propTypes'
+import { connect } from 'react-redux'
+import { getShow } from 'reducers'
 import classnames from 'classnames'
 import { GridContainer, Grid, Cell } from 'components/Grid'
 import Rater from 'components/Rater'
 import Image from 'components/Image'
 import ImagePlaceholder from 'components/ImagePlaceholder'
-import StarButton from 'components/StarButton'
 import Icon from 'components/Icon'
+import StarButtonShow from './StarButtonShow'
 import {
   IMG_BASE_URL,
   POSTER_SIZES,
@@ -24,6 +27,7 @@ const ShowHero = ({
   posterPath,
   lastAirDate,
   status,
+  isStarred,
   id
 }) => {
   const heroStyle = {
@@ -71,9 +75,12 @@ const ShowHero = ({
                   }
                 </li>
               </ul>
-              <StarButton className='show-star-toggle' id={id}>
+              <StarButtonShow
+                className='show-star-toggle'
+                showId={id}
+              >
                 <Icon icon='star' />
-              </StarButton>
+              </StarButtonShow>
             </Cell>
           )}
 
@@ -91,20 +98,27 @@ const ShowHero = ({
   )
 }
 
+ShowHero.defaultProps = {
+  networks: [],
+  episodeRunTime: []
+}
+
 ShowHero.propTypes = {
   name: PropTypes.string.isRequired,
   isMini: PropTypes.bool,
   voteAverage: PropTypes.number,
-  networks: PropTypes.array.isRequired,
+  networks: PropTypes.array,
   episodeRunTime: PropTypes.array.isRequired,
   backdropPath: PropTypes.string,
   posterPath: PropTypes.string,
   lastAirDate: PropTypes.string,
   status: PropTypes.string,
-  id: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ])
+  id: stringOrNumber.isRequired,
+  isStarred: PropTypes.bool
 }
 
-export default ShowHero
+export default connect(
+  (state, ownProps) => ({
+    ...getShow(state, ownProps.showId)
+  })
+)(ShowHero)

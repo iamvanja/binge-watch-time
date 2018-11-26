@@ -54,7 +54,7 @@ export const search = (req, res, next) => {
     .catch(next)
 }
 
-export const seasonEpisodes = (req, res, next) => {
+export const season = (req, res, next) => {
   const { showId, seasonNumber } = req.params
   ServiceShowEpisodeModel.search({ id: showId, seasonNumber })
     .then(data => res.json(data))

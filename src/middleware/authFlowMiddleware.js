@@ -1,5 +1,6 @@
 import { authSuccess, unauthorized } from 'actions/auth'
 import * as starredShows from 'actions/starredShows'
+import * as watchedEpisodes from 'actions/watchedEpisodes'
 import { history } from 'BrowserRouter'
 import queryString from 'query-string'
 
@@ -32,6 +33,7 @@ const authFlowMiddleware = ({ dispatch, getState }) => next => action => {
 
     // extra actions after authSuccess go here
     dispatch(starredShows.fetch())
+    dispatch(watchedEpisodes.fetch())
   }
 
   // on authorized

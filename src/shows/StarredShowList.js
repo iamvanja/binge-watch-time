@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as starredShows from 'actions/starredShows'
-import { getStarredShows, isRequestPending, isRequestErrored } from 'reducers'
+import {
+  getStarredShows,
+  isRequestPending,
+  isRequestErrored,
+  getWatchedEpisodesByShowId
+} from 'reducers'
 import { Link } from 'react-router-dom'
 import Loader from 'components/Loader'
 import Button from 'components/Button'
@@ -33,6 +38,7 @@ class StarredShowList extends Component {
         <StarredShowListItem
           key={show.id}
           {...show}
+          watchedEpisodeCount={this.props.getWatchedEpisodesCount(show.id)}
         />
       ))
       : (
@@ -55,14 +61,17 @@ StarredShowList.propTypes = {
   isPending: PropTypes.bool,
   isErrored: PropTypes.bool,
   shows: PropTypes.array,
-  onShowsLoad: PropTypes.func.isRequired
+  onShowsLoad: PropTypes.func.isRequired,
+  getWatchedEpisodesCount: PropTypes.func.isRequired
 }
 
 export default connect(
   state => ({
-    isPending: isRequestPending(state, 'STARRED'),
-    isErrored: isRequestErrored(state, 'STARRED'),
-    shows: getStarredShows(state)
+    isPending: isRequestPending(state, starredShows.fetch()),
+    isErrored: isRequestErrored(state, starredShows.fetch()),
+    shows: getStarredShows(state),
+    getWatchedEpisodesCount: showId =>
+      getWatchedEpisodesByShowId(state, showId).length
   }),
   dispatch => ({
     onShowsLoad: () => dispatch(starredShows.fetch())

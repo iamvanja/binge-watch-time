@@ -1,4 +1,5 @@
 import { createReducer } from 'redux-act'
+import { getRequestLabel } from 'middleware/apiMiddleware'
 import {
   apiStart,
   apiFinish,
@@ -44,11 +45,11 @@ export default createReducer({
 }, initialState)
 
 // Selectors
-export const isRequestPending = (state, label) =>
-  state.pendingRequests.includes(label)
+export const isRequestPending = (state, action) =>
+  state.pendingRequests.includes(getRequestLabel(action))
 
-export const isRequestErrored = (state, label) =>
-  state.erroredRequests.includes(label)
+export const isRequestErrored = (state, action) =>
+  state.erroredRequests.includes(getRequestLabel(action))
 
 export const getDiscoverGenre = state =>
   state.discoverGenre

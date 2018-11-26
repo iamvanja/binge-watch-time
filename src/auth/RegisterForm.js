@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { register } from 'actions/users'
 import { Form, InputField } from 'informative'
 import houseSchema from 'shared/houseSchema'
 import FieldWrap from 'components/informative/FieldWrap'
@@ -115,9 +113,4 @@ RegisterForm.propTypes = {
   onRegister: PropTypes.func.isRequired
 }
 
-export default connect(
-  null,
-  dispatch => ({
-    onRegister: registerData => dispatch(register(registerData))
-  })
-)(withNotice(RegisterForm))
+export default withNotice(RegisterForm)

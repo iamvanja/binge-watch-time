@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Icon from 'components/Icon'
 import { Grid, Cell } from 'components/Grid'
 import { padSeasonEpisode } from 'utils/string'
+import StarButtonEpisode from './StarButtonEpisode'
 
 const EpisodeListItem = ({
   link,
@@ -12,7 +13,8 @@ const EpisodeListItem = ({
   episodeId,
   seasonNumber,
   episodeNumber,
-  firstAired
+  firstAired,
+  showWatchButton
 }) => (
   <div className='episode-list-item'>
     <Grid gutters='padding' align='middle'>
@@ -29,11 +31,20 @@ const EpisodeListItem = ({
           {firstAired && <span className='subheader'>First aired: {firstAired}</span>}
         </Link>
       </Cell>
-      <Cell className='shrink'>
-        <button className='episode-watch-toggle' disabled>
-          <Icon icon='eye' />
-        </button>
-      </Cell>
+      {showWatchButton && (
+        <Cell className='shrink'>
+          <StarButtonEpisode
+            className='episode-watch-toggle'
+            episodeId={episodeId}
+            seasonNumber={seasonNumber}
+            episodeNumber={episodeNumber}
+            showId={showId}
+          >
+            <Icon icon='eye' />
+          </StarButtonEpisode>
+        </Cell>
+      )}
+
     </Grid>
   </div>
 )
@@ -45,7 +56,8 @@ EpisodeListItem.propTypes = {
   episodeId: PropTypes.number.isRequired,
   seasonNumber: PropTypes.number.isRequired,
   episodeNumber: PropTypes.number.isRequired,
-  firstAired: PropTypes.string
+  firstAired: PropTypes.string,
+  showWatchButton: PropTypes.bool
 }
 
 export default EpisodeListItem

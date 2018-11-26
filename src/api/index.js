@@ -1,8 +1,9 @@
-
-import * as episodes from './episodes'
+import * as auth from './auth'
 import * as shows from './shows'
+import * as users from './users'
 
 export default {
-  episodes,
-  shows
+  auth,
+  shows,
+  users
 }

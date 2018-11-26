@@ -3,7 +3,8 @@ import {
   UserError,
   UserNotAuthenticated,
   UserAuthenticationFailed,
-  UserNotAllowed
+  UserNotAllowed,
+  NotFound
 } from './throwables'
 
 const errorHandler = (err, req, res, next) => {
@@ -16,8 +17,10 @@ const errorHandler = (err, req, res, next) => {
     res.status(403).send({ message: err.message || 'Invalid Login' })
   } else if (err instanceof UserNotAllowed) {
     res.status(403).json({ message: 'Insufficient Permissions' })
+  } else if (err instanceof NotFound) {
+    res.status(404).json({ message: 'Not Found' })
 
-  // Non-user error (500)
+    // Non-user error (500)
   } else {
     logger.log('error', 'Express Error Handler', err.stack)
     res.status(500).json({ message: 'Our server is experiencing errors' })

@@ -1,16 +1,62 @@
 import { Router } from 'express'
 import * as ShowController from 'controllers/ShowController'
 import * as UserShowController from 'controllers/UserShowController'
+import * as UserShowEpisodeController from 'controllers/UserShowEpisodeController'
+import isShowIdValid from 'middleware/isShowIdValid'
+import isAuthenticated from 'middleware/isAuthenticated'
+import isEpisodeIdValid from 'middleware/isEpisodeIdValid'
 
 const router = Router()
 
-router.get('/:showId(\\d+)', ShowController.one)
-router.get('/:showId(\\d+)/seasons/:seasonNumber(\\d+)/episodes', ShowController.seasonEpisodes)
-router.get('/:showId(\\d+)/seasons/:seasonNumber(\\d+)/episodes/:episodeNumber(\\d+)', ShowController.seasonEpisode)
-router.get('/search/:name', ShowController.search)
+router.use(isAuthenticated)
 
-router.put('/:showId(\\d+)/star', UserShowController.toggleStar)
-router.delete('/:showId(\\d+)/star', UserShowController.toggleStar)
-router.get('/starred', UserShowController.starredShows)
+const SHOW_ID = ':showId(\\d+)'
+const SEASON_NUMBER = ':seasonNumber(\\d+)'
+const EPISODE_NUMBER = ':episodeNumber(\\d+)'
+
+router.get(
+  `/${SHOW_ID}`,
+  ShowController.one
+)
+router.get(
+  `/${SHOW_ID}/seasons/${SEASON_NUMBER}`,
+  ShowController.season
+)
+router.get(
+  `/${SHOW_ID}/seasons/${SEASON_NUMBER}/episodes/${EPISODE_NUMBER}`, ShowController.seasonEpisode
+)
+router.get(
+  '/search/:name',
+  ShowController.search
+)
+
+router.put(
+  `/${SHOW_ID}/star`,
+  isShowIdValid,
+  UserShowController.toggleStar
+)
+router.delete(
+  `/${SHOW_ID}/star`,
+  UserShowController.toggleStar
+)
+router.get(
+  '/starred',
+  UserShowController.starredShows
+)
+
+router.put(
+  `/${SHOW_ID}/season/${SEASON_NUMBER}/episode/${EPISODE_NUMBER}/watch`,
+  isEpisodeIdValid,
+  UserShowEpisodeController.toggleEpisodeWatch
+)
+router.delete(
+  `/${SHOW_ID}/season/${SEASON_NUMBER}/episode/${EPISODE_NUMBER}/watch`,
+  isEpisodeIdValid,
+  UserShowEpisodeController.toggleEpisodeWatch
+)
+router.get(
+  '/episodes/watched',
+  UserShowEpisodeController.watchedEpisodes
+)
 
 export default router

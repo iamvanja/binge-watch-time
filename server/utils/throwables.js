@@ -2,11 +2,13 @@
 // an error handler which will appropriately display the error to the client
 
 // User Input Errors
-export class UserError extends Error {}
+export class UserError extends Error { }
+
+export class NotFound extends Error { }
 
 // User not Authenticated
-export class UserNotAuthenticated extends Error {}
+export class UserNotAuthenticated extends Error { }
 
-export class UserAuthenticationFailed extends Error {}
+export class UserAuthenticationFailed extends Error { }
 
-export class UserNotAllowed extends Error {}
+export class UserNotAllowed extends Error { }

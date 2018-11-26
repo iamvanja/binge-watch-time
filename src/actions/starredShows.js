@@ -1,14 +1,14 @@
 import { createAction } from 'redux-act'
+import { API_ACTION_PREFIX } from 'constants/app'
 import { normalize } from 'normalizr'
 import { setShows } from 'actions/shows'
 import { setSeasons } from 'actions/seasons'
-import { showsSchema } from 'schemas/shows'
+import { showsSchema } from 'schemas'
 
 const API_BASE = '/api/shows'
 
-export const fetch = createAction('CALL_API_SHOW_STARRED', () => ({
+export const fetch = createAction(`${API_ACTION_PREFIX}_SHOW_STARRED`, () => ({
   url: `${API_BASE}/starred`,
-  label: `STARRED`,
   onSuccess: ({ dispatch, getState, response }) => {
     const data = normalize(response, showsSchema)
 
@@ -28,19 +28,17 @@ export const remove = createAction(
   ids => ({ ids })
 )
 
-export const star = createAction('CALL_API_SHOW_STAR', showId => ({
+export const star = createAction(`${API_ACTION_PREFIX}_SHOW_STAR`, showId => ({
   url: `${API_BASE}/${showId}/star`,
   method: 'PUT',
-  label: `STAR_${showId}`,
   onSuccess: ({ dispatch, getState, response }) => {
     dispatch(set([showId]))
   }
 }))
 
-export const unstar = createAction('CALL_API_SHOW_UNSTAR', showId => ({
+export const unstar = createAction(`${API_ACTION_PREFIX}_SHOW_UNSTAR`, showId => ({
   url: `${API_BASE}/${showId}/star`,
   method: 'DELETE',
-  label: `UNSTAR_${showId}`,
   onSuccess: ({ dispatch, getState, response }) => {
     dispatch(remove([showId]))
   }

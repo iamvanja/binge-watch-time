@@ -1,4 +1,5 @@
 import { createAction } from 'redux-act'
+import { API_ACTION_PREFIX } from 'constants/app'
 
 const API_BASE = '/api/auth'
 
@@ -20,7 +21,7 @@ export const authSuccess = createAction(
 export const authError = createAction('USER_LOGIN_ERROR')
 export const unauthorized = createAction('USER_UNAUTHORIZED')
 
-export const login = createAction('CALL_API_USER_LOGIN', credentials => ({
+export const login = createAction(`${API_ACTION_PREFIX}_USER_LOGIN`, credentials => ({
   url: `${API_BASE}/login`,
   method: 'POST',
   data: credentials,
@@ -31,22 +32,15 @@ export const login = createAction('CALL_API_USER_LOGIN', credentials => ({
 })
 )
 
-export const me = createAction('CALL_API_USER_ME', () => ({
+export const me = createAction(`${API_ACTION_PREFIX}_USER_ME`, () => ({
   url: `${API_BASE}/me`,
   ...authHandlers()
 }))
 
-export const logout = createAction('CALL_API_LOGOUT', () => ({
+export const logout = createAction(`${API_ACTION_PREFIX}_LOGOUT`, () => ({
   url: `${API_BASE}/logout`,
   method: 'POST',
   onSuccess: ({ dispatch, getState, response }) => {
     dispatch(unauthorized())
   }
-}))
-
-export const verify = createAction('CALL_API_VERIFY', verifyData => ({
-  url: `${API_BASE}/verify`,
-  method: 'POST',
-  data: verifyData,
-  throwError: true
 }))

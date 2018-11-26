@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom'
 import * as shows from 'actions/shows'
@@ -7,25 +7,24 @@ import { connect } from 'react-redux'
 import {
   isRequestPending,
   isRequestErrored,
-  getShow,
-  getShowSeasons
+  getShow
 } from 'reducers'
 import ShowDetailOverview from './ShowDetailOverview'
-import EpisodesList from './EpisodesList'
-import EpisodeDetailPage from './EpisodeDetailPage'
+import SeasonList from './SeasonList'
+import EpisodeDetailPage, { NextEpisode } from './EpisodeDetailPage'
 import Loader from 'components/Loader'
 import { GridContainer } from 'components/Grid'
 import Button from 'components/Button'
 import isEqual from 'lodash/isEqual'
 
-class ShowDetailPage extends React.Component {
+class ShowDetailPage extends Component {
   constructor () {
     super()
 
     this.getData = this.getData.bind(this)
   }
 
-  componentDidMount () {
+  componentWillMount () {
     this.getData()
   }
 
@@ -37,18 +36,17 @@ class ShowDetailPage extends React.Component {
 
   getData () {
     const { showId } = this.props.match.params
-    return this.props.onLoad(showId)
+    this.props.onLoad(parseInt(showId, 10))
   }
 
   render () {
     const {
       isPending,
       isErrored,
-      show,
-      match,
-      seasons = []
+      isLoaded,
+      match
     } = this.props
-    const { id, networks } = show || {}
+    const { showId } = match.params
 
     if (isErrored) {
       return (
@@ -63,22 +61,15 @@ class ShowDetailPage extends React.Component {
       )
     }
 
-    if (isPending || !(seasons.length || networks)) {
+    if (isPending || !isLoaded) {
       return <Loader />
-    }
-
-    if (!id) {
-      return (
-        <p className='text-center subheader'>
-          No data found...
-        </p>)
     }
 
     return (
       <div className='page show-detail'>
         <ShowHero
-          {...show}
           isMini={!match.isExact}
+          showId={parseInt(showId, 10)}
         />
 
         <nav className='sub-nav'>
@@ -94,35 +85,22 @@ class ShowDetailPage extends React.Component {
             <Route
               path={match.path}
               exact
-              component={() => <ShowDetailOverview {...show} />}
-            />
-            <Route
-              path={`${match.path}/episodes`}
-              exact
-              component={() => <EpisodesList
-                showId={id}
-                seasons={seasons}
-              />}
-            />
-            <Route
-              path={`${match.path}/episodes/s:seasonNumber(\\d+)e:episodeNumber(\\d+)`}
-              exact
-              component={(props) =>
-                <EpisodeDetailPage
-                  {...props.match.params}
-                />
-              }
+              component={ShowDetailOverview}
             />
             <Route
               path={`${match.path}/next`}
               exact
-              component={() =>
-                <EpisodeDetailPage
-                  showId={id}
-                  seasonNumber={1}
-                  episodeNumber={1}
-                />
-              }
+              component={NextEpisode}
+            />
+            <Route
+              path={`${match.path}/episodes`}
+              exact
+              component={SeasonList}
+            />
+            <Route
+              path={`${match.path}/episodes/s:seasonNumber(\\d+)e:episodeNumber(\\d+)`}
+              exact
+              component={EpisodeDetailPage}
             />
             <Redirect to={match.url} />
           </Switch>
@@ -143,23 +121,22 @@ ShowDetailPage.propTypes = {
   }).isRequired,
   isPending: PropTypes.bool,
   isErrored: PropTypes.bool,
-  show: PropTypes.object,
-  seasons: PropTypes.array,
+  isLoaded: PropTypes.bool,
   onLoad: PropTypes.func.isRequired
 }
 
 export default connect(
-  (state, { match }) => {
-    const { showId } = match.params
+  (state, ownProps) => {
+    const { showId } = ownProps.match.params
+    const action = shows.one(showId)
 
     return {
-      isPending: isRequestPending(state, `SHOW_${showId}`),
-      isErrored: isRequestErrored(state, `SHOW_${showId}`),
-      show: getShow(state, showId),
-      seasons: getShowSeasons(state, showId)
+      isPending: isRequestPending(state, action),
+      isLoaded: !!getShow(state, showId),
+      isErrored: isRequestErrored(state, action)
     }
   },
-  dispatch => ({
-    onLoad: showId => dispatch(shows.one(showId))
-  })
+  {
+    onLoad: shows.one
+  }
 )(ShowDetailPage)

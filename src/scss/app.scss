@@ -13,6 +13,7 @@
 @import "base/general";
 @import "base/form";
 @import "base/scrollbar";
+@import "base/animations";
 
 // layouts
 @import "layouts/unauthorized";
@@ -27,6 +28,7 @@
 @import "components/loader-page";
 @import "components/footer";
 @import "components/button-loader";
+@import "components/button-toggle";
 @import "components/header-public";
 @import "components/header-primary";
 @import "components/content-box";

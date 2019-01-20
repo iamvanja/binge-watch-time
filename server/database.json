@@ -2,9 +2,18 @@
   "defaultEnv": "env-default",
   "env-default": {
     "driver": "mysql",
-    "host": {"ENV": "MYSQL_HOST"},
-    "user": {"ENV": "MYSQL_USER"},
-    "password": {"ENV": "MYSQL_PASS"},
-    "database": {"ENV": "MYSQL_DB"}
+    "host": {
+      "ENV": "MYSQL_HOST"
+    },
+    "user": {
+      "ENV": "MYSQL_USER"
+    },
+    "password": {
+      "ENV": "MYSQL_PASS"
+    },
+    "database": {
+      "ENV": "MYSQL_DB"
+    },
+    "multipleStatements": true
   }
 }

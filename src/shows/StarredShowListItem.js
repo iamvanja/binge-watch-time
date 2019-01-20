@@ -1,27 +1,50 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { stringOrNumber } from 'constants/propTypes'
+import { connect } from 'react-redux'
+import {
+  isRequestPending,
+  isRequestErrored,
+  getShow,
+  getWatchedEpisodesByShowId
+} from 'reducers'
+import * as shows from 'actions/shows'
 import { Link } from 'react-router-dom'
 import { GridContainer, Grid, Cell } from 'components/Grid'
 import { IMG_BASE_URL, BACKDROP_SIZES } from 'constants/tmdb'
 import ShowStatus from './ShowStatus'
+import Button from 'components/Button'
+import Loader from 'components/Loader'
+import classnames from 'classnames'
 
-const StarredShowListItem = ({
-  backdropPath,
-  id,
-  name,
-  numberOfEpisodes,
-  watchedEpisodeCount,
-  status,
-  lastAirDate
-}) => {
-  const heroStyle = {
-    backgroundImage: backdropPath
-      ? `url('${IMG_BASE_URL}/${BACKDROP_SIZES.large}${backdropPath}')`
-      : undefined
+class StarredShowListItem extends Component {
+  constructor () {
+    super()
+
+    this.getData = this.getData.bind(this)
   }
-  return (
-    <div className='starred-show-list-item overlay-bg' style={heroStyle}>
+
+  componentWillMount () {
+    this.getData()
+  }
+
+  getData () {
+    const { id } = this.props
+
+    this.props.onLoad(id)
+  }
+
+  renderItem () {
+    const {
+      id,
+      name,
+      numberOfEpisodes,
+      watchedEpisodeCount,
+      status,
+      lastAirDate
+    } = this.props
+
+    return (
       <Link to={`shows/${id}`}>
         <GridContainer>
           <Grid>
@@ -30,10 +53,9 @@ const StarredShowListItem = ({
             </Cell>
             <Cell className='shrink text-right' alignSelf='middle'>
               <h6>
-                {/* todo: calculate missed episodes count */}
                 <span>
                   <span className='stat'>
-                    {numberOfEpisodes - watchedEpisodeCount}
+                    {'' + (numberOfEpisodes - watchedEpisodeCount)}
                   </span> missed
                   <hr />
                 </span>
@@ -48,8 +70,51 @@ const StarredShowListItem = ({
           </Grid>
         </GridContainer>
       </Link>
-    </div>
-  )
+    )
+  }
+
+  renderWrap (children) {
+    const { backdropPath, isPending, isErrored } = this.props
+    const heroStyle = {
+      backgroundImage: backdropPath
+        ? `url('${IMG_BASE_URL}/${BACKDROP_SIZES.large}${backdropPath}')`
+        : undefined
+    }
+
+    return (
+      <div
+        className={classnames('starred-show-list-item overlay-bg', {
+          'is-flex': isPending || isErrored
+        })}
+        style={heroStyle}
+      >
+        {children}
+      </div>
+    )
+  }
+
+  render () {
+    const { isPending, isErrored } = this.props
+
+    if (isErrored) {
+      return this.renderWrap(
+        <div className='error-container'>
+          <p className='subheader'>
+            Error while loading the show...
+          </p>
+          <Button onClick={this.getData} className='hollow'>
+            Try loading again
+          </Button>
+        </div>
+      )
+    }
+
+    if (isPending) {
+      return this.renderWrap(<Loader className='align-self-middle' />)
+    }
+
+    return this.renderWrap(this.renderItem())
+  }
 }
 
 StarredShowListItem.defaultProps = {
@@ -57,13 +122,32 @@ StarredShowListItem.defaultProps = {
 }
 
 StarredShowListItem.propTypes = {
+  isPending: PropTypes.bool,
+  isErrored: PropTypes.bool,
+  onLoad: PropTypes.func.isRequired,
   backdropPath: PropTypes.string,
   id: stringOrNumber.isRequired,
-  name: PropTypes.string.isRequired,
-  numberOfEpisodes: PropTypes.number.isRequired,
+  name: PropTypes.string,
+  numberOfEpisodes: PropTypes.number,
   watchedEpisodeCount: PropTypes.number,
   status: PropTypes.string,
   lastAirDate: PropTypes.string
 }
 
-export default StarredShowListItem
+export default connect(
+  (state, ownProps) => {
+    const { id } = ownProps
+    const action = shows.one(id)
+    const show = getShow(state, id)
+
+    return {
+      isPending: isRequestPending(state, action),
+      isErrored: isRequestErrored(state, action),
+      watchedEpisodeCount: getWatchedEpisodesByShowId(state, id).length,
+      ...show
+    }
+  },
+  {
+    onLoad: shows.one
+  }
+)(StarredShowListItem)

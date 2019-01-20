@@ -6,6 +6,7 @@ import find from 'lodash/find'
 import authReducer, * as fromAuth from './authReducer'
 import discoverReducer, * as fromDiscover from './discoverReducer'
 import episodesReducer, * as fromEpisodes from './episodesReducer'
+import showsListsReducer, * as fromShowsLists from './shows/listsReducer'
 import seasonsReducer, * as fromSeasons from './seasonsReducer'
 import showsReducer, * as fromShows from './showsReducer'
 import starredShowsReducer, * as fromStarredShows from './starredShowsReducer'
@@ -15,6 +16,7 @@ import watchedEpisodesReducer, * as watchedEpisodes from './watchedEpisodesReduc
 const AUTH = 'auth'
 const DISCOVER = 'discover'
 const EPISODES = 'episodes'
+const SHOW_LISTS = 'showLists'
 const ROUTING = 'routing'
 const SEASONS = 'seasons'
 const SHOWS = 'shows'
@@ -27,6 +29,7 @@ const reducers = combineReducers({
   [AUTH]: authReducer,
   [DISCOVER]: discoverReducer,
   [EPISODES]: episodesReducer,
+  [SHOW_LISTS]: showsListsReducer,
   [ROUTING]: routerReducer, // requires mount at "routing"
   [SEASONS]: seasonsReducer,
   [SHOWS]: showsReducer,
@@ -59,6 +62,9 @@ export const isRequestErrored = (state, action) =>
 export const getDiscoverGenre = state =>
   fromUi.getDiscoverGenre(state[UI])
 
+export const getCurrentListId = state =>
+  fromUi.getCurrentListId(state[UI])
+
 export const getSeasons = (state, ids) =>
   fromSeasons.getSeasons(state[SEASONS], ids)
 
@@ -86,8 +92,20 @@ export const getEpisode = (state, id) =>
 export const getEpisodeByQuery = (state, query) =>
   fromEpisodes.getEpisodeByQuery(state[EPISODES], query)
 
+export const getShowLists = (state) =>
+  fromShowsLists.getLists(state[SHOW_LISTS])
+
 export const getStarredIds = (state) =>
   fromStarredShows.getStarredIds(state[STARRED_SHOWS])
+
+export const getStarredIdsByListId = (state, listId) =>
+  fromStarredShows.getStarredIdsByListId(state[STARRED_SHOWS], listId)
+
+export const getListIdByShowId = (state, showId) =>
+  fromStarredShows.getListIdByShowId(state[STARRED_SHOWS], showId)
+
+export const getStarredIdsFlat = (state) =>
+  fromStarredShows.getStarredIdsFlat(state[STARRED_SHOWS])
 
 export const isShowStarred = (state, showId) =>
   fromStarredShows.isShowStarred(state[STARRED_SHOWS], showId)
@@ -124,17 +142,21 @@ export const getNextEpisode = (state, showId) => {
   // get episodes by showId
   const watchedEpisodeIds = getWatchedEpisodesByShowId(state, showId)
   const watchedEpisodes = getEpisodes(state, watchedEpisodeIds) || []
-  const lastEpisode = watchedEpisodes.reduce((prev, current) =>
-    (
-      prev.seasonNumber >= current.seasonNumber &&
+
+  const lastEpisode = watchedEpisodes.reduce((prev, current) => {
+    const isPrevSeasonHigher = prev.seasonNumber > current.seasonNumber
+    const isPrevEpisodeHigher = (
+      prev.seasonNumber === current.seasonNumber &&
       prev.episodeNumber > current.episodeNumber
     )
+
+    return isPrevSeasonHigher || isPrevEpisodeHigher
       ? prev
       : current
-    , {}) || {}
+  }, {})
 
   let seasonNumber = lastEpisode.seasonNumber || 1
-  let episodeNumber = lastEpisode.episodeNumber || 1
+  let episodeNumber = lastEpisode.episodeNumber || 0
   const currentSeason = getSeasonByShowSeasonNumber(state, showId, seasonNumber)
 
   if (currentSeason.episodeCount >= episodeNumber + 1) {

@@ -23,6 +23,7 @@ export class AuthorizedRoute extends React.Component {
         }
 
         if (!isLogged) {
+          // todo: page
           return 'You are not authorized.'
         }
 

@@ -98,7 +98,12 @@ class ShowSearchForm extends Component {
             onFocus={this.handleFocus}
           />
         </div>
-        <div className={classnames('results', { 'hidden': areResultsHidden })}>
+        <div
+          className={classnames('results dropdown-list', {
+            'hidden': areResultsHidden,
+            'is-loading': isLoading
+          })}
+        >
           {
             isLoading
               ? <Loader />

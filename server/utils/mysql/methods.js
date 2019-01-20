@@ -21,6 +21,17 @@ const insertIgnore = (table, values) => {
 }
 
 /**
+ * Try running an INSERT statement. If the record already exists, run an update statement.
+ * This takes advantage of MySQL's `ON DUPLICATE KEY UPDATE` feature.
+ */
+const insertUpdate = (table, values = {}) => {
+  values = utils.prepareInsertValues(values)
+  const sql = `INSERT INTO \`${table}\` SET ${values} ON DUPLICATE KEY UPDATE ${values}`
+
+  return query(sql)
+}
+
+/**
  * Run a SELECT statement
  */
 const select = (sql, values = {}) =>
@@ -41,6 +52,7 @@ const update = (table, values, where) => {
  */
 const deleteQuery = (table, where) => {
   const sql = `DELETE FROM \`${table}\` ${utils.sqlWhere(where)}`
+
   return query(sql)
 }
 
@@ -70,6 +82,7 @@ const augment = (connection, transformResults) => {
   return {
     insert,
     insertIgnore,
+    insertUpdate,
     select,
     update,
     delete: deleteQuery,

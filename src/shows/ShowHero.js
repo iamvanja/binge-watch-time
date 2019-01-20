@@ -8,8 +8,7 @@ import { GridContainer, Grid, Cell } from 'components/Grid'
 import Rater from 'components/Rater'
 import Image from 'components/Image'
 import ImagePlaceholder from 'components/ImagePlaceholder'
-import Icon from 'components/Icon'
-import StarButtonShow from './StarButtonShow'
+import StarButtonDropdownShow from './StarButtonDropdownShow'
 import {
   IMG_BASE_URL,
   POSTER_SIZES,
@@ -27,7 +26,6 @@ const ShowHero = ({
   posterPath,
   lastAirDate,
   status,
-  isStarred,
   id
 }) => {
   const heroStyle = {
@@ -54,7 +52,7 @@ const ShowHero = ({
           </Cell>
 
           {!isMini && (
-            <Cell className='auto large-shrink info text-right' alignSelf='middle'>
+            <Cell className='auto large-shrink info' alignSelf='middle'>
               <ul className='no-bullet'>
                 <li className='airs-day'>
                   <ShowStatus
@@ -74,13 +72,13 @@ const ShowHero = ({
                     : null
                   }
                 </li>
+                <li>
+                  <StarButtonDropdownShow
+                    showId={id}
+                    id='star-button-dropdown'
+                  />
+                </li>
               </ul>
-              <StarButtonShow
-                className='show-star-toggle'
-                showId={id}
-              >
-                <Icon icon='star' />
-              </StarButtonShow>
             </Cell>
           )}
 
@@ -113,8 +111,7 @@ ShowHero.propTypes = {
   posterPath: PropTypes.string,
   lastAirDate: PropTypes.string,
   status: PropTypes.string,
-  id: stringOrNumber.isRequired,
-  isStarred: PropTypes.bool
+  id: stringOrNumber.isRequired
 }
 
 export default connect(

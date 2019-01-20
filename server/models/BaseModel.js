@@ -49,8 +49,8 @@ class Model {
 
   insertUpdate (values) {
     const attrs = this.fixCase(values)
+
     return db.insertUpdate(this.table, attrs)
-      .then(response => response.insertId)
   }
 
   update (where, values) {

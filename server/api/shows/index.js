@@ -5,6 +5,7 @@ import * as UserShowEpisodeController from 'controllers/UserShowEpisodeControlle
 import isShowIdValid from 'middleware/isShowIdValid'
 import isAuthenticated from 'middleware/isAuthenticated'
 import isEpisodeIdValid from 'middleware/isEpisodeIdValid'
+import lists from './lists'
 
 const router = Router()
 
@@ -58,5 +59,7 @@ router.get(
   '/episodes/watched',
   UserShowEpisodeController.watchedEpisodes
 )
+
+router.use('/lists', lists)
 
 export default router

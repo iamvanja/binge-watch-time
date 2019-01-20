@@ -1,0 +1,36 @@
+.dropdown-list {
+  background-color: $app-secondary-color;
+  border: 1px solid $app-tertiary-color;
+  border-top: 0;
+  z-index: 1;
+  width: 100%;
+  max-height: 35vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  opacity: 1;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+
+  &.hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &.is-loading {
+    overflow: hidden;
+  }
+
+  .show-search-item {
+    border-bottom: 1px solid $app-tertiary-color;
+    padding: rem-calc(10px);
+    display: block;
+
+    &:last-child {
+      border: 0;
+    }
+
+    &.no-results {
+      text-align: center;
+      color: darken($app-body-font-color, 40%);
+    }
+  }
+}

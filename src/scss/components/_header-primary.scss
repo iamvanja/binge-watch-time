@@ -1,6 +1,7 @@
 .header-primary {
   margin-bottom: rem-calc(10px);
   background-color: $app-secondary-color;
+  z-index: 2;
 
   .logo {
     max-width: 40px;

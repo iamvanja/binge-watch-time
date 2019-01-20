@@ -4,13 +4,15 @@ import {
   apiStart,
   apiFinish,
   apiError,
-  setDiscoverGenre
+  setDiscoverGenre,
+  setCurrentList
 } from 'actions/ui'
 
 export const initialState = {
   pendingRequests: [],
   erroredRequests: [],
-  discoverGenre: null
+  discoverGenre: null,
+  currentListId: 2
 }
 
 const add = (state, label) =>
@@ -40,6 +42,11 @@ export default createReducer({
   [setDiscoverGenre]: (state, payload) => ({
     ...state,
     discoverGenre: payload.discoverGenre
+  }),
+
+  [setCurrentList]: (state, payload) => ({
+    ...state,
+    currentListId: parseInt(payload.listId, 10)
   })
 
 }, initialState)
@@ -53,3 +60,6 @@ export const isRequestErrored = (state, action) =>
 
 export const getDiscoverGenre = state =>
   state.discoverGenre
+
+export const getCurrentListId = state =>
+  state.currentListId

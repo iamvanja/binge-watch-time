@@ -2,13 +2,14 @@
   &.overlay-bg {
     background: no-repeat top center $app-black;
     background-size: cover;
+    z-index: 1; // needed for dropdown-button overlap with .page.show-detail > .sub-nav
 
     &:after {
       background: rgba($app-secondary-color, 0.8);
     }
   }
 
-  .grid-x {
+  > .grid-x {
     min-height: 300px;
   }
 
@@ -19,6 +20,12 @@
       color: $app-tertiary-color;
       text-shadow: 0 1px 0 rgba($app-black, 0.6);
       font-size: rem-calc(24px);
+    }
+
+    .button-dropdown {
+      display: inline-block;
+      min-width: 200px;
+      margin-top: 10px;
     }
   }
 

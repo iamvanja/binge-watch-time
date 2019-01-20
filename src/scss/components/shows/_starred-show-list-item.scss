@@ -3,6 +3,7 @@
   margin-bottom: rem-calc(2px);
   background: no-repeat center;
   background-size: cover;
+  height: rem-calc(140px);
 
   &.overlay-bg {
     &:after {
@@ -14,6 +15,16 @@
         background: rgba($app-secondary-color, 0.45);
       }
     }
+  }
+
+  &.is-flex {
+    display: flex;
+  }
+
+  .error-container {
+    text-align: center;
+    align-self: center;
+    width: 100%;
   }
 
   > a {

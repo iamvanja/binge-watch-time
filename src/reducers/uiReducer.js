@@ -5,14 +5,16 @@ import {
   apiFinish,
   apiError,
   setDiscoverGenre,
-  setCurrentList
+  setCurrentList,
+  setMobileMenuOpen
 } from 'actions/ui'
 
 export const initialState = {
   pendingRequests: [],
   erroredRequests: [],
   discoverGenre: null,
-  currentListId: 2
+  currentListId: 2,
+  isMobileMenuOpen: false
 }
 
 const add = (state, label) =>
@@ -47,6 +49,11 @@ export default createReducer({
   [setCurrentList]: (state, payload) => ({
     ...state,
     currentListId: parseInt(payload.listId, 10)
+  }),
+
+  [setMobileMenuOpen]: (state, payload) => ({
+    ...state,
+    isMobileMenuOpen: !!payload.isMobileMenuOpen
   })
 
 }, initialState)
@@ -63,3 +70,6 @@ export const getDiscoverGenre = state =>
 
 export const getCurrentListId = state =>
   state.currentListId
+
+export const isMobileMenuOpen = state =>
+  !!state.isMobileMenuOpen

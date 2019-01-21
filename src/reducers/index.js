@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import { routerReducer } from 'react-router-redux'
 import find from 'lodash/find'
 
 // Custom Reducers
@@ -17,7 +16,6 @@ const AUTH = 'auth'
 const DISCOVER = 'discover'
 const EPISODES = 'episodes'
 const SHOW_LISTS = 'showLists'
-const ROUTING = 'routing'
 const SEASONS = 'seasons'
 const SHOWS = 'shows'
 const STARRED_SHOWS = 'starredShows'
@@ -30,7 +28,6 @@ const reducers = combineReducers({
   [DISCOVER]: discoverReducer,
   [EPISODES]: episodesReducer,
   [SHOW_LISTS]: showsListsReducer,
-  [ROUTING]: routerReducer, // requires mount at "routing"
   [SEASONS]: seasonsReducer,
   [SHOWS]: showsReducer,
   [STARRED_SHOWS]: starredShowsReducer,
@@ -64,6 +61,9 @@ export const getDiscoverGenre = state =>
 
 export const getCurrentListId = state =>
   fromUi.getCurrentListId(state[UI])
+
+export const isMobileMenuOpen = state =>
+  fromUi.isMobileMenuOpen(state[UI])
 
 export const getSeasons = (state, ids) =>
   fromSeasons.getSeasons(state[SEASONS], ids)

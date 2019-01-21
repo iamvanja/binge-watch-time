@@ -1,9 +1,9 @@
+import queryString from 'query-string'
 import { authSuccess, unauthorized } from 'actions/auth'
 import * as starredShows from 'actions/starredShows'
 import * as watchedEpisodes from 'actions/watchedEpisodes'
 import * as lists from 'actions/shows/lists'
-import { history } from 'BrowserRouter'
-import queryString from 'query-string'
+import { history } from './routerMiddleware'
 
 const redirectToAuthenticated = () => {
   const next = queryString.parse(history.location.search).next || '/'

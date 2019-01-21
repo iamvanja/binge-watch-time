@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
+import { isMobileMenuOpen } from 'reducers'
+import { setMobileMenuOpen } from 'actions/ui'
 import classnames from 'classnames'
 import Button from 'components/Button'
 import { GridContainer, Grid, Cell } from 'components/Grid'
@@ -9,19 +13,17 @@ import ShowSearchForm from 'shows/ShowSearchForm'
 class HeaderPrimary extends Component {
   constructor () {
     super()
-    this.state = {
-      isMobileActive: false
-    }
+
     this.toggleMenu = this.toggleMenu.bind(this)
   }
 
   toggleMenu () {
-    this.setState(({ isMobileActive }) => ({
-      isMobileActive: !isMobileActive
-    }))
+    this.props.onMobileMenuChange(!this.props.isMobileMenuActive)
   }
+
   render () {
-    const { isMobileActive } = this.state
+    const { isMobileMenuActive } = this.props
+
     return (
       <div className='header-primary'>
         <GridContainer>
@@ -35,7 +37,7 @@ class HeaderPrimary extends Component {
               <Button
                 className='menu-button hollow'
                 onClick={this.toggleMenu}
-                icon={isMobileActive ? 'cancel' : 'menu'}
+                icon={isMobileMenuActive ? 'cancel' : 'menu'}
               >
                 MENU
               </Button>
@@ -44,7 +46,7 @@ class HeaderPrimary extends Component {
               small={12}
               medium='auto'
               className={classnames('menu-container', {
-                'is-mobile-active': isMobileActive
+                'is-mobile-active': isMobileMenuActive
               })}
             >
               <nav>
@@ -71,4 +73,16 @@ class HeaderPrimary extends Component {
   }
 }
 
-export default HeaderPrimary
+HeaderPrimary.propTypes = {
+  isMobileMenuActive: PropTypes.bool,
+  onMobileMenuChange: PropTypes.func.isRequired
+}
+
+export default connect(
+  state => ({
+    isMobileMenuActive: isMobileMenuOpen(state)
+  }),
+  {
+    onMobileMenuChange: setMobileMenuOpen
+  }
+)(HeaderPrimary)

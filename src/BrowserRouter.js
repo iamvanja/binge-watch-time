@@ -1,12 +1,16 @@
 
 import React from 'react'
-import { Router } from 'react-router-dom'
-import { createBrowserHistory } from 'history'
+import { renderable } from 'constants/propTypes'
+import { ConnectedRouter } from 'connected-react-router'
+import { history } from 'middleware/routerMiddleware'
 
-export const history = createBrowserHistory()
-
-// eslint-disable-next-line react/prop-types
-export default ({ children }) =>
-  <Router history={history}>
+const BrowserRouter = ({ children }) =>
+  <ConnectedRouter history={history}>
     {children}
-  </Router>
+  </ConnectedRouter>
+
+BrowserRouter.propTypes = {
+  children: renderable.isRequired
+}
+
+export default BrowserRouter

@@ -2,13 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { stringOrNumber } from 'constants/propTypes'
 import { connect } from 'react-redux'
-import {
-  isRequestPending,
-  isRequestErrored,
-  getShow,
-  getWatchedEpisodesByShowId
-} from 'reducers'
-import * as shows from 'actions/shows'
+import * as selectors from 'redux/reducers/selectors'
+import * as shows from 'redux/actions/shows'
 import { Link } from 'react-router-dom'
 import { GridContainer, Grid, Cell } from 'components/Grid'
 import { IMG_BASE_URL, BACKDROP_SIZES } from 'constants/tmdb'
@@ -16,6 +11,7 @@ import ShowStatus from './ShowStatus'
 import Button from 'components/Button'
 import Loader from 'components/Loader'
 import classnames from 'classnames'
+import get from 'lodash/get'
 
 class StarredShowListItem extends Component {
   constructor () {
@@ -41,7 +37,7 @@ class StarredShowListItem extends Component {
       numberOfEpisodes,
       watchedEpisodeCount,
       status,
-      lastAirDate
+      nextEpisodeToAir
     } = this.props
 
     return (
@@ -60,10 +56,9 @@ class StarredShowListItem extends Component {
                   <hr />
                 </span>
 
-                {/* todo: show next episode date */}
                 <ShowStatus
                   tmdbStatus={status}
-                  lastAired={lastAirDate}
+                  nextAirDate={get(nextEpisodeToAir, 'airDate')}
                 />
               </h6>
             </Cell>
@@ -131,19 +126,23 @@ StarredShowListItem.propTypes = {
   numberOfEpisodes: PropTypes.number,
   watchedEpisodeCount: PropTypes.number,
   status: PropTypes.string,
-  lastAirDate: PropTypes.string
+  nextEpisodeToAir: PropTypes.shape({
+    airDate: PropTypes.string
+  })
 }
 
 export default connect(
   (state, ownProps) => {
     const { id } = ownProps
     const action = shows.one(id)
-    const show = getShow(state, id)
+    const show = selectors.shows.getShow(state, id)
 
     return {
-      isPending: isRequestPending(state, action),
-      isErrored: isRequestErrored(state, action),
-      watchedEpisodeCount: getWatchedEpisodesByShowId(state, id).length,
+      isPending: selectors.ui.isRequestPending(state, action),
+      isErrored: selectors.ui.isRequestErrored(state, action),
+      watchedEpisodeCount: selectors.watchedEpisodes.getWatchedEpisodesByShowId(
+        state, id
+      ).length,
       ...show
     }
   },

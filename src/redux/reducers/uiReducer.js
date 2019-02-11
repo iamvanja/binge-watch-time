@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-act'
-import { getRequestLabel } from 'middleware/apiMiddleware'
+import { getRequestLabel } from 'redux/middleware/apiMiddleware'
 import {
   apiStart,
   apiFinish,
@@ -7,7 +7,7 @@ import {
   setDiscoverGenre,
   setCurrentList,
   setMobileMenuOpen
-} from 'actions/ui'
+} from 'redux/actions/ui'
 
 export const initialState = {
   pendingRequests: [],

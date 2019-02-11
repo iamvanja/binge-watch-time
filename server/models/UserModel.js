@@ -1,4 +1,4 @@
-import Model from './BaseModel'
+import Model from './BaseDbModel'
 
 class UserModel extends Model {
   constructor () {

@@ -4,7 +4,7 @@ import {
   authSuccess,
   authError,
   unauthorized
-} from 'actions/auth'
+} from 'redux/actions/auth'
 
 export const initialState = {
   isPending: null,
@@ -41,7 +41,7 @@ export default createReducer({
   }),
 
   [unauthorized]: (state, payload = {}) => ({
-    ...state,
+    ...initialState,
     isPending: false,
     errorMessage: payload.message
   })

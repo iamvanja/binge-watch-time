@@ -27,7 +27,7 @@ export class RegisterForm extends React.Component {
           addNotice('Error while registering. Please try again.', 'alert')
         }
       })
-      .catch(err => addNotice(err.message, 'alert'))
+      .catch(err => addNotice(err.data.message || err.statusText, 'alert'))
   }
 
   renderForm () {

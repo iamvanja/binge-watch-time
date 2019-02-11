@@ -17,6 +17,7 @@ class HorizontalListNew extends React.Component {
 
   getData () {
     const { results, params } = this.props
+
     if (!results.length) {
       this.props.onLoad(params)
     }
@@ -24,6 +25,7 @@ class HorizontalListNew extends React.Component {
 
   render () {
     const { item: Item, results, isPending } = this.props
+
     return (
       <div className='horizontal-list'>
         {isPending
@@ -32,7 +34,7 @@ class HorizontalListNew extends React.Component {
             ? (<p className='text-center subheader'>
               No data found...
             </p>)
-            : results.map(show =>
+            : results.map((show = {}) =>
               <Item key={show.id} {...show} />
             )
         }

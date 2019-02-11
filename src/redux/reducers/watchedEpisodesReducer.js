@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-act'
-import { set, remove } from 'actions/watchedEpisodes'
+import { set, remove } from 'redux/actions/watchedEpisodes'
 import mergeWith from 'lodash/mergeWith'
 
 export const initialState = {}

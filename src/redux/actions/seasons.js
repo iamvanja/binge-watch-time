@@ -2,7 +2,7 @@ import { createAction } from 'redux-act'
 import { API_ACTION_PREFIX } from 'constants/app'
 import { normalize } from 'normalizr'
 import { seasonSchema } from 'schemas'
-import { setEpisodes } from 'actions/episodes'
+import { setEpisodes } from 'redux/actions/episodes'
 
 const API_BASE = '/api/shows'
 

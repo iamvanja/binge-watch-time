@@ -1,8 +1,10 @@
 import React from 'react'
-import ForgotForm from './ForgotForm'
+import PropTypes from 'prop-types'
+import PasswordResetRequestForm from './PasswordResetRequestForm'
+import PasswordResetForm from './PasswordResetForm'
 import { Link } from 'react-router-dom'
 
-const ForgotPage = () => (
+const ForgotPage = ({ isVerify }) => (
   <div className='page forgot'>
     <h2>Forgot password?</h2>
     <div className='message-box'>
@@ -11,15 +13,26 @@ const ForgotPage = () => (
       </p>
     </div>
 
-    <ForgotForm />
+    {isVerify
+      ? <PasswordResetForm />
+      : <PasswordResetRequestForm />
+    }
 
-    <div className='message-box'>
-      <p className='message-text'>
-        Change your mind? <Link to='/auth/login'>Log in</Link>
-      </p>
-    </div>
-
+    {isVerify
+      ? null
+      : (
+        <div className='message-box'>
+          <p className='message-text'>
+            Changed your mind? <Link to='/auth/login'>Log in</Link>
+          </p>
+        </div>
+      )
+    }
   </div>
 )
+
+ForgotPage.propTypes = {
+  isVerify: PropTypes.bool
+}
 
 export default ForgotPage

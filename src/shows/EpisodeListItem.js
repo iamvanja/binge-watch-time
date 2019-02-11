@@ -5,6 +5,7 @@ import Icon from 'components/Icon'
 import { Grid, Cell } from 'components/Grid'
 import { padSeasonEpisode } from 'utils/string'
 import StarButtonEpisode from './StarButtonEpisode'
+import isInTheFuture from './utils/isInTheFuture'
 
 const EpisodeListItem = ({
   link,
@@ -28,10 +29,10 @@ const EpisodeListItem = ({
       <Cell className='auto'>
         <Link to={link}>
           <h3 className='h4 episode-name'>{name}</h3>
-          {firstAired && <span className='subheader'>First aired: {firstAired}</span>}
+          {firstAired && <span className='subheader'>{firstAired}</span>}
         </Link>
       </Cell>
-      {showWatchButton && (
+      {showWatchButton && !isInTheFuture(firstAired) && (
         <Cell className='shrink'>
           <StarButtonEpisode
             className='episode-watch-toggle'
@@ -44,7 +45,6 @@ const EpisodeListItem = ({
           </StarButtonEpisode>
         </Cell>
       )}
-
     </Grid>
   </div>
 )

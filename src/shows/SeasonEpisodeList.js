@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import * as seasons from 'actions/seasons'
-import {
-  isRequestPending,
-  isRequestErrored,
-  getShowSeason
-} from 'reducers'
+import * as seasons from 'redux/actions/seasons'
+import * as selectors from 'redux/reducers/selectors'
 import EpisodeListItem from './EpisodeListItem'
 import Loader from 'components/Loader'
 import Button from 'components/Button'
@@ -90,14 +86,13 @@ SeasonEpisodeList.propTypes = {
 export default connect(
   (state, ownProps) => {
     const { showId, seasonNumber, id } = ownProps
-
     const action = seasons.seasonEpisodes(showId, seasonNumber)
-    const season = getShowSeason(state, id)
+    const season = selectors.getShowSeason(state, id)
 
     return {
       ...season,
-      isPending: isRequestPending(state, action),
-      isErrored: isRequestErrored(state, action)
+      isPending: selectors.ui.isRequestPending(state, action),
+      isErrored: selectors.ui.isRequestErrored(state, action)
     }
   },
   {

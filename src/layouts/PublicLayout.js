@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { isLoggedIn } from 'reducers'
+import * as selectors from 'redux/reducers/selectors'
 import { Switch, Route } from 'react-router-dom'
 import { GridContainer } from 'components/Grid'
 import HeaderPrimary from 'components/HeaderPrimary'
@@ -33,6 +33,6 @@ PublicLayout.propTypes = {
 
 export default connect(
   state => ({
-    isLogged: isLoggedIn(state)
+    isLogged: selectors.auth.isLoggedIn(state)
   })
 )(PublicLayout)

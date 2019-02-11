@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import * as starredShows from 'actions/starredShows'
-import * as ui from 'actions/ui'
-import {
-  getStarredIdsByListId,
-  isRequestPending,
-  isRequestErrored,
-  getShowLists,
-  getCurrentListId
-} from 'reducers'
+import * as starredShows from 'redux/actions/starredShows'
+import * as ui from 'redux/actions/ui'
+import * as selectors from 'redux/reducers/selectors'
 import { Link } from 'react-router-dom'
 import Loader from 'components/Loader'
 import Button from 'components/Button'
@@ -107,11 +101,13 @@ StarredShowList.propTypes = {
 
 export default connect(
   state => ({
-    isPending: isRequestPending(state, starredShows.fetch()),
-    isErrored: isRequestErrored(state, starredShows.fetch()),
-    getIds: listId => getStarredIdsByListId(state, listId),
-    lists: getShowLists(state),
-    currentListId: getCurrentListId(state)
+    isPending: selectors.ui.isRequestPending(state, starredShows.fetch()),
+    isErrored: selectors.ui.isRequestErrored(state, starredShows.fetch()),
+    getIds: listId => selectors.starredShows.getStarredIdsByListId(
+      state, listId
+    ),
+    lists: selectors.showsLists.getLists(state),
+    currentListId: selectors.ui.getCurrentListId(state)
   }),
   dispatch => ({
     onShowsLoad: () => dispatch(starredShows.fetch()),

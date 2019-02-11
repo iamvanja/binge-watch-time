@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import BrowserRouter from './BrowserRouter'
 import './scss/app.css'
-import store from './store'
+import store from 'redux/store'
 
 import UnauthorizedLayout from 'layouts/UnauthorizedLayout'
 import PublicLayout from 'layouts/PublicLayout'

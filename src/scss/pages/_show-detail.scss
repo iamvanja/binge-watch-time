@@ -41,6 +41,10 @@
     }
 
     .accordion-title {
+      position: sticky;
+      top: 0;
+      background: $accordion-background;
+
       &:before {
         font-size: rem-calc(20px);
       }

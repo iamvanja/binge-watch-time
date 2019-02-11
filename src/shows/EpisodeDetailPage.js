@@ -9,15 +9,10 @@ import StarButtonEpisode from './StarButtonEpisode'
 import { IMG_BASE_URL, STILL_SIZES } from 'constants/tmdb'
 import { formatDate } from 'utils/date'
 import { formatSeasonEpisode } from 'utils/string'
-import * as episodes from 'actions/episodes'
-import {
-  isRequestPending,
-  isRequestErrored,
-  isShowStarred,
-  getEpisodeByQuery,
-  getNextEpisode
-} from 'reducers'
+import * as episodes from 'redux/actions/episodes'
+import * as selectors from 'redux/reducers/selectors'
 import mapValues from 'lodash/mapValues'
+import isInTheFuture from './utils/isInTheFuture'
 
 class EpisodeDetailPage extends Component {
   constructor () {
@@ -45,6 +40,10 @@ class EpisodeDetailPage extends Component {
     const { showId, seasonNumber, episodeNumber } = this.props
 
     return this.props.onLoad(showId, seasonNumber, episodeNumber)
+  }
+
+  get isInTheFuture () {
+    return isInTheFuture(this.props.airDate)
   }
 
   getContent () {
@@ -97,7 +96,7 @@ class EpisodeDetailPage extends Component {
               )}
             </div>
           </Cell>
-          {showWatchButton && (
+          {showWatchButton && !this.isInTheFuture && (
             <Cell className='shrink'>
               <StarButtonEpisode
                 className='episode-watch-toggle'
@@ -157,13 +156,13 @@ const getBaseProps = (state, options) => {
   const { showId, seasonNumber, episodeNumber } = options
 
   const action = episodes.one(showId, seasonNumber, episodeNumber)
-  const episode = getEpisodeByQuery(state, options)
+  const episode = selectors.episodes.getEpisodeByQuery(state, options)
 
   return {
     ...options,
-    isPending: isRequestPending(state, action),
-    isErrored: isRequestErrored(state, action),
-    showWatchButton: isShowStarred(state, showId),
+    isPending: selectors.ui.isRequestPending(state, action),
+    isErrored: selectors.ui.isRequestErrored(state, action),
+    showWatchButton: selectors.starredShows.isShowStarred(state, showId),
     ...episode
   }
 }
@@ -175,7 +174,8 @@ const mapDispatchToProps = {
 export const NextEpisode = connect(
   (state, ownProps) => {
     const showId = ownProps.match.params.showId
-    const { seasonNumber, episodeNumber } = getNextEpisode(state, showId)
+    const { seasonNumber, episodeNumber } = selectors
+      .getNextEpisode(state, showId)
 
     return {
       ...getBaseProps(state, {

@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-act'
-import { setDiscoverShows } from 'actions/discover'
+import { setDiscoverShows } from 'redux/actions/discover'
 
 export const initialState = {}
 

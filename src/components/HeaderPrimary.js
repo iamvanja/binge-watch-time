@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
-import { isMobileMenuOpen } from 'reducers'
-import { setMobileMenuOpen } from 'actions/ui'
+import { withRouter } from 'react-router'
+import * as selectors from 'redux/reducers/selectors'
+import { setMobileMenuOpen } from 'redux/actions/ui'
 import classnames from 'classnames'
 import Button from 'components/Button'
 import { GridContainer, Grid, Cell } from 'components/Grid'
@@ -78,11 +79,11 @@ HeaderPrimary.propTypes = {
   onMobileMenuChange: PropTypes.func.isRequired
 }
 
-export default connect(
+export default withRouter(connect(
   state => ({
-    isMobileMenuActive: isMobileMenuOpen(state)
+    isMobileMenuActive: selectors.ui.isMobileMenuOpen(state)
   }),
   {
     onMobileMenuChange: setMobileMenuOpen
   }
-)(HeaderPrimary)
+)(HeaderPrimary))

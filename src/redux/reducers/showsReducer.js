@@ -1,11 +1,11 @@
 import { createReducer } from 'redux-act'
+import { ACTION_SET_SHOWS } from 'constants/app'
 import merge from 'lodash/merge'
-import { setShows } from 'actions/shows'
 
 export const initialState = {}
 
 export default createReducer({
-  [setShows]: (shows, payload) =>
+  [ACTION_SET_SHOWS]: (shows, payload) =>
     merge({}, shows, payload)
 
 }, initialState)

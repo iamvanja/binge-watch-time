@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-act'
-import { setLists } from 'actions/shows/lists'
+import { setLists } from 'redux/actions/shows/lists'
 
 export const initialState = {}
 
@@ -12,5 +12,5 @@ export default createReducer({
 
 }, initialState)
 
-// // Selectors
+//  Selectors
 export const getLists = (lists) => lists

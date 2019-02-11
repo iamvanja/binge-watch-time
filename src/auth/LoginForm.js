@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom'
 import { Form, InputField } from 'informative'
 import Cookies from 'js-cookie'
 import { connect } from 'react-redux'
-import { isAuthPending, getAuthErrorMessage } from 'reducers'
-import { login } from 'actions/auth'
+import * as selectors from 'redux/reducers/selectors'
+import { login } from 'redux/actions/auth'
 
 import houseSchema from 'shared/houseSchema'
 import FieldWrap from 'components/informative/FieldWrap'
@@ -95,8 +95,8 @@ LoginForm.propTypes = {
 
 export default withRouter(connect(
   state => ({
-    isPending: isAuthPending(state),
-    noticeMessage: getAuthErrorMessage(state)
+    isPending: selectors.auth.isAuthPending(state),
+    noticeMessage: selectors.auth.getAuthErrorMessage(state)
   }),
   dispatch => ({
     onLogin: credentials => dispatch(login(credentials))

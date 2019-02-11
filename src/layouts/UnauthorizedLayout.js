@@ -23,6 +23,7 @@ const UnauthorizedLayout = ({ match }) => (
               <Route exact path={`${match.path}/register`} component={RegisterPage} />
               <Route exact path={`${match.path}/verify`} component={VerifyPage} />
               <Route exact path={`${match.path}/forgot`} component={ForgotPage} />
+              <Route exact path={`${match.path}/forgot/verify`} component={() => <ForgotPage isVerify />} />
               <Redirect to={`${match.url}/login`} />
             </Switch>
           </Cell>

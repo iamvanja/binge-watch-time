@@ -1,16 +1,16 @@
 import { connect } from 'react-redux'
 import HorizontalList from 'components/HorizontalList'
 import ContentBoxSelect from 'components/ContentBoxSelect'
-import * as discover from 'actions/discover'
-import * as ui from 'actions/ui'
-import { getDiscoverShows, isRequestPending, getDiscoverGenre } from 'reducers'
+import * as discover from 'redux/actions/discover'
+import * as ui from 'redux/actions/ui'
+import * as selectors from 'redux/reducers/selectors'
 import { GENRES } from 'constants/tmdb'
 import { DISCOVER_NEW, DISCOVER_POPULAR } from 'constants/discover'
 
 const getMapState = state =>
   type => ({
-    isPending: isRequestPending(state, discover.fetch(type)),
-    results: getDiscoverShows(state, type)
+    isPending: selectors.ui.isRequestPending(state, discover.fetch(type)),
+    results: selectors.getDiscoverShows(state, type)
   })
 
 const getMapDispatch = dispatch =>
@@ -31,7 +31,11 @@ export const DiscoverPopular = connect(
 const genreOptions = GENRES.map(({ id, name }) => ({ value: id, label: name }))
 export const DiscoverByGenre = connect(
   state => {
-    const genreId = getDiscoverGenre(state) || genreOptions[0].value
+    const genreId = (
+      selectors.ui.getDiscoverGenre(state) ||
+      genreOptions[0].value
+    )
+
     return {
       ...getMapState(state)(genreId),
       selectOptions: genreOptions,

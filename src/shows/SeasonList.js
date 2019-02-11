@@ -1,11 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {
-  getShowSeasons,
-  isShowStarred,
-  getNextEpisode
-} from 'reducers'
+import * as selectors from 'redux/reducers/selectors'
 import AccordionItem from 'components/AccordionItem'
 import SeasonListItemHeader from './SeasonListItemHeader'
 import SeasonEpisodeList from './SeasonEpisodeList'
@@ -57,12 +53,12 @@ SeasonList.propTypes = {
 export default connect(
   (_, ownProps) => state => {
     const showId = parseInt(ownProps.match.params.showId, 10)
-    const nextEpisode = getNextEpisode(state, showId)
+    const nextEpisode = selectors.getNextEpisode(state, showId)
 
     return {
       showId,
-      isStarred: isShowStarred(state, showId),
-      seasons: getShowSeasons(state, showId),
+      isStarred: selectors.starredShows.isShowStarred(state, showId),
+      seasons: selectors.getShowSeasons(state, showId),
       currentSeasonNumber: nextEpisode.seasonNumber
     }
   }

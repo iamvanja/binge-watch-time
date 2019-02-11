@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getTimeout } from 'reducers'
+import * as selectors from 'redux/reducers/selectors'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import HeaderPrimary from 'components/HeaderPrimary'
 import Footer from 'components/Footer'
@@ -34,6 +34,6 @@ AuthorizedLayout.propTypes = {
 
 export default connect(
   state => ({
-    timeout: getTimeout(state)
+    timeout: selectors.auth.getTimeout(state)
   })
 )(AuthorizedLayout)

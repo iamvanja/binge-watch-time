@@ -6,7 +6,7 @@ import Button from 'components/Button'
 import YouTubeEmbed from 'components/YouTubeEmbed'
 import DescriptionItem from 'components/DescriptionItem'
 import { connect } from 'react-redux'
-import { getShow } from 'reducers'
+import * as selectors from 'redux/reducers/selectors'
 
 class ShowDetailOverview extends Component {
   constructor () {
@@ -132,6 +132,6 @@ ShowDetailOverview.propTypes = {
 
 export default connect(
   (state, initialProps) => ({
-    ...getShow(state, initialProps.match.params.showId)
+    ...selectors.shows.getShow(state, initialProps.match.params.showId)
   })
 )(ShowDetailOverview)

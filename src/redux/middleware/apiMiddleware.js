@@ -1,7 +1,7 @@
 import xhr from 'utils/xhr'
 import { API_ACTION_PREFIX } from 'constants/app'
-import { apiStart, apiFinish, apiError } from 'actions/ui'
-import { isRequestPending } from 'reducers'
+import { apiStart, apiFinish, apiError } from 'redux/actions/ui'
+import * as selectors from 'redux/reducers/selectors'
 
 export const getRequestLabel = action => {
   return `${action.type}-${action.payload.url}`
@@ -29,7 +29,7 @@ const apiMiddleware = ({ dispatch, getState }) => next => action => {
     : 'data'
   const label = getRequestLabel(action)
 
-  if (isRequestPending(getState(), action)) {
+  if (selectors.ui.isRequestPending(getState(), action)) {
     return
   }
 

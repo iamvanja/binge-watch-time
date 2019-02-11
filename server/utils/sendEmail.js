@@ -17,7 +17,8 @@ const emailTemplate = (filename, data) =>
     )
   })
 
-const verification = async ({ name, verificationCode, email } = {}) => {
+const verification = async (options = {}) => {
+  const { name, verificationCode, email } = options
   // todo: save communication record and queue email(commLogId, jobContent)
 
   return sendEmail({
@@ -26,11 +27,32 @@ const verification = async ({ name, verificationCode, email } = {}) => {
     toName: name,
     content: await emailTemplate('verify', {
       name,
-      verificationUrl: `${BASE_URL}/auth/verify?${queryString.stringify({ verificationCode, email })}`
+      verificationUrl: `${BASE_URL}/auth/verify?${queryString.stringify({
+        verificationCode,
+        email
+      })}`
+    })
+  })
+}
+
+const forgotPasswordRequest = async (options = {}) => {
+  const { name, token, email } = options
+
+  return sendEmail({
+    subject: 'Password reset',
+    toEmail: email,
+    toName: name,
+    content: await emailTemplate('forgotPasswordRequest', {
+      name,
+      url: `${BASE_URL}/auth/forgot/verify?${queryString.stringify({
+        token,
+        email
+      })}`
     })
   })
 }
 
 export default {
-  verification
+  verification,
+  forgotPasswordRequest
 }

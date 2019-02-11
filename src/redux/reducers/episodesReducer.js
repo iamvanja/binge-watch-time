@@ -1,7 +1,7 @@
 import { createReducer } from 'redux-act'
 import merge from 'lodash/merge'
 import isMatch from 'lodash/isMatch'
-import { setEpisodes } from 'actions/episodes'
+import { setEpisodes } from 'redux/actions/episodes'
 
 export const initialState = {}
 

@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { unauthorized } from 'actions/auth'
+import { unauthorized } from 'redux/actions/auth'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { getLastCall } from 'utils/xhr'

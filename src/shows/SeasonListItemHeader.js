@@ -20,7 +20,7 @@ const SeasonListItemHeader = ({ name, episodeCount, airDate, posterPath }) => {
         <Cell className='auto content'>
           <h2 className='title h3'>{name}</h2>
           <span className='episode-count subheader'>{episodeCount} episodes</span>
-          {airDate && <span className='air-date subheader'>First aired: {airDate}</span>}
+          {airDate && <span className='air-date subheader'>{airDate}</span>}
         </Cell>
       </Grid>
     </div>

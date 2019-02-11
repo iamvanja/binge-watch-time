@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import queryString from 'query-string'
-// import { verify } from 'actions/auth'
+import classnames from 'classnames'
 import api from 'api'
 import Loader from 'components/Loader'
 import InlineNotice from 'components/InlineNotice'
@@ -38,7 +38,7 @@ export class VerifyPage extends React.Component {
       .catch(error =>
         this.setState({
           title: 'Verification Failed',
-          error: error.message,
+          error: error.data.message || error.statusText,
           verified: false
         })
       )
@@ -47,14 +47,27 @@ export class VerifyPage extends React.Component {
 
   render () {
     const { title, verified, error } = this.state
+    const isLoading = verified === null && !error
 
     return (
       <div className='page verify'>
         <h2>{title}</h2>
         <div className='message-box'>
-          {verified === null && !error && <Loader />}
+          {isLoading && <Loader />}
           {error && <InlineNotice type='alert'>{error}</InlineNotice>}
-          <Link to='/auth/login' className='button expanded large'>Login Page</Link>
+          {verified === true &&
+            <InlineNotice type='success'>Success!</InlineNotice>
+          }
+          <Link
+            to='/auth/login'
+            className={classnames('button expanded large', {
+              disabled: isLoading
+            })}
+            onClick={e => isLoading ? e.preventDefault() : null}
+          >
+            {verified === true && 'Go back to '}
+            Login Page
+          </Link>
         </div>
       </div>
     )
@@ -68,7 +81,6 @@ VerifyPage.propTypes = {
 export default connect(
   null,
   dispatch => ({
-    // onVerify: (verifyData) => dispatch(verify(verifyData))
     onVerify: api.auth.verify
   })
 )(VerifyPage)

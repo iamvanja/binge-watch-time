@@ -1,6 +1,6 @@
 import axios from 'axios'
-import store from 'store'
-import { unauthorized } from 'actions/auth'
+import store from 'redux/store'
+import { unauthorized } from 'redux/actions/auth'
 import { SESSION_TIMEOUT_MESSAGE } from 'constants/app'
 
 const xhr = axios.create()
@@ -13,7 +13,7 @@ xhr.interceptors.response.use(response => {
   if (!error.response) {
     return Promise.reject(error)
   }
-  const { status, data } = error.response
+  const { status } = error.response
 
   switch (status) {
     case 401:
@@ -22,7 +22,7 @@ xhr.interceptors.response.use(response => {
       }))
   }
 
-  return Promise.reject(data)
+  return Promise.reject(error.response)
 })
 
 // Track Time Elapsed

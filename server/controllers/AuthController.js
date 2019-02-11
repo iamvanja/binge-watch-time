@@ -67,6 +67,7 @@ export const verify = (req, res, next) => {
 
 export const me = (req, res, next) => {
   const { userId } = req.user
+
   UserModel.findOne({ userId })
     .then(users => res.json(UserModel.omitFields(users[0])))
     .catch(next)

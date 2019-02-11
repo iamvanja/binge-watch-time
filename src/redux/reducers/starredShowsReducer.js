@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-act'
-import { set, remove } from 'actions/starredShows'
+import { set, remove } from 'redux/actions/starredShows'
 import union from 'lodash/union'
 import flatMap from 'lodash/flatMap'
 import findKey from 'lodash/findKey'

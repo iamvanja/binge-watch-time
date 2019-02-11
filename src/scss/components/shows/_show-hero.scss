@@ -13,6 +13,13 @@
     min-height: 300px;
   }
 
+  .title {
+    small {
+      font-size: 60%;
+      color: $app-tertiary-color;
+    }
+  }
+
   .info {
     text-align: right;
 
@@ -88,6 +95,20 @@
         height: 160px !important;
         width: 108px !important;
         font-size: 33px !important;
+      }
+    }
+
+    .info {
+      .button-dropdown {
+        min-width: 170px;
+
+        .main-button {
+          width: 75%;
+        }
+
+        .button.dropdown {
+          width: 25%;
+        }
       }
     }
   }

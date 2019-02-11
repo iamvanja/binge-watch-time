@@ -1,6 +1,6 @@
 import createHistory from 'history/createBrowserHistory'
 import { routerMiddleware } from 'connected-react-router'
-import { setMobileMenuOpen } from 'actions/ui'
+import { setMobileMenuOpen } from 'redux/actions/ui'
 
 export const history = createHistory()
 

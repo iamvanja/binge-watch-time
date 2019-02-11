@@ -1,6 +1,6 @@
 import { createReducer } from 'redux-act'
 import merge from 'lodash/merge'
-import { setSeasons, setSeasonEpisodes } from 'actions/seasons'
+import { setSeasons, setSeasonEpisodes } from 'redux/actions/seasons'
 
 export const initialState = {}
 

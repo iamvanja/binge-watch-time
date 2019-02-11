@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { stringOrNumber } from 'constants/propTypes'
 import { connect } from 'react-redux'
-import { getShow } from 'reducers'
+import * as selectors from 'redux/reducers/selectors'
 import classnames from 'classnames'
 import { GridContainer, Grid, Cell } from 'components/Grid'
 import Rater from 'components/Rater'
@@ -15,6 +15,7 @@ import {
   BACKDROP_SIZES
 } from 'constants/tmdb'
 import ShowStatus from './ShowStatus'
+import get from 'lodash/get'
 
 const ShowHero = ({
   name,
@@ -24,9 +25,10 @@ const ShowHero = ({
   episodeRunTime,
   backdropPath,
   posterPath,
-  lastAirDate,
   status,
-  id
+  id,
+  showListName,
+  nextEpisodeToAir
 }) => {
   const heroStyle = {
     backgroundImage: backdropPath
@@ -48,7 +50,14 @@ const ShowHero = ({
               isMini ? 'auto' : 'small-12 large-auto'
             )}
           >
-            <h1>{name}</h1>
+            <h1>
+              {name}
+              {isMini && showListName
+                ? <small> ({showListName})</small>
+                : null
+              }
+            </h1>
+
           </Cell>
 
           {!isMini && (
@@ -57,7 +66,7 @@ const ShowHero = ({
                 <li className='airs-day'>
                   <ShowStatus
                     tmdbStatus={status}
-                    lastAired={lastAirDate}
+                    nextAirDate={get(nextEpisodeToAir, 'airDate')}
                   />
                 </li>
                 <li className='ratings'>
@@ -109,13 +118,23 @@ ShowHero.propTypes = {
   episodeRunTime: PropTypes.array.isRequired,
   backdropPath: PropTypes.string,
   posterPath: PropTypes.string,
-  lastAirDate: PropTypes.string,
   status: PropTypes.string,
-  id: stringOrNumber.isRequired
+  id: stringOrNumber.isRequired,
+  showListName: PropTypes.string,
+  nextEpisodeToAir: PropTypes.shape({
+    airDate: PropTypes.string
+  })
 }
 
 export default connect(
-  (state, ownProps) => ({
-    ...getShow(state, ownProps.showId)
-  })
+  (state, ownProps) => {
+    const { showId } = ownProps
+    const inListId = selectors.starredShows.getListIdByShowId(state, showId)
+    const lists = selectors.showsLists.getLists(state)
+
+    return {
+      ...selectors.shows.getShow(state, showId),
+      showListName: lists[inListId]
+    }
+  }
 )(ShowHero)

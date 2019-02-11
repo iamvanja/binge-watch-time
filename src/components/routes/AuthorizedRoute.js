@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { me } from 'actions/auth'
-import { isAuthPending, isLoggedIn } from 'reducers'
+import { me } from 'redux/actions/auth'
+import * as selectors from 'redux/reducers/selectors'
 import LoaderPage from 'components/LoaderPage'
 
 export class AuthorizedRoute extends React.Component {
@@ -45,8 +45,8 @@ AuthorizedRoute.propTypes = {
 
 export default connect(
   state => ({
-    isPending: isAuthPending(state),
-    isLogged: isLoggedIn(state)
+    isPending: selectors.auth.isAuthPending(state),
+    isLogged: selectors.auth.isLoggedIn(state)
   }),
   dispatch => ({
     onCheckAuth: () => dispatch(me())

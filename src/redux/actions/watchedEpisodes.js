@@ -34,7 +34,7 @@ export const remove = createAction(
 export const watch = createAction(
   `${API_ACTION_PREFIX}_SHOW_EPISODE_WATCH`,
   (showId, episodeId, seasonNumber, episodeNumber) => ({
-    url: `${API_BASE}/${showId}/season/${seasonNumber}/episode/${episodeNumber}/watch`,
+    url: `${API_BASE}/${showId}/seasons/${seasonNumber}/episode/${episodeNumber}/watch`,
     method: 'PUT',
     onSuccess: ({ dispatch, getState, response }) => {
       dispatch(set({ [showId]: [episodeId] }))
@@ -45,7 +45,7 @@ export const watch = createAction(
 export const unwatch = createAction(
   `${API_ACTION_PREFIX}_SHOW_EPISODE_UNWATCH`,
   (showId, episodeId, seasonNumber, episodeNumber) => ({
-    url: `${API_BASE}/${showId}/season/${seasonNumber}/episode/${episodeNumber}/watch`,
+    url: `${API_BASE}/${showId}/seasons/${seasonNumber}/episode/${episodeNumber}/watch`,
     method: 'DELETE',
     onSuccess: ({ dispatch, getState, response }) => {
       dispatch(remove(showId, episodeId))

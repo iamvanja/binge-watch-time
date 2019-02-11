@@ -1,16 +1,24 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { formatDate } from 'utils/date'
+import moment from 'moment'
 
-const ShowStatus = ({ tmdbStatus = '', lastAired }) => {
+const ShowStatus = ({ tmdbStatus = '', nextAirDate }) => {
   let status = tmdbStatus.toLowerCase()
   status = status === 'ended' || status === 'canceled'
     ? 'Dead 😢'
-    : formatDate(lastAired, 'dddd') + 's'
+    : nextAirDate
+      ? moment(nextAirDate, 'YYYY-MM-DD').diff(moment().startOf('day'), 'days')
+      : 'TBA'
 
-  status = status === 's'
-    ? null
-    : status
+  if (typeof status === 'number') {
+    if (status === 0) {
+      status = 'Today'
+    } else if (status === 1) {
+      status = 'Tomorrow'
+    } else {
+      status = status + ' days'
+    }
+  }
 
   return (
     <Fragment>{status}</Fragment>
@@ -19,7 +27,7 @@ const ShowStatus = ({ tmdbStatus = '', lastAired }) => {
 
 ShowStatus.propTypes = {
   tmdbStatus: PropTypes.string,
-  lastAired: PropTypes.string
+  nextAirDate: PropTypes.string
 }
 
 export default ShowStatus

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { isLoggedIn } from 'reducers'
+import * as selectors from 'redux/reducers/selectors'
 import { Link } from 'react-router-dom'
-import { logout } from 'actions/auth'
+import { logout } from 'redux/actions/auth'
 import LoadingResults from 'components/Loader'
 import Icon from 'components/Icon'
 
@@ -45,7 +45,7 @@ LogoutPage.propTypes = {
 
 export default connect(
   state => ({
-    isLogged: isLoggedIn(state)
+    isLogged: selectors.auth.isLoggedIn(state)
   }),
   dispatch => ({
     onLogout: () => dispatch(logout())

@@ -1,6 +1,6 @@
 import { createStore } from 'redux'
 import { connectRouter } from 'connected-react-router'
-import { history } from 'middleware/routerMiddleware'
+import { history } from './middleware/routerMiddleware'
 import reducers from './reducers'
 import enhancer from './middleware'
 

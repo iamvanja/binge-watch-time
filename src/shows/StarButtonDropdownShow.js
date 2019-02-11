@@ -2,14 +2,9 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import classnames from 'classnames'
-import {
-  getListIdByShowId,
-  getShowLists,
-  isRequestPending,
-  getCurrentListId
-} from 'reducers'
-import * as starredShows from 'actions/starredShows'
-import * as ui from 'actions/ui'
+import * as selectors from 'redux/reducers/selectors'
+import * as starredShows from 'redux/actions/starredShows'
+import * as ui from 'redux/actions/ui'
 import Button from 'components/Button'
 import Icon from 'components/Icon'
 import { Grid, Cell } from 'components/Grid'
@@ -95,7 +90,7 @@ class StarButtonDropdownShow extends Component {
             <Grid>
               <Cell
                 alignSelf='middle'
-                className='shrink'
+                className='shrink show-for-medium'
               >
                 <div className='icon-wrap'>
                   <Icon icon='star' />
@@ -175,12 +170,12 @@ StarButtonDropdownShow.propTypes = {
 export default connect(
   (state, { showId }) => ({
     isLoading: (
-      isRequestPending(state, starredShows.star(showId)) ||
-      isRequestPending(state, starredShows.unstar(showId))
+      selectors.ui.isRequestPending(state, starredShows.star(showId)) ||
+      selectors.ui.isRequestPending(state, starredShows.unstar(showId))
     ),
-    inListId: getListIdByShowId(state, showId),
-    lists: getShowLists(state),
-    uiListId: getCurrentListId(state)
+    inListId: selectors.starredShows.getListIdByShowId(state, showId),
+    lists: selectors.showsLists.getLists(state),
+    uiListId: selectors.ui.getCurrentListId(state)
   }),
   {
     onActive: starredShows.star,

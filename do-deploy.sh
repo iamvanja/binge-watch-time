@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 echo "Deploy script started"
-cd /var/www/staging.bingewatchtime.com
+cd /var/www/$WWW_DIR
 git checkout $BITBUCKET_BRANCH
 git pull
 git reset --hard $BITBUCKET_COMMIT

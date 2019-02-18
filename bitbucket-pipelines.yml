@@ -17,7 +17,7 @@ pipelines:
           deployment: staging
           script:
             - ./bitbucket-test.sh
-            - ssh $STAGING_USER@$STAGING_HOST 'bash -s' < do-deploy.sh
+            - ssh $STAGING_USER@$STAGING_HOST WWW_DIR=$WWW_DIR 'bash -s' < do-deploy.sh
             - echo "Deploy step finished"
 
       - step:
@@ -25,5 +25,5 @@ pipelines:
           deployment: production
           trigger: manual
           script:
-            - ssh $PROD_USER@$PROD_HOST 'bash -s' < do-deploy.sh
+            - ssh $PROD_USER@$PROD_HOST WWW_DIR=$WWW_DIR 'bash -s' < do-deploy.sh
             - echo "Deploy step finished"

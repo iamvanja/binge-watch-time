@@ -7,7 +7,8 @@ import {
   MYSQL_HOST,
   MYSQL_USER,
   MYSQL_PASS,
-  MYSQL_DB
+  MYSQL_DB,
+  MYSQL_SSL
 } from 'config/env'
 
 const connection = mysql.createConnection({
@@ -15,6 +16,7 @@ const connection = mysql.createConnection({
   user: MYSQL_USER,
   password: MYSQL_PASS,
   database: MYSQL_DB,
+  ssl: MYSQL_SSL,
   typeCast
 })
 

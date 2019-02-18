@@ -2,7 +2,7 @@
 // if this file is missing.
 // This needs to be executed early so that the rest of the codebase has access
 // to ENV vars.
-import {} from 'dotenv/config'
+import { } from 'dotenv/config'
 
 const {
   NODE_ENV,
@@ -25,6 +25,7 @@ const {
   MYSQL_USER,
   MYSQL_PASS,
   MYSQL_DB,
+  MYSQL_SSL: mySqlSsl,
   MAILER_FROM_EMAIL,
   MAILER_FROM_NAME,
   MAILGUN_API_KEY,
@@ -67,6 +68,7 @@ export { MYSQL_HOST }
 export { MYSQL_USER }
 export { MYSQL_PASS }
 export { MYSQL_DB }
+export const MYSQL_SSL = isTrue(mySqlSsl)
 export { MAILER_FROM_EMAIL }
 export { MAILER_FROM_NAME }
 export { MAILGUN_API_KEY }

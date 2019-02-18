@@ -76,7 +76,7 @@
     "test": "react-app-rewired test",
     "test:coverage": "yarn test -- --coverage",
     "start:server": "NODE_PATH=build-server pm2 start -f build-server/index.js --name api --update-env",
-    "migrate": "npx db-migrate --config 'server/database.json' --migrations-dir 'server/migrations'"
+    "migrate": "npx db-migrate --config 'server/database.js' --migrations-dir 'server/migrations'"
   },
   "proxy": {
     "/api": {

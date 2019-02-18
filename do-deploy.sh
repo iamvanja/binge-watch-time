@@ -3,7 +3,7 @@ set -e
 echo "Deploy script started"
 cd /var/www/$WWW_DIR
 git checkout $BITBUCKET_BRANCH
-git pull
+git fetch --all
 git reset --hard $BITBUCKET_COMMIT
 yarn install
 yarn migrate up

@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom'
 import BrowserRouter from './BrowserRouter'
 import './scss/app.css'
 import store from 'redux/store'
+import * as GA from 'utils/googleAnalytics'
 
 import UnauthorizedLayout from 'layouts/UnauthorizedLayout'
 import PublicLayout from 'layouts/PublicLayout'
@@ -29,4 +30,5 @@ class App extends Component {
   }
 }
 
+GA.init()
 ReactDOM.render(<App />, document.getElementById('root'))

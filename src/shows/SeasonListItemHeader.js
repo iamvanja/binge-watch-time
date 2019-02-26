@@ -9,7 +9,8 @@ import { IMG_BASE_URL, POSTER_SIZES } from 'constants/tmdb'
 
 const SeasonListItemHeader = props => {
   const { name, seasonNumber, airDate, posterPath, airingSeasonNumber } = props
-  const shouldRenderWatchButton = seasonNumber !== airingSeasonNumber
+  const shouldRenderWatchButton =
+    seasonNumber !== airingSeasonNumber && props.isShowStarred
 
   return (
     <div className='season-list-item'>
@@ -54,7 +55,8 @@ SeasonListItemHeader.propTypes = {
   id: PropTypes.number.isRequired,
   showId: PropTypes.number.isRequired,
   seasonNumber: PropTypes.number.isRequired,
-  airingSeasonNumber: PropTypes.number
+  airingSeasonNumber: PropTypes.number,
+  isShowStarred: PropTypes.bool
 }
 
 export default SeasonListItemHeader

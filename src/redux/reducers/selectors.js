@@ -88,17 +88,19 @@ export const getNextEpisode = (state, showId) => {
   const currentWatchedEpisodes = episodes
     .getEpisodes(state, watchedEpisodeIds) || []
 
-  const lastEpisode = currentWatchedEpisodes.reduce((prev, current) => {
-    const isPrevSeasonHigher = prev.seasonNumber > current.seasonNumber
-    const isPrevEpisodeHigher = (
-      prev.seasonNumber === current.seasonNumber &&
-      prev.episodeNumber > current.episodeNumber
-    )
+  const lastEpisode = currentWatchedEpisodes
+    .filter(item => !!item)
+    .reduce((prev, current) => {
+      const isPrevSeasonHigher = prev.seasonNumber > current.seasonNumber
+      const isPrevEpisodeHigher = (
+        prev.seasonNumber === current.seasonNumber &&
+        prev.episodeNumber > current.episodeNumber
+      )
 
-    return isPrevSeasonHigher || isPrevEpisodeHigher
-      ? prev
-      : current
-  }, {})
+      return isPrevSeasonHigher || isPrevEpisodeHigher
+        ? prev
+        : current
+    }, {})
 
   let seasonNumber = lastEpisode.seasonNumber || 1
   let episodeNumber = lastEpisode.episodeNumber || 0
@@ -146,7 +148,7 @@ export const isSeasonWatched = (state, seasonId) => {
   // that would match season.episodeCount.
   const watchedSeasonEpisodeIds = watchedEpisodeIds
     .reduce((total, watchedEpisodeId) => {
-      const episode = episodes.getEpisode(state, watchedEpisodeId)
+      const episode = episodes.getEpisode(state, watchedEpisodeId) || {}
 
       return episode.seasonNumber === season.seasonNumber
         ? total.concat(watchedEpisodeId)

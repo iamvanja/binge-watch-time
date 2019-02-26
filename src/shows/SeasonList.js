@@ -27,6 +27,7 @@ const SeasonList = (props) => {
                   <SeasonListItemHeader
                     {...season}
                     airingSeasonNumber={props.airingSeasonNumber}
+                    isShowStarred={isStarred}
                   />
                 )}
               >

@@ -8,6 +8,7 @@ const router = Router({ mergeParams: true })
 
 router.get(
   `/${SEASON_NUMBER}`,
+  ShowController.setSeason,
   ShowController.season
 )
 router.get(
@@ -15,14 +16,22 @@ router.get(
   ShowController.seasonEpisode
 )
 
-const watchArguments = [
+const watchEpisodeArguments = [
   `/${SEASON_NUMBER}/episode/${EPISODE_NUMBER}/watch`,
   isEpisodeIdValid,
   UserShowEpisodeController.toggleEpisodeWatch
 ]
 
-router.put(...watchArguments)
+const watchSeasonArguments = [
+  `/${SEASON_NUMBER}/watch`,
+  ShowController.setSeason,
+  UserShowEpisodeController.toggleSeasonEpisodesWatch
+]
 
-router.delete(...watchArguments)
+router.put(...watchEpisodeArguments)
+router.put(...watchSeasonArguments)
+
+router.delete(...watchEpisodeArguments)
+router.delete(...watchSeasonArguments)
 
 export default router

@@ -20,6 +20,7 @@ import {
   WATCHED_EPISODES
 } from './index'
 import find from 'lodash/find'
+import without from 'lodash/without'
 
 export const auth = bindSelectors(
   state => state[AUTH],
@@ -117,4 +118,40 @@ export const getNextEpisode = (state, showId) => {
   }
 
   return { seasonNumber, episodeNumber }
+}
+
+export const isSeasonWatched = (state, seasonId) => {
+  const season = seasons.getSeason(state, seasonId)
+  const watchedEpisodeIds = watchedEpisodes.getWatchedEpisodesByShowId(
+    state, season.showId
+  )
+
+  // Season's episode count is lower than user's watched episode count for
+  // the entire show - it is impossible that this season is fully watched.
+  if (season.episodeCount > watchedEpisodeIds.length) {
+    return false
+  }
+
+  // Episode is fully loaded and we have episode IDs.
+  // Let's compare season's episode IDs with watchedEpisodeIds
+  if (season.episodes.length) {
+    const unwatchedEpisodes = without(season.episodes, ...watchedEpisodeIds)
+
+    return unwatchedEpisodes.length === 0
+  }
+
+  // At this point we don't know which episodes are in this season.
+  // We only have user watched episodes.
+  // Let's construct an array of watched episode IDs for this season
+  // that would match season.episodeCount.
+  const watchedSeasonEpisodeIds = watchedEpisodeIds
+    .reduce((total, watchedEpisodeId) => {
+      const episode = episodes.getEpisode(state, watchedEpisodeId)
+
+      return episode.seasonNumber === season.seasonNumber
+        ? total.concat(watchedEpisodeId)
+        : total
+    }, [])
+
+  return watchedSeasonEpisodeIds.length === season.episodeCount
 }

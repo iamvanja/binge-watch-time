@@ -45,13 +45,6 @@ export const register = (req, res, next) => {
     .catch(next)
 }
 
-export const one = (req, res, next) => {
-  const { userId } = req.params
-  UserModel.findOne(userId)
-    .then(users => res.json(users[0]))
-    .catch(next)
-}
-
 export const passwordResetRequest = (req, res, next) => {
   const { email } = req.body
   let user = {}

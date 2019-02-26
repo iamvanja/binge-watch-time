@@ -32,6 +32,29 @@ const insertUpdate = (table, values = {}) => {
 }
 
 /**
+ * Insert multiple values in one statement. This method creates an sql statement similar to:
+ *  INSERT INTO table
+ *    (a,b,c)
+ *  VALUES
+ *    (1,2,3),
+ *    (4,5,6),
+ *    (7,8,9);
+ */
+const insertMultiple = (table, objects, options = {}) => {
+  let { cols } = options
+  // If only two arguments are passed, the second argument becomes objects
+  // and we will derive `cols` from the first object
+  if (cols === undefined) {
+    cols = Object.keys(objects[0])
+  }
+  const values = utils.prepareMultipleValues(objects, cols)
+
+  const sql = `INSERT ${options.isIgnore ? 'IGNORE' : ''} INTO \`${table}\` (\`${cols.join('`,`')}\`) VALUES ${values.join(',')}`
+
+  return query(sql)
+}
+
+/**
  * Run a SELECT statement
  */
 const select = (sql, values = {}) =>
@@ -43,6 +66,7 @@ const select = (sql, values = {}) =>
  */
 const update = (table, values, where) => {
   const sql = `UPDATE \`${table}\` SET ${utils.prepareInsertValues(values)} ${utils.sqlWhere(where)}`
+
   return query(sql)
     .then(({ results }) => results)
 }
@@ -52,6 +76,22 @@ const update = (table, values, where) => {
  */
 const deleteQuery = (table, where) => {
   const sql = `DELETE FROM \`${table}\` ${utils.sqlWhere(where)}`
+
+  return query(sql)
+}
+/**
+ * Build and run a DELETE statement for multiple rows at once
+ */
+const deleteQueryMultiple = (table, objects, cols) => {
+  // If only two arguments are passed, the second argument becomes objects
+  // and we will derive `cols` from the first object
+  if (cols === undefined) {
+    cols = Object.keys(objects[0])
+  }
+  const values = utils.prepareMultipleValues(objects, cols)
+
+  // DELETE FROM table WHERE(col1, col2) IN((1, 2), (3, 4), (5, 6))
+  const sql = `DELETE FROM \`${table}\` WHERE (\`${cols.join('`,`')}\`) IN (${values.join(',')})`
 
   return query(sql)
 }
@@ -83,9 +123,11 @@ const augment = (connection, transformResults) => {
     insert,
     insertIgnore,
     insertUpdate,
+    insertMultiple,
     select,
     update,
     delete: deleteQuery,
+    deleteMultiple: deleteQueryMultiple,
     sqlWhere: utils.sqlWhere
   }
 }

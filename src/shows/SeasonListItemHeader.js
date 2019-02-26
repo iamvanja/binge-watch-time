@@ -3,12 +3,29 @@ import PropTypes from 'prop-types'
 import { Grid, Cell } from 'components/Grid'
 import Image from 'components/Image'
 import ImagePlaceholder from 'components/ImagePlaceholder'
+import StarButtonSeason from 'shows/StarButtonSeason'
+import Icon from 'components/Icon'
 import { IMG_BASE_URL, POSTER_SIZES } from 'constants/tmdb'
 
-const SeasonListItemHeader = ({ name, episodeCount, airDate, posterPath }) => {
+const SeasonListItemHeader = props => {
+  const { name, seasonNumber, airDate, posterPath, airingSeasonNumber } = props
+  const shouldRenderWatchButton = seasonNumber !== airingSeasonNumber
+
   return (
     <div className='season-list-item'>
       <Grid align='middle'>
+        {shouldRenderWatchButton && (
+          <Cell className='shrink'>
+            <StarButtonSeason
+              className='season-watch-toggle'
+              seasonId={props.id}
+              seasonNumber={seasonNumber}
+              showId={props.showId}
+            >
+              <Icon icon='eye' />
+            </StarButtonSeason>
+          </Cell>
+        )}
         <Cell className='shrink'>
           <Image
             className='poster image-holder'
@@ -19,7 +36,9 @@ const SeasonListItemHeader = ({ name, episodeCount, airDate, posterPath }) => {
         </Cell>
         <Cell className='auto content'>
           <h2 className='title h3'>{name}</h2>
-          <span className='episode-count subheader'>{episodeCount} episodes</span>
+          <span className='episode-count subheader'>
+            {props.episodeCount} episodes
+          </span>
           {airDate && <span className='air-date subheader'>{airDate}</span>}
         </Cell>
       </Grid>
@@ -31,7 +50,11 @@ SeasonListItemHeader.propTypes = {
   name: PropTypes.string.isRequired,
   episodeCount: PropTypes.number.isRequired,
   airDate: PropTypes.string,
-  posterPath: PropTypes.string
+  posterPath: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  showId: PropTypes.number.isRequired,
+  seasonNumber: PropTypes.number.isRequired,
+  airingSeasonNumber: PropTypes.number
 }
 
 export default SeasonListItemHeader

@@ -1,5 +1,6 @@
 import ServiceShowModel from 'models/ServiceShowModel'
 import ServiceShowEpisodeModel from 'models/ServiceShowEpisodeModel'
+import { NotFound } from 'utils/throwables'
 import moment from 'moment'
 
 const defaultQuery = {
@@ -54,12 +55,25 @@ export const search = (req, res, next) => {
     .catch(next)
 }
 
-export const season = (req, res, next) => {
+export const setSeason = (req, res, next) => {
   const { showId, seasonNumber } = req.params
+
   ServiceShowEpisodeModel.search({ id: showId, seasonNumber })
-    .then(data => res.json(data))
+    .then((response = {}) => {
+      if (response.id) {
+        req.season = response
+      }
+    })
+    .then(() =>
+      !req.season
+        ? next(new NotFound())
+        : next()
+    )
     .catch(next)
 }
+
+export const season = (req, res, next) =>
+  res.json(req.season)
 
 export const seasonEpisode = (req, res, next) => {
   const { showId, ...rest } = req.params

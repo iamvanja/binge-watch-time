@@ -10,11 +10,11 @@ class ButtonToggle extends Component {
     this.onClick = this.onClick.bind(this)
   }
 
-  onClick () {
+  onClick (e) {
     const { isActive, onActive, onInactive } = this.props
     const action = isActive ? onInactive : onActive
 
-    return action()
+    return action(e)
   }
 
   render () {

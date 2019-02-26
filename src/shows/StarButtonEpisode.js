@@ -5,6 +5,8 @@ import * as selectors from 'redux/reducers/selectors'
 
 const getArgs = (props) =>
   [props.showId, props.episodeId, props.seasonNumber, props.episodeNumber]
+const watch = (props) => watchedEpisodes.watch(...getArgs(props))
+const unwatch = (props) => watchedEpisodes.unwatch(...getArgs(props))
 
 export default connect(
   (state, ownProps) => {
@@ -12,12 +14,8 @@ export default connect(
 
     return {
       disabled: (
-        selectors.ui.isRequestPending(
-          state, watchedEpisodes.watch(...getArgs(ownProps))
-        ) ||
-        selectors.ui.isRequestPending(
-          state, watchedEpisodes.unwatch(...getArgs(ownProps))
-        )
+        selectors.ui.isRequestPending(state, watch(ownProps)) ||
+        selectors.ui.isRequestPending(state, unwatch(ownProps))
       ),
       isActive: selectors.watchedEpisodes.isEpisodeWatched(
         state, showId, episodeId
@@ -26,8 +24,8 @@ export default connect(
   },
   (dispatch, ownProps) => {
     return {
-      onActive: _ => dispatch(watchedEpisodes.watch(...getArgs(ownProps))),
-      onInactive: _ => dispatch(watchedEpisodes.unwatch(...getArgs(ownProps)))
+      onActive: _ => dispatch(watch(ownProps)),
+      onInactive: _ => dispatch(unwatch(ownProps))
     }
   }
 )(ButtonToggle)

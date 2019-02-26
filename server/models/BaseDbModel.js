@@ -12,6 +12,7 @@ class Model {
   findOne (where) {
     where = this.normalizeWhere(where)
     const sql = `SELECT * FROM \`${this.table}\` ${where} LIMIT 1`
+
     return db.select(sql)
   }
 
@@ -19,30 +20,35 @@ class Model {
     orderBy = orderBy && `ORDER BY ${orderBy}`
     where = this.normalizeWhere(where)
     const sql = `SELECT * FROM \`${this.table}\` ${where} ${orderBy}`
+
     return db.select(sql)
   }
 
   list (orderBy) {
     orderBy = orderBy && `ORDER BY ${orderBy}`
     const sql = `SELECT * FROM \`${this.table}\` ${orderBy}`
+
     return db.select(sql)
   }
 
   insert (values) {
     const attrs = this.fixCase(values)
+
     return db.insert(this.table, attrs)
       .then(response => response.insertId)
   }
 
-  insertMultiple (values) {
+  insertMultiple (values, options = {}) {
     const attrs = values.map(value => this.fixCase(value))
-    const cols = Object.keys(attrs[0])
-    return db.insertMultiple(this.table, cols, attrs)
-      .then(response => response)
+
+    return db.insertMultiple(this.table, attrs, {
+      ...options
+    })
   }
 
   insertIgnore (values) {
     const attrs = this.fixCase(values)
+
     return db.insertIgnore(this.table, attrs)
       .then(response => response.insertId)
   }
@@ -56,17 +62,26 @@ class Model {
   update (where, values) {
     const attrs = this.fixCase(values)
     where = this.normalizeWhere(where)
+
     return db.update(this.table, attrs, where)
   }
 
   delete (where) {
     where = this.normalizeWhere(where)
+
     return db.delete(this.table, where)
+  }
+
+  deleteMultiple (values) {
+    const attrs = values.map(value => this.fixCase(value))
+
+    return db.deleteMultiple(this.table, attrs)
   }
 
   count (where) {
     where = this.normalizeWhere(where)
     const sql = `SELECT COUNT(*) as total FROM \`${this.table}\` ${where} LIMIT 1`
+
     return db.select(sql)
       .then(results => results.total)
   }

@@ -6,7 +6,7 @@ import omit from 'lodash/omit'
 
 const Button = ({ type, icon, onClick, className, children, ...rest }) =>
   <button
-    {...omit(rest, ['showId', 'episodeId'])}
+    {...omit(rest, ['showId', 'episodeId', 'seasonId'])}
     onClick={onClick}
     type={type || 'button'}
     className={classnames('button', className, { 'icon-text': icon })}>

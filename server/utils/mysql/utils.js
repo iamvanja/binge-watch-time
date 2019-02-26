@@ -46,6 +46,25 @@ export const prepareInsertValues = (values = {}) =>
     : stringifyObject(values)
 
 /**
+ * Turns [
+ * {id: 1, foreign_id: 100},
+ * {id: 2, foreign_id: 101}
+ *  ] into
+ *  ['(1, 100)', '(2, 101)']
+ *
+ */
+export const prepareMultipleValues = (objects = [], cols = []) =>
+  objects.map(obj => {
+    const uniformObj = []
+
+    cols.forEach(col => {
+      uniformObj.push(obj[col] || 'null')
+    })
+
+    return `(${uniformObj.join(',')})`
+  })
+
+/**
  * Turns {user_id: 1, age: null}, into "WHERE `user_id` = 1 AND `age` IS NULL"
  */
 export const sqlWhere = (where = '') => {

@@ -45,6 +45,11 @@
       top: 0;
       background: $accordion-background;
 
+      .season-watch-toggle {
+        margin-left: rem-calc(10px);
+        margin-right: rem-calc(10px);
+      }
+
       &:before {
         font-size: rem-calc(20px);
       }

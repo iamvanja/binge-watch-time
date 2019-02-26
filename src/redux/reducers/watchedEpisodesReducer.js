@@ -14,10 +14,11 @@ export default createReducer({
   },
 
   [remove]: (state, payload) => {
-    const { showId, episodeId } = payload
+    const { showId, episodeIds = [] } = payload
+
     return {
       ...state,
-      [showId]: state[showId].filter(id => id !== episodeId)
+      [showId]: state[showId].filter(id => !episodeIds.includes(id))
     }
   }
 

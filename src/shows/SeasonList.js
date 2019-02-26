@@ -12,22 +12,33 @@ const SeasonList = (props) => {
   return (
     <div className='show-episodes-list'>
       <ul className='accordion'>
-        {seasons.map(({ seasonNumber, ...season } = {}, i) =>
-          <AccordionItem
-            key={seasonNumber}
-            tabIndex={0}
-            isLazyRender
-            isOpen={seasonNumber === (currentSeasonNumber || 1)}
-            title={<SeasonListItemHeader {...season} />}
-          >
-            <SeasonEpisodeList
-              {...season}
-              seasonNumber={seasonNumber}
-              isShowStarred={isStarred}
-              baseEpisodeUrl={match.url}
-            />
-          </AccordionItem>
-        )}
+        {seasons
+          .filter(({ seasonNumber }) => seasonNumber > 0)
+          .map((season = {}, i) => {
+            const { seasonNumber } = season
+
+            return (
+              <AccordionItem
+                key={seasonNumber}
+                tabIndex={0}
+                isLazyRender
+                isOpen={seasonNumber === (currentSeasonNumber || 1)}
+                title={(
+                  <SeasonListItemHeader
+                    {...season}
+                    airingSeasonNumber={props.airingSeasonNumber}
+                  />
+                )}
+              >
+                <SeasonEpisodeList
+                  {...season}
+                  seasonNumber={seasonNumber}
+                  isShowStarred={isStarred}
+                  baseEpisodeUrl={match.url}
+                />
+              </AccordionItem>
+            )
+          })}
       </ul>
     </div>
   )
@@ -47,19 +58,22 @@ SeasonList.propTypes = {
     url: PropTypes.string.isRequired
   }).isRequired,
   isStarred: PropTypes.bool,
-  currentSeasonNumber: PropTypes.number
+  currentSeasonNumber: PropTypes.number,
+  airingSeasonNumber: PropTypes.number
 }
 
 export default connect(
   (_, ownProps) => state => {
     const showId = parseInt(ownProps.match.params.showId, 10)
     const nextEpisode = selectors.getNextEpisode(state, showId)
+    const show = selectors.shows.getShow(state, showId)
 
     return {
       showId,
       isStarred: selectors.starredShows.isShowStarred(state, showId),
       seasons: selectors.getShowSeasons(state, showId),
-      currentSeasonNumber: nextEpisode.seasonNumber
+      currentSeasonNumber: nextEpisode.seasonNumber,
+      airingSeasonNumber: (show.nextEpisodeToAir || {}).seasonNumber
     }
   }
 )(SeasonList)

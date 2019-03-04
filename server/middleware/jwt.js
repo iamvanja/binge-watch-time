@@ -20,7 +20,9 @@ const setJwtCookie = (req, res, payload, secret, timeout) => {
     // Front-end JS can't read token
     httpOnly: true,
     // Ability to replace cookie (logging out)
-    overwrite: true
+    overwrite: true,
+
+    maxAge: timeout
   })
 }
 

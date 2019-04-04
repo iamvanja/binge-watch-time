@@ -6,6 +6,7 @@ import {
   apiError,
   setDiscoverGenre,
   setCurrentList,
+  setCurrentSort,
   setMobileMenuOpen
 } from 'redux/actions/ui'
 
@@ -14,7 +15,8 @@ export const initialState = {
   erroredRequests: [],
   discoverGenre: null,
   currentListId: 2,
-  isMobileMenuOpen: false
+  isMobileMenuOpen: false,
+  currentSort: 'nextEpisodeToAir.airDate-asc'
 }
 
 const add = (state, label) =>
@@ -51,6 +53,11 @@ export default createReducer({
     currentListId: parseInt(payload.listId, 10)
   }),
 
+  [setCurrentSort]: (state, payload) => ({
+    ...state,
+    currentSort: payload.sort
+  }),
+
   [setMobileMenuOpen]: (state, payload) => ({
     ...state,
     isMobileMenuOpen: !!payload.isMobileMenuOpen
@@ -70,6 +77,9 @@ export const getDiscoverGenre = state =>
 
 export const getCurrentListId = state =>
   state.currentListId
+
+export const getCurrentSort = state =>
+  state.currentSort
 
 export const isMobileMenuOpen = state =>
   !!state.isMobileMenuOpen

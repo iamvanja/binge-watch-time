@@ -13,6 +13,10 @@ export const setCurrentList = createAction(
   'SET_STARRED_LIST',
   listId => ({ listId })
 )
+export const setCurrentSort = createAction(
+  'SET_ORDER_LIST',
+  sort => ({ sort })
+)
 export const setMobileMenuOpen = createAction(
   'SET_MOBILE_MENU_OPEN',
   isMobileMenuOpen => ({ isMobileMenuOpen })

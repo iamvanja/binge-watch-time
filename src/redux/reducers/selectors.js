@@ -66,6 +66,10 @@ export const getDiscoverShows = (state, type) =>
 export const getStarredShows = state =>
   shows.getShows(state, starredShows.getStarredIds(state))
 
+export const getStarredShowsByListId = (state, listId) =>
+  shows.getShows(state, starredShows.getStarredIdsByListId(state, listId))
+    .filter(show => !!show)
+
 export const getShowSeasons = (state, showId) =>
   seasons.getSeasons(state, shows.getShowSeasonIds(state, showId))
 

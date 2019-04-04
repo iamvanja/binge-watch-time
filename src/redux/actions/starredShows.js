@@ -1,5 +1,10 @@
 import { createAction } from 'redux-act'
 import { API_ACTION_PREFIX } from 'constants/app'
+import { normalize } from 'normalizr'
+import { setShows } from './shows'
+import { setSeasons } from './seasons'
+import { showsSchema } from 'schemas'
+import * as selectors from 'redux/reducers/selectors'
 
 const API_BASE = '/api/shows'
 
@@ -11,6 +16,32 @@ export const fetch = createAction(`${API_ACTION_PREFIX}_SHOW_STARRED`, () => ({
     )
   }
 }))
+
+export const fetchByListId = createAction(
+  `${API_ACTION_PREFIX}_SHOWS_STARRED_LIST`, listId => {
+    return {
+      url: `${API_BASE}/starred/list/${listId}`,
+      hasLocalData: ({ getState }) => {
+        const starredShowIds = selectors.starredShows.getStarredIdsByListId(
+          getState(), listId
+        )
+        const shows = selectors.getStarredShowsByListId(
+          getState(), listId
+        )
+
+        return starredShowIds.length
+          ? starredShowIds.length === shows.length
+          : false
+      },
+      onSuccess: ({ dispatch, getState, response }) => {
+        const data = normalize(response, showsSchema)
+
+        dispatch(setShows(data.entities.shows))
+        dispatch(setSeasons(data.entities.seasons))
+        dispatch(set(listId, data.result))
+      }
+    }
+  })
 
 export const set = createAction(
   'SET_STARRED_SHOWS',

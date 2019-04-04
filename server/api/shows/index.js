@@ -19,6 +19,7 @@ router.use('/lists', lists)
 router.get(`/${SHOW_ID}`, ShowController.one)
 router.get('/search/:name', ShowController.search)
 router.get('/starred', UserShowController.starredShows)
+router.get('/starred/list/:listId', UserShowController.starredShowsByList)
 router.get('/episodes/watched', UserShowEpisodeController.watchedEpisodes)
 
 export default router

@@ -8,6 +8,7 @@
   &.overlay-bg {
     &:after {
       background: rgba($app-secondary-color, 0.7);
+      z-index: 0;
     }
 
     &:hover {
@@ -31,6 +32,8 @@
     display: block;
     color: $app-white;
     text-shadow: 1px 1px 3px rgba($app-black, 0.4);
+    position: relative;
+    z-index: 1;
   }
 
   .grid-x {

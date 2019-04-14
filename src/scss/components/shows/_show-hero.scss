@@ -5,6 +5,7 @@
 
     &:after {
       background: rgba($app-secondary-color, 0.8);
+      z-index: 0;
     }
   }
 
@@ -12,8 +13,10 @@
     animation-duration: 100ms;
   }
 
-  > .grid-x {
+  > .grid-container > .grid-x {
     min-height: 300px;
+    position: relative;
+    z-index: 1;
   }
 
   .title {

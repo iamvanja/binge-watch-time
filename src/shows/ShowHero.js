@@ -6,14 +6,8 @@ import * as selectors from 'redux/reducers/selectors'
 import classnames from 'classnames'
 import { GridContainer, Grid, Cell } from 'components/Grid'
 import Rater from 'components/Rater'
-import Image from 'components/Image'
-import ImagePlaceholder from 'components/ImagePlaceholder'
+import ImageTmdb from 'components/ImageTmdb'
 import StarButtonDropdownShow from './StarButtonDropdownShow'
-import {
-  IMG_BASE_URL,
-  POSTER_SIZES,
-  BACKDROP_SIZES
-} from 'constants/tmdb'
 import ShowStatus from './ShowStatus'
 import get from 'lodash/get'
 
@@ -30,17 +24,17 @@ const ShowHero = ({
   showListName,
   nextEpisodeToAir
 }) => {
-  const heroStyle = {
-    backgroundImage: backdropPath
-      ? `url('${IMG_BASE_URL}/${BACKDROP_SIZES.large}${backdropPath}')`
-      : undefined
-  }
-
   return (
-    <div
-      className={classnames('show-hero overlay-bg', { 'mini': isMini })}
-      style={heroStyle}
-    >
+    <div className={classnames('show-hero overlay-bg', { 'mini': isMini })}>
+      {backdropPath && (
+        <ImageTmdb
+          className='bwt-background-image'
+          type='backdrop'
+          size='large'
+          path={backdropPath}
+          name={name}
+        />
+      )}
       <GridContainer>
         <Grid gutters='margin'>
           <Cell
@@ -57,7 +51,6 @@ const ShowHero = ({
                 : null
               }
             </h1>
-
           </Cell>
 
           {!isMini && (
@@ -91,11 +84,14 @@ const ShowHero = ({
             </Cell>
           )}
 
-          <Cell className='shrink poster' alignSelf='middle'>
-            <Image
-              src={`${IMG_BASE_URL}/${POSTER_SIZES.medium}${posterPath}`}
-              alt={`${name} poster`}
-              fallback={<ImagePlaceholder width={176} height={260} />}
+          <Cell className='shrink poster bwt-image-holder' alignSelf='middle'>
+            <ImageTmdb
+              type='poster'
+              size='medium'
+              path={posterPath}
+              name={name}
+              width={176}
+              height={260}
             />
           </Cell>
 

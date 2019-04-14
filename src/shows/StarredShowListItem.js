@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as selectors from 'redux/reducers/selectors'
 import { Link } from 'react-router-dom'
 import { GridContainer, Grid, Cell } from 'components/Grid'
-import { IMG_BASE_URL, BACKDROP_SIZES } from 'constants/tmdb'
+import ImageTmdb from 'components/ImageTmdb'
 import ShowStatus from './ShowStatus'
 import get from 'lodash/get'
 
@@ -19,18 +19,19 @@ const StarredShowListItem = props => {
     nextEpisodeToAir,
     backdropPath
   } = props
-  const heroStyle = {
-    backgroundImage: backdropPath
-      ? `url('${IMG_BASE_URL}/${BACKDROP_SIZES.large}${backdropPath}')`
-      : undefined
-  }
   const missedCount = numberOfEpisodes - watchedEpisodeCount
 
   return (
-    <div
-      className='starred-show-list-item overlay-bg'
-      style={heroStyle}
-    >
+    <div className='starred-show-list-item overlay-bg'>
+      {backdropPath && (
+        <ImageTmdb
+          className='bwt-background-image'
+          type='backdrop'
+          size='large'
+          path={backdropPath}
+          name={name}
+        />
+      )}
       <Link to={`shows/${id}`}>
         <GridContainer>
           <Grid>

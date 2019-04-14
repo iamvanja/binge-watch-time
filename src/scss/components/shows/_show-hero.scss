@@ -1,12 +1,15 @@
 .show-hero {
   &.overlay-bg {
     background: no-repeat top center $app-black;
-    background-size: cover;
     z-index: 1; // needed for dropdown-button overlap with .page.show-detail > .sub-nav
 
     &:after {
       background: rgba($app-secondary-color, 0.8);
     }
+  }
+
+  img.bwt-main-image {
+    animation-duration: 100ms;
   }
 
   > .grid-x {
@@ -45,6 +48,7 @@
       transition: max-height 0.1s linear;
       margin-bottom: 0;
       max-height: 360px;
+      width: auto;
     }
   }
 

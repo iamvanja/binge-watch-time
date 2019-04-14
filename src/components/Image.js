@@ -1,38 +1,69 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import PropTypes from 'prop-types'
+import { renderable } from 'constants/propTypes'
+import classnames from 'classnames'
 
 class Image extends Component {
   constructor () {
     super()
-    this.state = {}
-    this.handleError = this.handleError.bind(this)
-  }
-
-  handleError () {
-    if (this.props.fallback) {
-      this.setState({ isFailed: true })
+    this.state = {
+      isLoaded: false,
+      isFailed: null
     }
   }
 
-  render () {
-    const { fallback, ...props } = this.props
-    const { isFailed } = this.state
+  componentDidMount () {
+    this.loadImage()
+  }
+
+  loadImage () {
+    const image = new window.Image()
+    image.onload = () => {
+      this.setState({ isLoaded: true })
+    }
+    image.onerror = () => {
+      this.setState({ isFailed: true })
+    }
+    image.src = this.props.src
+  }
+
+  renderImage (isLoaded) {
+    const { placeholderSrc, src, alt, className, ...rest } = this.props
+    const computedProps = {
+      src: isLoaded ? src : placeholderSrc,
+      className: classnames(className, {
+        'bwt-main-image': isLoaded,
+        'bwt-preview-image': !isLoaded
+      })
+    }
 
     return (
-      isFailed
-        ? fallback
-        // alt is a required prop of this component so the rule
-        // that eslint complains about is actually satisfied
-        // eslint-disable-next-line jsx-a11y/alt-text
-        : <img {...props} onError={this.handleError} />
+      <img
+        {...rest}
+        {...computedProps}
+        alt={alt}
+      />
+    )
+  }
+
+  render () {
+    return (
+      <Fragment>
+        {this.state.isFailed
+          ? this.props.fallback
+          : this.renderImage(this.state.isLoaded)
+        }
+      </Fragment>
     )
   }
 }
 
 Image.propTypes = {
   src: PropTypes.string.isRequired,
+  placeholderSrc: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
-  fallback: PropTypes.any
+  className: PropTypes.string,
+  fallback: renderable
 }
 
 export default Image

@@ -88,7 +88,7 @@ class StarredShowList extends Component {
 
   renderShowsListSelect () {
     return (
-      <Cell small={12} medium={3}>
+      <Cell small={6} medium={3}>
         {/* eslint-disable-next-line jsx-a11y/no-onchange */}
         <select
           onChange={this.handleListChange}
@@ -107,7 +107,7 @@ class StarredShowList extends Component {
 
   renderShowsListOrder () {
     return (
-      <Cell small={12} medium={3}>
+      <Cell small={6} medium={3}>
         {/* eslint-disable-next-line jsx-a11y/no-onchange */}
         <select
           onChange={this.handleSortChange}

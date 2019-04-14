@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Grid, Cell } from 'components/Grid'
-import Image from 'components/Image'
-import ImagePlaceholder from 'components/ImagePlaceholder'
 import StarButtonSeason from 'shows/StarButtonSeason'
 import Icon from 'components/Icon'
-import { IMG_BASE_URL, POSTER_SIZES } from 'constants/tmdb'
+import ImageTmdb from 'components/ImageTmdb'
 
 const SeasonListItemHeader = props => {
   const { name, seasonNumber, airDate, posterPath, airingSeasonNumber } = props
@@ -27,12 +25,15 @@ const SeasonListItemHeader = props => {
             </StarButtonSeason>
           </Cell>
         )}
-        <Cell className='shrink'>
-          <Image
+        <Cell className='shrink bwt-image-holder'>
+          <ImageTmdb
             className='poster image-holder'
-            src={`${IMG_BASE_URL}/${POSTER_SIZES.thumb}${posterPath}`}
-            alt={`${name} poster`}
-            fallback={<ImagePlaceholder width={55} height={82} />}
+            type='poster'
+            size='thumb'
+            path={posterPath}
+            name={name}
+            width={55}
+            height={82}
           />
         </Cell>
         <Cell className='auto content'>

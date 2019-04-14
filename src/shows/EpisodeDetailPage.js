@@ -2,11 +2,10 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Loader from 'components/Loader'
-import Image from 'components/Image'
+import ImageTmdb from 'components/ImageTmdb'
 import Icon from 'components/Icon'
 import { Grid, Cell } from 'components/Grid'
 import StarButtonEpisode from './StarButtonEpisode'
-import { IMG_BASE_URL, STILL_SIZES } from 'constants/tmdb'
 import { formatDate } from 'utils/date'
 import { formatSeasonEpisode } from 'utils/string'
 import * as episodes from 'redux/actions/episodes'
@@ -114,10 +113,15 @@ class EpisodeDetailPage extends Component {
         <hr />
 
         {episode.stillPath && (
-          <div className='text-center'>
-            <Image
-              src={`${IMG_BASE_URL}/${STILL_SIZES.medium}${episode.stillPath}`}
-              alt={`${episode.name} still`}
+          <div className='text-center bwt-image-holder'>
+            <ImageTmdb
+              type='still'
+              size='medium'
+              path={episode.stillPath}
+              name={episode.name}
+              defaultToFallback={false}
+              width={300}
+              height={169}
             />
           </div>
         )}

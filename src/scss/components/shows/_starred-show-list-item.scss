@@ -1,9 +1,9 @@
 .starred-show-list-item {
   color: $app-white;
   margin-bottom: rem-calc(2px);
-  background: no-repeat center;
-  background-size: cover;
   height: rem-calc(140px);
+  position: relative;
+  overflow: hidden;
 
   &.overlay-bg {
     &:after {

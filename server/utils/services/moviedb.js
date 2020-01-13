@@ -8,7 +8,7 @@ import snakeCase from 'lodash/snakeCase'
 import camelCase from 'lodash/camelCase'
 
 const _mdb = moviedb(MOVIE_DB_API_KEY)
-const throttle = limits().within(10 * 1000, 39)
+const throttle = limits().within(10 * 1000, 100)
 const queue = []
 let waitingForToken = false
 let haveToken = false

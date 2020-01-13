@@ -1,7 +1,6 @@
 import UserShowModel from 'models/UserShowModel'
 import ServiceShowModel from 'models/ServiceShowModel'
 import { UserNotAllowed } from 'utils/throwables'
-import * as promiseUtils from 'utils/promise'
 
 export const toggleStar = (req, res, next) => {
   const { userId } = req.user
@@ -49,13 +48,8 @@ export const starredShowsByList = (req, res, next) => {
   UserShowModel.find({ userId, listId })
     .then(data => data.map(show => show.showId))
     .then((showIds = []) => {
-      const promises = showIds.map(id =>
-        promiseUtils.retry(
-          () => ServiceShowModel.one({ id }), {
-            retryCount: 10,
-            interval: 200
-          })
-      )
+      const promises = showIds.map(id => ServiceShowModel.one({ id }))
+        .map(p => p.catch(() => undefined)) // swallow errors
 
       return Promise.all(promises)
     })

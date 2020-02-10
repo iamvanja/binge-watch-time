@@ -136,8 +136,9 @@ export const getNumberOfAiredEpisodesPerShow = (state, showId) => {
     .map(seasonId => seasons.getSeason(state, seasonId))
     .reduce((total, currentSeason) =>
       // skip specials
-      // or if the season is in the future
-      !currentSeason.seasonNumber
+      !currentSeason.seasonNumber ||
+        // or if the season is in the future
+        currentSeason.seasonNumber > lastEpisodeToAir.seasonNumber
         ? total
         // if the season is current, only count aired episodes
         : currentSeason.seasonNumber === lastEpisodeToAir.seasonNumber

@@ -51,7 +51,7 @@
     "normalizr": "^3.2.4",
     "object-fit-images": "^3.2.4",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.2.1",
     "react-ga": "^2.5.7",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",

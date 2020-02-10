@@ -126,6 +126,38 @@ export const getNextEpisode = (state, showId) => {
   return { seasonNumber, episodeNumber }
 }
 
+export const getNumberOfAiredEpisodesPerShow = (state, showId) => {
+  const {
+    lastEpisodeToAir,
+    seasons: showSeasonIds
+  } = shows.getShow(state, showId)
+
+  return showSeasonIds
+    .map(seasonId => seasons.getSeason(state, seasonId))
+    .reduce((total, currentSeason) =>
+      // skip specials
+      !currentSeason.seasonNumber ||
+        // or if the season is in the future
+        currentSeason.seasonNumber > lastEpisodeToAir.seasonNumber
+        ? total
+        // if the season is current, only count aired episodes
+        : currentSeason.seasonNumber === lastEpisodeToAir.seasonNumber
+          ? total + lastEpisodeToAir.episodeNumber
+          // else return entire season count
+          : total + currentSeason.episodeCount
+      , 0)
+}
+
+export const getMissedCountPerShow = (state, showId) => {
+  const allUnwatched = watchedEpisodes.getWatchedEpisodesByShowId(state, showId)
+  const numberOfAiredEpisodes = getNumberOfAiredEpisodesPerShow(state, showId)
+  const missedCount = numberOfAiredEpisodes - allUnwatched.length
+
+  return missedCount > 0
+    ? missedCount
+    : 0
+}
+
 export const isSeasonWatched = (state, seasonId) => {
   const season = seasons.getSeason(state, seasonId)
   const watchedEpisodeIds = watchedEpisodes.getWatchedEpisodesByShowId(

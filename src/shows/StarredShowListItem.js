@@ -13,13 +13,11 @@ const StarredShowListItem = props => {
   const {
     id,
     name,
-    numberOfEpisodes,
-    watchedEpisodeCount,
     status,
     nextEpisodeToAir,
+    missedEpisodeCount,
     backdropPath
   } = props
-  const missedCount = numberOfEpisodes - watchedEpisodeCount
 
   return (
     <div className='starred-show-list-item overlay-bg'>
@@ -42,7 +40,7 @@ const StarredShowListItem = props => {
               <h6>
                 <span>
                   <span className='stat'>
-                    {'' + (missedCount < 0 ? 0 : missedCount)}
+                    {missedEpisodeCount}
                   </span> missed
                   <hr />
                 </span>
@@ -61,15 +59,14 @@ const StarredShowListItem = props => {
 }
 
 StarredShowListItem.defaultProps = {
-  watchedEpisodeCount: 0
+  missedEpisodeCount: 0
 }
 
 StarredShowListItem.propTypes = {
   backdropPath: PropTypes.string,
   id: stringOrNumber.isRequired,
   name: PropTypes.string,
-  numberOfEpisodes: PropTypes.number,
-  watchedEpisodeCount: PropTypes.number,
+  missedEpisodeCount: PropTypes.number,
   status: PropTypes.string,
   nextEpisodeToAir: PropTypes.shape({
     airDate: PropTypes.string
@@ -79,9 +76,9 @@ StarredShowListItem.propTypes = {
 export default connect(
   (state, ownProps) => {
     return {
-      watchedEpisodeCount: selectors.watchedEpisodes.getWatchedEpisodesByShowId(
+      missedEpisodeCount: selectors.getMissedCountPerShow(
         state, ownProps.id
-      ).length
+      )
     }
   }
 )(StarredShowListItem)

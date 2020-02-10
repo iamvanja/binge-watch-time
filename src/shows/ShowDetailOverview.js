@@ -12,21 +12,10 @@ class ShowDetailOverview extends Component {
   constructor () {
     super()
     this.state = {
-      isEmbedShown: false,
-      youtubeVideo: null
+      isEmbedShown: false
     }
 
     this.showEmbed = this.showEmbed.bind(this)
-  }
-
-  componentDidMount () {
-    const { videos } = this.props
-    const youtubeVideo = videos.length && find(videos, {
-      site: 'YouTube'
-    })
-    if (youtubeVideo) {
-      this.setState({ youtubeVideo })
-    }
   }
 
   showEmbed () {
@@ -44,9 +33,13 @@ class ShowDetailOverview extends Component {
       networks,
       type,
       genres,
-      homepage
+      homepage,
+      videos
     } = this.props
-    const { isEmbedShown, youtubeVideo } = this.state
+    const { isEmbedShown } = this.state
+    const youtubeVideo = videos.length && find(videos, {
+      site: 'YouTube'
+    })
 
     return (
       <div className='show-detail-overview'>
@@ -65,13 +58,15 @@ class ShowDetailOverview extends Component {
                   {
                     isEmbedShown
                       ? <YouTubeEmbed video={youtubeVideo} />
-                      : <Button
-                        icon='cinema'
-                        className='expanded hollow'
-                        onClick={this.showEmbed}
-                      >
-                        Play Trailer
-                      </Button>
+                      : (
+                        <Button
+                          icon='cinema'
+                          className='expanded hollow'
+                          onClick={this.showEmbed}
+                        >
+                          Play Trailer
+                        </Button>
+                      )
                   }
                 </Cell>
               </Grid>

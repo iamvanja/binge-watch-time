@@ -5,7 +5,7 @@ const YouTubeEmbed = ({ video }) =>
   <div className='responsive-embed widescreen'>
     <iframe
       title={video.name || video.id || video.key}
-      src={`https://www.youtube.com/embed/${video.key}`}
+      src={`https://www.youtube.com/embed/${video.key}?autoplay=1`}
       frameBorder='0'
       allowFullScreen
     />

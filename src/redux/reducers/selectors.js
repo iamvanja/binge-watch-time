@@ -2,6 +2,7 @@ import bindSelectors from './utils/bindSelectors'
 import * as authSelectors from './authReducer'
 import * as discoverSelectors from './discoverReducer'
 import * as episodesSelectors from './episodesReducer'
+import * as moviesSelectors from './moviesReducer'
 import * as showsListsSelectors from './shows/listsReducer'
 import * as seasonsSelectors from './seasonsReducer'
 import * as showsSelectors from './showsReducer'
@@ -12,6 +13,7 @@ import {
   AUTH,
   DISCOVER,
   EPISODES,
+  MOVIES,
   SHOW_LISTS,
   SEASONS,
   SHOWS,
@@ -33,6 +35,10 @@ export const discover = bindSelectors(
 export const episodes = bindSelectors(
   state => state[EPISODES],
   episodesSelectors
+)
+export const movies = bindSelectors(
+  state => state[MOVIES],
+  moviesSelectors
 )
 export const showsLists = bindSelectors(
   state => state[SHOW_LISTS],
@@ -61,7 +67,10 @@ export const watchedEpisodes = bindSelectors(
 
 // combined selectors
 export const getDiscoverShows = (state, type) =>
-  shows.getShows(state, discover.getDiscoverIds(state, type))
+  shows.getShows(state, discover.getDiscoverIds(state, 'shows', type))
+
+export const getDiscoverMovies = (state, type) =>
+  movies.getMovies(state, discover.getDiscoverIds(state, 'movies', type))
 
 export const getStarredShows = state =>
   shows.getShows(state, starredShows.getStarredIds(state))

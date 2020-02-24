@@ -53,3 +53,13 @@ export const showSchema = new schema.Entity(
 )
 
 export const showsSchema = [showSchema]
+
+export const movieSchema = new schema.Entity('movies', {}, {
+  processStrategy: (value, parent, key) => ({
+    ...value,
+    name: value.title // use name for consistency with shows
+  })
+}
+)
+
+export const moviesSchema = [movieSchema]

@@ -5,6 +5,7 @@ import {
   apiFinish,
   apiError,
   setDiscoverGenre,
+  setDiscoverType,
   setCurrentList,
   setCurrentSort,
   setMobileMenuOpen
@@ -48,6 +49,11 @@ export default createReducer({
     discoverGenre: payload.discoverGenre
   }),
 
+  [setDiscoverType]: (state, payload) => ({
+    ...state,
+    discoverType: payload.discoverType
+  }),
+
   [setCurrentList]: (state, payload) => ({
     ...state,
     currentListId: parseInt(payload.listId, 10)
@@ -74,6 +80,9 @@ export const isRequestErrored = (state, action) =>
 
 export const getDiscoverGenre = state =>
   state.discoverGenre
+
+export const getDiscoverType = state =>
+  state.discoverType || 'shows'
 
 export const getCurrentListId = state =>
   state.currentListId

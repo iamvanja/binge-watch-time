@@ -25,4 +25,17 @@
       margin: 0;
     }
   }
+
+  .grid-container {
+    > h1 {
+      select {
+        font-size: inherit;
+        width: auto;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        height: auto;
+        margin-left: rem-calc(10px);
+      }
+    }
+  }
 }

@@ -9,6 +9,10 @@ export const setDiscoverGenre = createAction(
   'SET_DISCOVER_GENRE',
   genreId => ({ discoverGenre: genreId })
 )
+export const setDiscoverType = createAction(
+  'SET_DISCOVER_TYPE',
+  type => ({ discoverType: type })
+)
 export const setCurrentList = createAction(
   'SET_STARRED_LIST',
   listId => ({ listId })

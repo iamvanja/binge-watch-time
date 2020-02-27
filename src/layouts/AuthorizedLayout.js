@@ -8,6 +8,7 @@ import Footer from 'components/Footer'
 import SessionTimeout from 'components/SessionTimeout'
 import NotFoundLayout from 'layouts/NotFoundLayout'
 import ShowsSubLayout from 'layouts/ShowsSubLayout'
+import MoviesSubLayout from 'layouts/MoviesSubLayout'
 import DiscoverPage from 'discover/DiscoverPage'
 
 export const AuthorizedLayout = ({ timeout }) => {
@@ -19,6 +20,7 @@ export const AuthorizedLayout = ({ timeout }) => {
           <Redirect exact from='/' to='/shows' />
           <Route path='/discover/:contentType(shows|movies)?' component={DiscoverPage} />
           <Route path='/shows' component={ShowsSubLayout} />
+          <Route path='/movies' component={MoviesSubLayout} />
           <Route component={NotFoundLayout} />
         </Switch>
       </main>

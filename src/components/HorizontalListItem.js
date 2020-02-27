@@ -16,7 +16,7 @@ const HorizontalListItem = ({ id, posterPath, name, type }) =>
       />
     </div>
     <strong className='title'>{name}</strong>
-    <Link to={`${type}/${id}`} className='button expanded hollow'>DETAIL</Link>
+    <Link to={`/${type}/${id}`} className='button expanded hollow'>DETAIL</Link>
   </div>
 
 HorizontalListItem.propTypes = {

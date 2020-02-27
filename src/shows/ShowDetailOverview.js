@@ -1,108 +1,72 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import find from 'lodash/find'
 import { Grid, Cell } from 'components/Grid'
-import Button from 'components/Button'
-import YouTubeEmbed from 'components/YouTubeEmbed'
 import DescriptionItem from 'components/DescriptionItem'
 import { connect } from 'react-redux'
 import * as selectors from 'redux/reducers/selectors'
+import EmbedToggle from 'components/EmbedToggle'
 
-class ShowDetailOverview extends Component {
-  constructor () {
-    super()
-    this.state = {
-      isEmbedShown: false
-    }
+const ShowDetailOverview = props => {
+  const {
+    overview,
+    status,
+    firstAirDate,
+    lastAirDate,
+    numberOfSeasons,
+    numberOfEpisodes,
+    networks,
+    type,
+    genres,
+    homepage,
+    videos
+  } = props
 
-    this.showEmbed = this.showEmbed.bind(this)
-  }
+  return (
+    <div className='show-detail-overview'>
+      <Grid gutters='margin'>
+        <Cell small={12} medium={7} large={9}>
+          <h2>Overview</h2>
+          <p>{overview || 'N/A'}</p>
 
-  showEmbed () {
-    this.setState({ isEmbedShown: true })
-  }
+          <Grid>
+            <Cell
+              small={12}
+              large={6}
+              className='large-offset-3'
+            >
+              <EmbedToggle videos={videos} />
+            </Cell>
+          </Grid>
+        </Cell>
 
-  render () {
-    const {
-      overview,
-      status,
-      firstAirDate,
-      lastAirDate,
-      numberOfSeasons,
-      numberOfEpisodes,
-      networks,
-      type,
-      genres,
-      homepage,
-      videos
-    } = this.props
-    const { isEmbedShown } = this.state
-    const youtubeVideo = videos.length && find(videos, {
-      site: 'YouTube'
-    })
+        <Cell small={12} medium={5} large={3} className='detail-column'>
+          <h3>Details</h3>
 
-    return (
-      <div className='show-detail-overview'>
-        <Grid gutters='margin'>
-          <Cell small={12} medium={7} large={9}>
-            <h2>Overview</h2>
-            <p>{overview || 'N/A'}</p>
+          <dl>
+            <DescriptionItem term='Status' definition={status} />
 
-            {youtubeVideo
-              ? <Grid>
-                <Cell
-                  small={12}
-                  large={6}
-                  className='large-offset-3'
-                >
-                  {
-                    isEmbedShown
-                      ? <YouTubeEmbed video={youtubeVideo} />
-                      : (
-                        <Button
-                          icon='cinema'
-                          className='expanded hollow'
-                          onClick={this.showEmbed}
-                        >
-                          Play Trailer
-                        </Button>
-                      )
-                  }
-                </Cell>
-              </Grid>
-              : null
-            }
-          </Cell>
+            <DescriptionItem term='First Air Date' definition={firstAirDate} />
+            <DescriptionItem term='Last Air Date' definition={lastAirDate} />
+            <DescriptionItem term='Seasons' definition={numberOfSeasons} />
+            <DescriptionItem term='Episodes' definition={numberOfEpisodes} />
+            <DescriptionItem
+              term='Network'
+              definition={networks.map(({ name }) => name).join(', ')}
+            />
+            <DescriptionItem term='Type' definition={type} />
+            <DescriptionItem
+              term='Genres'
+              definition={genres.length && genres.map(genre =>
+                <span key={genre.id} className='label secondary'>{genre.name}</span>
+              )}
+            />
+          </dl>
 
-          <Cell small={12} medium={5} large={3} className='detail-column'>
-            <h3>Details</h3>
-
-            <dl>
-              <DescriptionItem term='Status' definition={status} />
-
-              <DescriptionItem term='First Air Date' definition={firstAirDate} />
-              <DescriptionItem term='Last Air Date' definition={lastAirDate} />
-              <DescriptionItem term='Seasons' definition={numberOfSeasons} />
-              <DescriptionItem term='Episodes' definition={numberOfEpisodes} />
-              <DescriptionItem
-                term='Network'
-                definition={networks.map(({ name }) => name).join(', ')}
-              />
-              <DescriptionItem term='Type' definition={type} />
-              <DescriptionItem
-                term='Genres'
-                definition={genres.length && genres.map(genre =>
-                  <span key={genre.id} className='label secondary'>{genre.name}</span>
-                )}
-              />
-            </dl>
-
-            {homepage && <a href={homepage} target='_blank'>Show's homepage</a>}
-          </Cell>
-        </Grid>
-      </div>
-    )
-  }
+          {homepage && <a href={homepage} target='_blank'>Show's homepage</a>}
+        </Cell>
+      </Grid>
+    </div>
+  )
 }
 
 ShowDetailOverview.defaultProps = {
@@ -126,7 +90,7 @@ ShowDetailOverview.propTypes = {
 }
 
 export default connect(
-  (state, initialProps) => ({
-    ...selectors.shows.getShow(state, initialProps.match.params.showId)
+  (state, ownProps) => ({
+    ...selectors.shows.getShow(state, ownProps.match.params.showId)
   })
 )(ShowDetailOverview)

@@ -37,3 +37,11 @@ export const discoverByGenreId = (req, res, next) => {
     .then(data => res.json(data))
     .catch(next)
 }
+
+export const one = (req, res, next) => {
+  const { movieId } = req.params
+
+  ServiceMovieModel.one({ id: movieId })
+    .then(movie => res.json(movie))
+    .catch(next)
+}

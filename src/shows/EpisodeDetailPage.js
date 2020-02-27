@@ -12,6 +12,7 @@ import * as episodes from 'redux/actions/episodes'
 import * as selectors from 'redux/reducers/selectors'
 import mapValues from 'lodash/mapValues'
 import isInTheFuture from './utils/isInTheFuture'
+import TrailerEmbed from '../components/TrailerEmbed'
 
 class EpisodeDetailPage extends Component {
   constructor () {
@@ -55,6 +56,8 @@ class EpisodeDetailPage extends Component {
       seasonNumber,
       episodeNumber,
       showWatchButton,
+      showName,
+      isSpecial,
       ...episode
     } = this.props
 
@@ -129,6 +132,13 @@ class EpisodeDetailPage extends Component {
         <h3>Overview</h3>
         <p>{episode.overview || 'N/A'}</p>
 
+        {isSpecial &&
+          <TrailerEmbed
+            name={showName}
+            se={formatSeasonEpisode(seasonNumber, episodeNumber)}
+          />
+        }
+
       </Fragment>
     )
   }
@@ -151,7 +161,9 @@ EpisodeDetailPage.propTypes = {
   isPending: PropTypes.bool,
   isErrored: PropTypes.bool,
   onLoad: PropTypes.func.isRequired,
-  airDate: PropTypes.string
+  airDate: PropTypes.string,
+  showName: PropTypes.string,
+  isSpecial: PropTypes.bool
 
 }
 
@@ -161,13 +173,15 @@ const getBaseProps = (state, options) => {
 
   const action = episodes.one(showId, seasonNumber, episodeNumber)
   const episode = selectors.episodes.getEpisodeByQuery(state, options)
+  const show = selectors.shows.getShow(state, showId)
 
   return {
     ...options,
     isPending: selectors.ui.isRequestPending(state, action),
     isErrored: selectors.ui.isRequestErrored(state, action),
     showWatchButton: selectors.starredShows.isShowStarred(state, showId),
-    ...episode
+    ...episode,
+    showName: show.name
   }
 }
 

@@ -190,7 +190,7 @@ export default connect(
   (state, ownProps) => {
     const showId = parseInt(ownProps.match.params.showId, 10)
     const action = shows.one(showId)
-    const inListId = selectors.starredShows.getListIdByShowId(state, showId)
+    const inListId = selectors.starred.getListIdById(state, showId, 'shows')
     const lists = selectors.lists.getLists(state, 'shows')
 
     return {
@@ -199,7 +199,7 @@ export default connect(
       isPending: selectors.ui.isRequestPending(state, action),
       isLoaded: !!selectors.shows.getShow(state, showId),
       isErrored: selectors.ui.isRequestErrored(state, action),
-      defaultToNextRoute: selectors.starredShows.isShowStarred(state, showId)
+      defaultToNextRoute: selectors.starred.isStarred(state, showId, 'shows')
     }
   },
   {

@@ -179,7 +179,7 @@ const getBaseProps = (state, options) => {
     ...options,
     isPending: selectors.ui.isRequestPending(state, action),
     isErrored: selectors.ui.isRequestErrored(state, action),
-    showWatchButton: selectors.starredShows.isShowStarred(state, showId),
+    showWatchButton: selectors.starred.isStarred(state, showId, 'shows'),
     ...episode,
     showName: show.name
   }

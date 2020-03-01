@@ -6,8 +6,7 @@ import listsReducer from './listsReducer'
 import moviesReducer from './moviesReducer'
 import seasonsReducer from './seasonsReducer'
 import showsReducer from './showsReducer'
-import starredMoviesReducer from './starredMoviesReducer'
-import starredShowsReducer from './starredShowsReducer'
+import starredReducer from './starredReducer'
 import uiReducer from './uiReducer'
 import watchedEpisodesReducer from './watchedEpisodesReducer'
 
@@ -18,8 +17,7 @@ export const LISTS = 'lists'
 export const MOVIES = 'movies'
 export const SEASONS = 'seasons'
 export const SHOWS = 'shows'
-export const STARRED_MOVIES = 'starredMovies'
-export const STARRED_SHOWS = 'starredShows'
+export const STARRED = 'starred'
 export const UI = 'ui'
 export const WATCHED_EPISODES = 'watchedEpisodes'
 
@@ -31,8 +29,7 @@ const reducers = combineReducers({
   [MOVIES]: moviesReducer,
   [SEASONS]: seasonsReducer,
   [SHOWS]: showsReducer,
-  [STARRED_MOVIES]: starredMoviesReducer,
-  [STARRED_SHOWS]: starredShowsReducer,
+  [STARRED]: starredReducer,
   [UI]: uiReducer,
   [WATCHED_EPISODES]: watchedEpisodesReducer
 })

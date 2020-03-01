@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import * as starredShows from 'redux/actions/starredShows'
+import * as starred from 'redux/actions/starred'
 import * as lists from 'redux/actions/lists'
 import * as watchedEpisodes from 'redux/actions/watchedEpisodes'
 import * as ui from 'redux/actions/ui'
@@ -11,7 +11,7 @@ const ENTITY_NAME = 'shows'
 const getUiState = (methodName, state, listId) => (
   selectors.ui[methodName](state, lists.fetch(ENTITY_NAME)) ||
   selectors.ui[methodName](state, watchedEpisodes.fetch()) ||
-  selectors.ui[methodName](state, starredShows.fetchByListId(listId))
+  selectors.ui[methodName](state, starred.fetchByListId(listId, ENTITY_NAME))
 )
 
 export default connect(
@@ -36,7 +36,8 @@ export default connect(
     }
   },
   {
-    loadItemsPerListId: starredShows.fetchByListId,
+    loadItemsPerListId: (...args) =>
+      starred.fetchByListId(...args, ENTITY_NAME),
     onListChange: listId => ui.setCurrentList(listId, ENTITY_NAME),
     onSortChange: sort => ui.setCurrentSort(sort, ENTITY_NAME)
   }

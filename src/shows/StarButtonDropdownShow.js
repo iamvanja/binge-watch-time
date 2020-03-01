@@ -1,23 +1,31 @@
 import { connect } from 'react-redux'
 import * as selectors from 'redux/reducers/selectors'
-import * as starredShows from 'redux/actions/starredShows'
+import * as starred from 'redux/actions/starred'
 import * as ui from 'redux/actions/ui'
 import StarButtonDropdown from 'components/StarButtonDropdown'
 
 const ENTITY_NAME = 'shows'
 export default connect(
-  (state, { entityId }) => ({
-    isLoading: (
-      selectors.ui.isRequestPending(state, starredShows.star(entityId)) ||
-      selectors.ui.isRequestPending(state, starredShows.unstar(entityId))
-    ),
-    inListId: selectors.starredShows.getListIdByShowId(state, entityId),
-    lists: selectors.lists.getLists(state, ENTITY_NAME),
-    uiListId: selectors.ui.getCurrentListId(state, ENTITY_NAME)
-  }),
+  (state, { entityId }) => {
+    const currentListId = selectors.ui.getCurrentListId(state, ENTITY_NAME)
+
+    return {
+      isLoading: (
+        selectors.ui.isRequestPending(
+          state, starred.star(entityId, currentListId, ENTITY_NAME)
+        ) ||
+        selectors.ui.isRequestPending(
+          state, starred.unstar(entityId, currentListId, ENTITY_NAME)
+        )
+      ),
+      inListId: selectors.starred.getListIdById(state, entityId, ENTITY_NAME),
+      lists: selectors.lists.getLists(state, ENTITY_NAME),
+      uiListId: currentListId
+    }
+  },
   {
-    onActive: starredShows.star,
-    onInactive: starredShows.unstar,
+    onActive: (...args) => starred.star(...args, ENTITY_NAME),
+    onInactive: (...args) => starred.unstar(...args, ENTITY_NAME),
     onListChange: listId => ui.setCurrentList(listId, ENTITY_NAME)
   }
 )(StarButtonDropdown)

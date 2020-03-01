@@ -1,18 +1,18 @@
 import { connect } from 'react-redux'
 import * as starredShows from 'redux/actions/starredShows'
-import * as lists from 'redux/actions/shows/lists'
+import * as lists from 'redux/actions/lists'
 import * as watchedEpisodes from 'redux/actions/watchedEpisodes'
 import * as ui from 'redux/actions/ui'
 import * as selectors from 'redux/reducers/selectors'
 import StarredShowListItem from './StarredShowListItem'
 import StarredList from 'components/StarredList'
 
+const ENTITY_NAME = 'shows'
 const getUiState = (methodName, state, listId) => (
-  selectors.ui[methodName](state, lists.fetch()) ||
+  selectors.ui[methodName](state, lists.fetch(ENTITY_NAME)) ||
   selectors.ui[methodName](state, watchedEpisodes.fetch()) ||
   selectors.ui[methodName](state, starredShows.fetchByListId(listId))
 )
-const ENTITY_NAME = 'shows'
 
 export default connect(
   state => {
@@ -21,7 +21,7 @@ export default connect(
     return {
       isPending: getUiState('isRequestPending', state, currentListId),
       isErrored: getUiState('isRequestErrored', state, currentListId),
-      lists: selectors.showsLists.getLists(state),
+      lists: selectors.lists.getLists(state, ENTITY_NAME),
       currentListId,
       currentSort: selectors.ui.getCurrentSort(state, ENTITY_NAME),
       items: selectors.getStarredShowsByListId(state, currentListId),

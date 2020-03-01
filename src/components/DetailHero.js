@@ -33,7 +33,7 @@ class ShowHero extends Component {
       isMini,
       backdropPath,
       posterPath,
-      showListName,
+      listName,
       children
     } = this.props
 
@@ -60,8 +60,8 @@ class ShowHero extends Component {
             >
               <h1 {...buttonize(this.handleTitleClick)}>
                 {name}
-                {isMini && showListName
-                  ? <small> ({showListName})</small>
+                {isMini && listName
+                  ? <small> ({listName})</small>
                   : null
                 }
               </h1>
@@ -96,7 +96,7 @@ ShowHero.propTypes = {
   isMini: PropTypes.bool,
   backdropPath: PropTypes.string,
   posterPath: PropTypes.string,
-  showListName: PropTypes.string,
+  listName: PropTypes.string,
   children: renderable.isRequired,
   onSpecial: PropTypes.func.isRequired
 }

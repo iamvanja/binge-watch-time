@@ -4,6 +4,7 @@ import * as starredMovies from 'redux/actions/starredMovies'
 import * as ui from 'redux/actions/ui'
 import StarButtonDropdown from 'components/StarButtonDropdown'
 
+const ENTITY_NAME = 'movies'
 export default connect(
   (state, { entityId }) => ({
     isLoading: (
@@ -11,12 +12,12 @@ export default connect(
       selectors.ui.isRequestPending(state, starredMovies.unstar(entityId))
     ),
     inListId: selectors.starredMovies.getListIdByMovieId(state, entityId),
-    lists: selectors.moviesLists.getLists(state),
-    uiListId: selectors.ui.getCurrentListId(state, 'movies')
+    lists: selectors.lists.getLists(state, ENTITY_NAME),
+    uiListId: selectors.ui.getCurrentListId(state, ENTITY_NAME)
   }),
   {
     onActive: starredMovies.star,
     onInactive: starredMovies.unstar,
-    onListChange: listId => ui.setCurrentList(listId, 'movies')
+    onListChange: listId => ui.setCurrentList(listId, ENTITY_NAME)
   }
 )(StarButtonDropdown)

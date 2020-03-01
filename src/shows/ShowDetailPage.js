@@ -89,7 +89,7 @@ class ShowDetailPage extends Component {
           name={this.props.name}
           backdropPath={this.props.backdropPath}
           posterPath={this.props.posterPath}
-          showListName={this.props.showListName}
+          listName={this.props.listName}
           onSpecial={this.handleSpecial}
         >
           <HeroExpandedContent
@@ -180,7 +180,7 @@ ShowDetailPage.propTypes = {
   backdropPath: PropTypes.string,
   posterPath: PropTypes.string,
   status: PropTypes.string,
-  showListName: PropTypes.string,
+  listName: PropTypes.string,
   nextEpisodeToAir: PropTypes.shape({
     airDate: PropTypes.string
   })
@@ -191,11 +191,11 @@ export default connect(
     const showId = parseInt(ownProps.match.params.showId, 10)
     const action = shows.one(showId)
     const inListId = selectors.starredShows.getListIdByShowId(state, showId)
-    const lists = selectors.showsLists.getLists(state)
+    const lists = selectors.lists.getLists(state, 'shows')
 
     return {
       ...selectors.shows.getShow(state, showId),
-      showListName: lists[inListId],
+      listName: lists[inListId],
       isPending: selectors.ui.isRequestPending(state, action),
       isLoaded: !!selectors.shows.getShow(state, showId),
       isErrored: selectors.ui.isRequestErrored(state, action),

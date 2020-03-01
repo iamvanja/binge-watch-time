@@ -3,8 +3,7 @@ import { authSuccess, unauthorized } from 'redux/actions/auth'
 import * as starredMovies from 'redux/actions/starredMovies'
 import * as starredShows from 'redux/actions/starredShows'
 import * as watchedEpisodes from 'redux/actions/watchedEpisodes'
-import * as showLists from 'redux/actions/shows/lists'
-import * as movieLists from 'redux/actions/movies/lists'
+import * as lists from 'redux/actions/lists'
 import { history } from './routerMiddleware'
 
 const redirectToAuthenticated = () => {
@@ -36,8 +35,8 @@ const authFlowMiddleware = ({ dispatch, getState }) => next => action => {
     }
 
     // extra actions after authSuccess go here
-    dispatch(showLists.fetch())
-    dispatch(movieLists.fetch())
+    dispatch(lists.fetch('shows'))
+    dispatch(lists.fetch('movies'))
     dispatch(starredMovies.fetch())
     dispatch(starredShows.fetch())
     dispatch(watchedEpisodes.fetch())

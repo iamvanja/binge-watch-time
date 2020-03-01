@@ -78,7 +78,6 @@ class ShowDetailPage extends Component {
           isMini={false}
           {...movie}
           onSpecial={this.handleSpecial}
-          showListName='Watching'
         >
           <HeroExpandedContent {...movie} />
         </DetailHero>
@@ -113,12 +112,9 @@ export default connect(
   (state, ownProps) => {
     const movieId = parseInt(ownProps.match.params.movieId, 10)
     const action = movies.one(movieId)
-    // const inListId = selectors.starredShows.getListIdByShowId(state, movieId)
-    // const lists = selectors.showsLists.getLists(state)
 
     return {
       ...selectors.movies.getMovie(state, movieId),
-      // showListName: lists[inListId],
       isPending: selectors.ui.isRequestPending(state, action),
       isLoaded: !!selectors.movies.getMovie(state, movieId),
       isErrored: selectors.ui.isRequestErrored(state, action)

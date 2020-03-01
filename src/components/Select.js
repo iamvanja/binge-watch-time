@@ -18,6 +18,10 @@ const Select = ({ onChange, defaultValue, options, value }) => {
   )
 }
 
+Select.defaultProps = {
+  options: []
+}
+
 Select.propTypes = {
   onChange: PropTypes.func.isRequired,
   defaultValue: stringOrNumber,

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, Redirect, NavLink } from 'react-router-dom'
 import * as shows from 'redux/actions/shows'
-import ShowHero from './ShowHero'
+import DetailHero from 'components/DetailHero'
 import { connect } from 'react-redux'
 import * as selectors from 'redux/reducers/selectors'
 import ShowDetailOverview from './ShowDetailOverview'
@@ -12,12 +12,17 @@ import Loader from 'components/Loader'
 import { GridContainer } from 'components/Grid'
 import Button from 'components/Button'
 import isEqual from 'lodash/isEqual'
+import HeroExpandedContent from './HeroExpandedContent'
 
 class ShowDetailPage extends Component {
   constructor () {
     super()
 
+    this.state = {
+      isSpecial: false
+    }
     this.getData = this.getData.bind(this)
+    this.handleSpecial = this.handleSpecial.bind(this)
   }
 
   componentWillMount () {
@@ -38,6 +43,10 @@ class ShowDetailPage extends Component {
   getData () {
     const { showId } = this.props.match.params
     this.props.onLoad(parseInt(showId, 10))
+  }
+
+  handleSpecial () {
+    this.setState({ isSpecial: true })
   }
 
   getRedirectUrl () {
@@ -74,11 +83,24 @@ class ShowDetailPage extends Component {
     }
 
     return (
-      <div className='page show-detail'>
-        <ShowHero
+      <div className='page detail show-detail'>
+        <DetailHero
           isMini={!location.pathname.endsWith('/overview')}
-          showId={parseInt(showId, 10)}
-        />
+          name={this.props.name}
+          backdropPath={this.props.backdropPath}
+          posterPath={this.props.posterPath}
+          listName={this.props.listName}
+          onSpecial={this.handleSpecial}
+        >
+          <HeroExpandedContent
+            voteAverage={this.props.voteAverage}
+            networks={this.props.networks}
+            episodeRunTime={this.props.episodeRunTime}
+            status={this.props.status}
+            id={parseInt(showId, 10)}
+            nextEpisodeToAir={this.props.nextEpisodeToAir}
+          />
+        </DetailHero>
 
         <nav className='sub-nav'>
           <ul className='menu expanded grid-container'>
@@ -98,7 +120,12 @@ class ShowDetailPage extends Component {
             <Route
               path={`${match.path}/next`}
               exact
-              component={NextEpisode}
+              component={(props) =>
+                <NextEpisode
+                  {...props}
+                  isSpecial={this.state.isSpecial}
+                />
+              }
             />
             <Route
               path={`${match.path}/episodes`}
@@ -108,7 +135,11 @@ class ShowDetailPage extends Component {
             <Route
               path={`${match.path}/episodes/s:seasonNumber(\\d+)e:episodeNumber(\\d+)`}
               exact
-              component={EpisodeDetailPage}
+              component={(props) =>
+                <EpisodeDetailPage
+                  {...props}
+                  isSpecial={this.state.isSpecial}
+                />}
             />
 
             <Redirect from={match.url} to={this.getRedirectUrl()} />
@@ -117,6 +148,11 @@ class ShowDetailPage extends Component {
       </div>
     )
   }
+}
+
+ShowDetailPage.defaultProps = {
+  episodeRunTime: [],
+  networks: []
 }
 
 ShowDetailPage.propTypes = {
@@ -135,19 +171,35 @@ ShowDetailPage.propTypes = {
   isErrored: PropTypes.bool,
   isLoaded: PropTypes.bool,
   onLoad: PropTypes.func.isRequired,
-  defaultToNextRoute: PropTypes.bool
+  defaultToNextRoute: PropTypes.bool,
+
+  name: PropTypes.string,
+  voteAverage: PropTypes.number,
+  networks: PropTypes.array,
+  episodeRunTime: PropTypes.array,
+  backdropPath: PropTypes.string,
+  posterPath: PropTypes.string,
+  status: PropTypes.string,
+  listName: PropTypes.string,
+  nextEpisodeToAir: PropTypes.shape({
+    airDate: PropTypes.string
+  })
 }
 
 export default connect(
   (state, ownProps) => {
     const showId = parseInt(ownProps.match.params.showId, 10)
     const action = shows.one(showId)
+    const inListId = selectors.starred.getListIdById(state, showId, 'shows')
+    const lists = selectors.lists.getLists(state, 'shows')
 
     return {
+      ...selectors.shows.getShow(state, showId),
+      listName: lists[inListId],
       isPending: selectors.ui.isRequestPending(state, action),
       isLoaded: !!selectors.shows.getShow(state, showId),
       isErrored: selectors.ui.isRequestErrored(state, action),
-      defaultToNextRoute: selectors.starredShows.isShowStarred(state, showId)
+      defaultToNextRoute: selectors.starred.isStarred(state, showId, 'shows')
     }
   },
   {

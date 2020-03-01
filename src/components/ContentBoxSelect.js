@@ -47,6 +47,7 @@ class ContentBoxSelect extends Component {
           onLoad={this.props.onLoad}
           params={currentSelectValue}
           item={this.props.item}
+          type={this.props.type}
         />
       </ContentBox>
     )
@@ -66,7 +67,8 @@ ContentBoxSelect.propTypes = {
   results: PropTypes.array,
   onChange: PropTypes.func.isRequired,
   onLoad: PropTypes.func,
-  item: renderable.isRequired
+  item: renderable.isRequired,
+  type: PropTypes.string
 }
 
 export default ContentBoxSelect

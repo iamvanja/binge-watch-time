@@ -4,6 +4,16 @@ import classnames from 'classnames'
 import Icon from './Icon'
 import omit from 'lodash/omit'
 
+export const buttonize = handlerFn => ({
+  role: 'button',
+  onClick: handlerFn,
+  onKeyDown: event => {
+    if (event.keycode === 13) {
+      handlerFn(event)
+    }
+  }
+})
+
 const Button = ({ type, icon, onClick, className, children, ...rest }) =>
   <button
     {...omit(rest, ['showId', 'episodeId', 'seasonId'])}

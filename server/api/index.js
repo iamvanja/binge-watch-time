@@ -4,6 +4,7 @@ import errorHandler from 'utils/errorHandler'
 import auth from './auth'
 import discover from './discover'
 import healthcheck from './healthcheck'
+import movies from './movies'
 import shows from './shows'
 import users from './users'
 
@@ -16,6 +17,7 @@ router.get('/', (req, res) => res.sendStatus(204))
 router.use('/auth', auth)
 router.use('/discover', discover)
 router.use('/healthcheck', healthcheck)
+router.use('/movies', movies)
 router.use('/shows', shows)
 router.use('/users', users)
 

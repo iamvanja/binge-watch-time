@@ -1,10 +1,10 @@
 import { Router } from 'express'
 import * as UserShowController from 'controllers/UserShowController'
-import isShowIdValid from 'middleware/isShowIdValid'
+import isEntityIdValid from 'middleware/isEntityIdValid'
 
 const router = Router({ mergeParams: true })
 
-router.put('/', isShowIdValid, UserShowController.toggleStar)
+router.put('/', isEntityIdValid('show'), UserShowController.toggleStar)
 
 router.delete('/', UserShowController.toggleStar)
 

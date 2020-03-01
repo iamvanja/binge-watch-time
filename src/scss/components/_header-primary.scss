@@ -48,7 +48,7 @@
     }
   }
 
-  .show-search-form {
+  .search-form {
     position: relative;
 
     .results {
@@ -71,14 +71,14 @@
         align-items: center;
       }
 
-      .show-search-form {
+      .search-form {
         width: rem-calc(350px);
       }
     }
   }
 
   @include breakpoint(medium only) {
-    .show-search-form.show-search-form {
+    .search-form.search-form {
       width: rem-calc(240px);
     }
   }

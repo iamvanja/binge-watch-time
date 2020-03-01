@@ -71,7 +71,7 @@ export default connect(
 
     return {
       showId,
-      isStarred: selectors.starredShows.isShowStarred(state, showId),
+      isStarred: selectors.starred.isStarred(state, showId, 'shows'),
       seasons: selectors.getShowSeasons(state, showId),
       currentSeasonNumber: nextEpisode.seasonNumber,
       airingSeasonNumber: (show.nextEpisodeToAir || {}).seasonNumber

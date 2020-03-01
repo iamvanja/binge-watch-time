@@ -9,7 +9,7 @@ import classnames from 'classnames'
 import Button from 'components/Button'
 import { GridContainer, Grid, Cell } from 'components/Grid'
 import logo from 'images/logo.svg'
-import ShowSearchForm from 'shows/ShowSearchForm'
+import SearchForm from 'components/SearchForm'
 
 class HeaderPrimary extends Component {
   constructor () {
@@ -58,8 +58,11 @@ class HeaderPrimary extends Component {
                   <li className='border'>
                     <NavLink to='/shows' title='Shows'>Shows</NavLink>
                   </li>
+                  <li className='border'>
+                    <NavLink to='/movies' title='Movies'>Movies</NavLink>
+                  </li>
                   <li className='search'>
-                    <ShowSearchForm />
+                    <SearchForm />
                   </li>
                   <li className='logout'>
                     <NavLink to='/auth/logout'>Logout</NavLink>

@@ -19,6 +19,10 @@ class ServiceShowModel {
   search (query) {
     return mdb('searchTv', query)
   }
+
+  topRated (query) {
+    return mdb('miscTopRatedTvs', query)
+  }
 }
 
 export default new ServiceShowModel()

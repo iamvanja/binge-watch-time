@@ -10,7 +10,10 @@ class HorizontalListNew extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    if (!isEqual(prevProps.params, this.props.params)) {
+    if (
+      !isEqual(prevProps.params, this.props.params) ||
+      !isEqual(prevProps.type, this.props.type)
+    ) {
       this.getData()
     }
   }
@@ -31,11 +34,13 @@ class HorizontalListNew extends React.Component {
         {isPending
           ? <Loader />
           : !results.length
-            ? (<p className='text-center subheader'>
-              No data found...
-            </p>)
+            ? (
+              <p className='text-center subheader'>
+                No data found...
+              </p>
+            )
             : results.map((show = {}) =>
-              <Item key={show.id} {...show} />
+              <Item key={show.id} {...show} type={this.props.type} />
             )
         }
       </div>
@@ -57,7 +62,8 @@ HorizontalListNew.propTypes = {
     PropTypes.number,
     PropTypes.object
   ]),
-  item: renderable.isRequired
+  item: renderable.isRequired,
+  type: PropTypes.string
 }
 
 export default HorizontalListNew

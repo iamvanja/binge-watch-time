@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import ImageTmdb from 'components/ImageTmdb'
 
-const HorizontalListShowItem = ({ id, posterPath, name }) =>
+const HorizontalListItem = ({ id, posterPath, name, type }) =>
   <div className='horizontal-item show-item'>
     <div className='image-holder bwt-image-holder'>
       <ImageTmdb
@@ -16,13 +16,14 @@ const HorizontalListShowItem = ({ id, posterPath, name }) =>
       />
     </div>
     <strong className='title'>{name}</strong>
-    <Link to={`shows/${id}`} className='button expanded hollow'>DETAIL</Link>
+    <Link to={`/${type}/${id}`} className='button expanded hollow'>DETAIL</Link>
   </div>
 
-HorizontalListShowItem.propTypes = {
+HorizontalListItem.propTypes = {
   id: PropTypes.number.isRequired,
   posterPath: PropTypes.string,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['shows', 'movies'])
 }
 
-export default HorizontalListShowItem
+export default HorizontalListItem

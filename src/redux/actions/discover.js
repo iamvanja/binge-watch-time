@@ -2,34 +2,60 @@ import { createAction } from 'redux-act'
 import { API_ACTION_PREFIX } from 'constants/app'
 import { normalize } from 'normalizr'
 import { setShows } from './shows'
-import { showsSchema } from 'schemas'
-import { DISCOVER_NEW, DISCOVER_POPULAR } from 'constants/discover'
+import { setMovies } from './movies'
+import { showsSchema, moviesSchema } from 'schemas'
+import {
+  DISCOVER_NEW,
+  DISCOVER_POPULAR,
+  DISCOVER_NOW_PLAYING,
+  DISCOVER_TOP_RATED,
+  DISCOVER_UPCOMING
+} from 'constants/discover'
 
 const API_BASE = '/api/discover'
 
-const getUrl = type => {
-  switch (type) {
+const getUrl = (type, contentType) => {
+  switch (contentType) {
     case DISCOVER_NEW:
     case DISCOVER_POPULAR:
-      return `${API_BASE}/shows/category/${type}`.toLowerCase()
+    case DISCOVER_NOW_PLAYING:
+    case DISCOVER_TOP_RATED:
+    case DISCOVER_UPCOMING:
+      return `${API_BASE}/${type}/category/${contentType}`.toLowerCase()
     default:
-      return `${API_BASE}/shows/genre/${type}`.toLowerCase()
+      return `${API_BASE}/${type}/genre/${contentType}`.toLowerCase()
   }
 }
 
-export const fetch = createAction(`${API_ACTION_PREFIX}_DISCOVER`, type => {
+export const fetchShows = createAction(`${API_ACTION_PREFIX}_DISCOVER_SHOWS`, contentType => {
   return {
-    url: getUrl(type),
+    url: getUrl('shows', contentType),
     onSuccess: ({ dispatch, getState, response = {} }) => {
       const data = normalize(response.results || [], showsSchema)
 
       dispatch(setShows(data.entities.shows))
-      dispatch(setDiscoverShows(type, data.result))
+      dispatch(setDiscoverShows(contentType, data.result))
+    }
+  }
+})
+
+export const fetchMovies = createAction(`${API_ACTION_PREFIX}_DISCOVER_MOVIES`, contentType => {
+  return {
+    url: getUrl('movies', contentType),
+    onSuccess: ({ dispatch, getState, response = {} }) => {
+      const data = normalize(response.results || [], moviesSchema)
+
+      dispatch(setMovies(data.entities.movies))
+      dispatch(setDiscoverMovies(contentType, data.result))
     }
   }
 })
 
 export const setDiscoverShows = createAction(
   'SET_DISCOVER_SHOWS',
+  (category, ids) => ({ category, ids })
+)
+export const setDiscoverMovies = createAction(
+  'SET_DISCOVER_MOVIES',
   (category, ids) => ({ category, ids })
 )

@@ -19,10 +19,18 @@
     overflow: hidden;
   }
 
-  .show-search-item {
+  .search-item {
     border-bottom: 1px solid $app-tertiary-color;
     padding: rem-calc(10px);
+    padding-left: rem-calc(36px);
     display: block;
+    line-height: 1.2;
+    position: relative;
+
+    .icon {
+      position: absolute;
+      left: rem-calc(10px);
+    }
 
     &:last-child {
       border: 0;

@@ -5,6 +5,7 @@ import {
   apiFinish,
   apiError,
   setDiscoverGenre,
+  setDiscoverType,
   setCurrentList,
   setCurrentSort,
   setMobileMenuOpen
@@ -14,9 +15,15 @@ export const initialState = {
   pendingRequests: [],
   erroredRequests: [],
   discoverGenre: null,
-  currentListId: 2,
+  currentListId: {
+    shows: 2,
+    movies: 2
+  },
   isMobileMenuOpen: false,
-  currentSort: 'nextEpisodeToAir.airDate-asc'
+  currentSort: {
+    shows: 'nextEpisodeToAir.airDate-asc',
+    movies: 'name-asc'
+  }
 }
 
 const add = (state, label) =>
@@ -48,14 +55,25 @@ export default createReducer({
     discoverGenre: payload.discoverGenre
   }),
 
+  [setDiscoverType]: (state, payload) => ({
+    ...state,
+    discoverType: payload.discoverType
+  }),
+
   [setCurrentList]: (state, payload) => ({
     ...state,
-    currentListId: parseInt(payload.listId, 10)
+    currentListId: {
+      ...state.currentListId,
+      [payload.entity]: parseInt(payload.listId, 10)
+    }
   }),
 
   [setCurrentSort]: (state, payload) => ({
     ...state,
-    currentSort: payload.sort
+    currentSort: {
+      ...state.currentSort,
+      [payload.entity]: payload.sort
+    }
   }),
 
   [setMobileMenuOpen]: (state, payload) => ({
@@ -75,11 +93,14 @@ export const isRequestErrored = (state, action) =>
 export const getDiscoverGenre = state =>
   state.discoverGenre
 
-export const getCurrentListId = state =>
-  state.currentListId
+export const getDiscoverType = state =>
+  state.discoverType || 'shows'
 
-export const getCurrentSort = state =>
-  state.currentSort
+export const getCurrentListId = (state, entity) =>
+  state.currentListId[entity]
+
+export const getCurrentSort = (state, entity) =>
+  state.currentSort[entity]
 
 export const isMobileMenuOpen = state =>
   !!state.isMobileMenuOpen

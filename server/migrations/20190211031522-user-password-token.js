@@ -16,7 +16,7 @@ exports.setup = function (options, seedLink) {
   type = dbm.dataType
   seed = seedLink
   Promise = options.Promise
-};
+}
 
 exports.up = function (db) {
   var filePath = path.join(__dirname, 'sqls', '20190211031522-user-password-token-up.sql')
@@ -31,12 +31,10 @@ exports.up = function (db) {
     .then(function (data) {
       return db.runSql(data)
     })
-};
+}
 
 exports.down = function (db) {
-  exports.down = function (db) {
-    return db.dropTable('user_password_token')
-  }
+  return db.dropTable('user_password_token')
 }
 
 exports._meta = {

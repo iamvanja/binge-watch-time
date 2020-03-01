@@ -1,37 +1,6 @@
 .page.show-detail {
-  margin-top: rem-calc(-10px);
-
   .sub-nav {
     margin-bottom: rem-calc(16px);
-  }
-
-  .detail-column {
-    margin-bottom: rem-calc(20px);
-
-    dl {
-      line-height: 1.2;
-      margin-top: rem-calc(12px);
-      margin-bottom: 0;
-    }
-
-    dt,
-    dd {
-      display: inline-block;
-      margin-bottom: rem-calc(15px);
-    }
-
-    dt {
-      width: 45%;
-      vertical-align: top;
-    }
-
-    dd {
-      width: 55%;
-    }
-
-    .label {
-      margin: 0 rem-calc(2px) rem-calc(2px) 0;
-    }
   }
 
   .show-episodes-list {

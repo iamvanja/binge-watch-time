@@ -1,20 +1,21 @@
 import { createAction } from 'redux-act'
 import { API_ACTION_PREFIX } from 'constants/app'
 
-const API_BASE = '/api/shows/lists'
-
-export const fetch = createAction(`${API_ACTION_PREFIX}_SHOWS_LISTS`, () => {
-  return {
-    url: API_BASE,
+export const fetch = createAction(
+  `${API_ACTION_PREFIX}_LISTS`,
+  entityName => ({
+    url: `/api/${entityName}/lists`,
     onSuccess: ({ dispatch, getState, response }) => {
       const data = response.reduce((total, current) => ({
         ...total,
         [current.listId]: current.name
       }), {})
 
-      dispatch(setLists(data))
+      dispatch(setLists(data, entityName))
     }
-  }
-})
+  }))
 
-export const setLists = createAction('SET_SHOWS_LIST')
+export const setLists = createAction(
+  'SET_LIST',
+  (data, entityName) => ({ data, entityName })
+)

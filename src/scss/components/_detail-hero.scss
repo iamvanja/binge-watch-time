@@ -1,4 +1,4 @@
-.show-hero {
+.detail-hero {
   &.overlay-bg {
     background: no-repeat top center $app-black;
     z-index: 1; // needed for dropdown-button overlap with .page.show-detail > .sub-nav

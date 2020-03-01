@@ -34,9 +34,7 @@ exports.up = function (db) {
 }
 
 exports.down = function (db) {
-  exports.down = function (db) {
-    return db.dropTable('user_show_episode')
-  }
+  return db.dropTable('user_show_episode')
 }
 
 exports._meta = {

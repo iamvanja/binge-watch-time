@@ -19,7 +19,7 @@ exports.setup = function (options, seedLink) {
 }
 
 exports.up = function (db) {
-  var filePath = path.join(__dirname, 'sqls', '20190211031522-user-password-token-up.sql')
+  var filePath = path.join(__dirname, 'sqls', '20200301195520-movies-up.sql')
   return new Promise(function (resolve, reject) {
     fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
       if (err) return reject(err)
@@ -34,7 +34,10 @@ exports.up = function (db) {
 }
 
 exports.down = function (db) {
-  return db.dropTable('user_password_token')
+  return Promise.all([
+    db.dropTable('movie_list'),
+    db.dropTable('user_movie')
+  ])
 }
 
 exports._meta = {

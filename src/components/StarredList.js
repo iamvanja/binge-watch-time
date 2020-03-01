@@ -19,10 +19,10 @@ class StarredList extends Component {
     this.props.loadItemsPerListId(this.props.currentListId)
   }
 
-  sortItems (shows, currentSort) {
+  sortItems (items, currentSort) {
     const [path, order] = currentSort.split('-')
 
-    return shows
+    return items
       .sort((a, b) => {
         const varA = get(a, path, '')
         const varB = get(b, path, '')
@@ -74,8 +74,7 @@ class StarredList extends Component {
     const { listOptions } = this
 
     return (
-      // todo: rename class name
-      <div className='shows-starred-list'>
+      <div className='starred-list'>
         <GridContainer>
           <Grid gutters='margin' align='justify'>
             <Cell small={6} medium={3}>
@@ -121,20 +120,13 @@ class StarredList extends Component {
           }
 
           return sortedItems.length
-            ? (
-              <Fragment>
-                {sortedItems.map(item =>
-                  <ItemComponent key={item.id} {...item} />)
-                }
-              </Fragment>
-            )
+            ? sortedItems.map(item => <ItemComponent key={item.id} {...item} />)
             : (
               <p className='text-center subheader lead'>
                 No starred {entityNamePlural} in this list. <Link to={`/discover/${entityNamePlural}`}>Discover some</Link>.
               </p>
             )
         })()}
-        }
       </div>
     )
   }

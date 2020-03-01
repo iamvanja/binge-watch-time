@@ -58,6 +58,9 @@ class HeaderPrimary extends Component {
                   <li className='border'>
                     <NavLink to='/shows' title='Shows'>Shows</NavLink>
                   </li>
+                  <li className='border'>
+                    <NavLink to='/movies' title='Movies'>Movies</NavLink>
+                  </li>
                   <li className='search'>
                     <SearchForm />
                   </li>

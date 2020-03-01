@@ -19,6 +19,18 @@ class ServiceMovieModel {
   search (query) {
     return mdb('searchMovie', query)
   }
+
+  nowPlaying (query) {
+    return mdb('miscNowPlayingMovies', query)
+  }
+
+  topRated (query) {
+    return mdb('miscTopRatedMovies', query)
+  }
+
+  upcoming (query) {
+    return mdb('miscUpcomingMovies', query)
+  }
 }
 
 export default new ServiceMovieModel()

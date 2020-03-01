@@ -12,12 +12,20 @@ router.get(
   ShowController.discoverByCategory
 )
 router.get(
+  '/shows/category/:category(top-rated)',
+  ShowController.discoverMisc
+)
+router.get(
   '/shows/genre/:genreId(\\d+)',
   ShowController.discoverByGenreId
 )
 router.get(
   '/movies/category/:category(new|popular)',
   MovieController.discoverByCategory
+)
+router.get(
+  '/movies/category/:category(now-playing|top-rated|upcoming)',
+  MovieController.discoverMisc
 )
 router.get(
   '/movies/genre/:genreId(\\d+)',

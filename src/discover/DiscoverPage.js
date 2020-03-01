@@ -6,7 +6,14 @@ import * as selectors from 'redux/reducers/selectors'
 import { GridContainer } from 'components/Grid'
 import HorizontalListItem from 'components/HorizontalListItem'
 import ContentBox from 'components/ContentBox'
-import { DiscoverNew, DiscoverPopular, DiscoverByGenre } from './ConnectedLists'
+import {
+  DiscoverNowPlaying,
+  DiscoverNew,
+  DiscoverPopular,
+  DiscoverTopRated,
+  DiscoverByGenre,
+  DiscoverUpcoming
+} from './ConnectedLists'
 import Select from 'components/Select'
 
 class DiscoverPage extends Component {
@@ -66,6 +73,15 @@ class DiscoverPage extends Component {
             />
           </h1>
 
+          {selectedContentType === 'movies' && (
+            <ContentBox titleText='Now Playing in Theaters'>
+              <DiscoverNowPlaying
+                item={HorizontalListItem}
+                type={selectedContentType}
+              />
+            </ContentBox>
+          )}
+
           <ContentBox titleText='New'>
             <DiscoverNew
               item={HorizontalListItem}
@@ -80,11 +96,27 @@ class DiscoverPage extends Component {
             />
           </ContentBox>
 
+          <ContentBox titleText='Top Rated'>
+            <DiscoverTopRated
+              item={HorizontalListItem}
+              type={selectedContentType}
+            />
+          </ContentBox>
+
           <DiscoverByGenre
             titleText='By Genre'
             item={HorizontalListItem}
             type={selectedContentType}
           />
+
+          {selectedContentType === 'movies' && (
+            <ContentBox titleText='Upcoming'>
+              <DiscoverUpcoming
+                item={HorizontalListItem}
+                type={selectedContentType}
+              />
+            </ContentBox>
+          )}
         </GridContainer>
       </div>
     )

@@ -5,7 +5,13 @@ import * as discover from 'redux/actions/discover'
 import * as ui from 'redux/actions/ui'
 import * as selectors from 'redux/reducers/selectors'
 import { GENRES } from 'constants/tmdb'
-import { DISCOVER_NEW, DISCOVER_POPULAR } from 'constants/discover'
+import {
+  DISCOVER_NEW,
+  DISCOVER_POPULAR,
+  DISCOVER_NOW_PLAYING,
+  DISCOVER_TOP_RATED,
+  DISCOVER_UPCOMING
+} from 'constants/discover'
 
 const getMapState = state =>
   (filterType, contentType) => ({
@@ -29,6 +35,16 @@ const getMapDispatch = dispatch =>
     )
   })
 
+export const DiscoverNowPlaying = connect(
+  (state) => getMapState(state)(DISCOVER_NOW_PLAYING, 'movies'),
+  (dispatch) => getMapDispatch(dispatch)(DISCOVER_NOW_PLAYING, 'movies')
+)(HorizontalList)
+
+export const DiscoverUpcoming = connect(
+  (state) => getMapState(state)(DISCOVER_UPCOMING, 'movies'),
+  (dispatch) => getMapDispatch(dispatch)(DISCOVER_UPCOMING, 'movies')
+)(HorizontalList)
+
 export const DiscoverNew = connect(
   (state, ownProps) => getMapState(state)(DISCOVER_NEW, ownProps.type),
   (dispatch, ownProps) => getMapDispatch(dispatch)(DISCOVER_NEW, ownProps.type)
@@ -38,6 +54,14 @@ export const DiscoverPopular = connect(
   (state, ownProps) => getMapState(state)(DISCOVER_POPULAR, ownProps.type),
   (dispatch, ownProps) => getMapDispatch(dispatch)(
     DISCOVER_POPULAR,
+    ownProps.type
+  )
+)(HorizontalList)
+
+export const DiscoverTopRated = connect(
+  (state, ownProps) => getMapState(state)(DISCOVER_TOP_RATED, ownProps.type),
+  (dispatch, ownProps) => getMapDispatch(dispatch)(
+    DISCOVER_TOP_RATED,
     ownProps.type
   )
 )(HorizontalList)

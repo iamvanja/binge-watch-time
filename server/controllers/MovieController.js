@@ -1,5 +1,6 @@
 import ServiceMovieModel from 'models/ServiceMovieModel'
 import moment from 'moment'
+import camelCase from 'lodash/camelCase'
 
 const defaultQuery = {
   sortBy: 'popularity.desc',
@@ -28,6 +29,12 @@ const getDiscoverQuery = (category, genreId) => {
 
 export const discoverByCategory = (req, res, next) => {
   ServiceMovieModel.discover(getDiscoverQuery(req.params.category))
+    .then(data => res.json(data))
+    .catch(next)
+}
+
+export const discoverMisc = (req, res, next) => {
+  ServiceMovieModel[camelCase(req.params.category)]()
     .then(data => res.json(data))
     .catch(next)
 }

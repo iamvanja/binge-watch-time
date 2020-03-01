@@ -4,7 +4,13 @@ import { normalize } from 'normalizr'
 import { setShows } from './shows'
 import { setMovies } from './movies'
 import { showsSchema, moviesSchema } from 'schemas'
-import { DISCOVER_NEW, DISCOVER_POPULAR } from 'constants/discover'
+import {
+  DISCOVER_NEW,
+  DISCOVER_POPULAR,
+  DISCOVER_NOW_PLAYING,
+  DISCOVER_TOP_RATED,
+  DISCOVER_UPCOMING
+} from 'constants/discover'
 
 const API_BASE = '/api/discover'
 
@@ -12,6 +18,9 @@ const getUrl = (type, contentType) => {
   switch (contentType) {
     case DISCOVER_NEW:
     case DISCOVER_POPULAR:
+    case DISCOVER_NOW_PLAYING:
+    case DISCOVER_TOP_RATED:
+    case DISCOVER_UPCOMING:
       return `${API_BASE}/${type}/category/${contentType}`.toLowerCase()
     default:
       return `${API_BASE}/${type}/genre/${contentType}`.toLowerCase()

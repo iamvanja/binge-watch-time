@@ -1,2 +1,5 @@
 export const DISCOVER_NEW = 'NEW'
 export const DISCOVER_POPULAR = 'POPULAR'
+export const DISCOVER_NOW_PLAYING = 'NOW-PLAYING'
+export const DISCOVER_TOP_RATED = 'TOP-RATED'
+export const DISCOVER_UPCOMING = 'UPCOMING'

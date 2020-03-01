@@ -2,6 +2,7 @@ import ServiceShowModel from 'models/ServiceShowModel'
 import ServiceShowEpisodeModel from 'models/ServiceShowEpisodeModel'
 import { NotFound } from 'utils/throwables'
 import moment from 'moment'
+import camelCase from 'lodash/camelCase'
 
 const defaultQuery = {
   sortBy: 'popularity.desc',
@@ -37,6 +38,12 @@ export const discoverByCategory = (req, res, next) => {
 
 export const discoverByGenreId = (req, res, next) => {
   ServiceShowModel.discover(getDiscoverQuery(null, req.params.genreId))
+    .then(data => res.json(data))
+    .catch(next)
+}
+
+export const discoverMisc = (req, res, next) => {
+  ServiceShowModel[camelCase(req.params.category)]()
     .then(data => res.json(data))
     .catch(next)
 }

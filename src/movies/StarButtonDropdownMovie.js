@@ -12,11 +12,11 @@ export default connect(
     ),
     inListId: selectors.starredMovies.getListIdByMovieId(state, entityId),
     lists: selectors.moviesLists.getLists(state),
-    uiListId: selectors.ui.getCurrentListId(state)
+    uiListId: selectors.ui.getCurrentListId(state, 'movies')
   }),
   {
     onActive: starredMovies.star,
     onInactive: starredMovies.unstar,
-    onListChange: ui.setCurrentList
+    onListChange: listId => ui.setCurrentList(listId, 'movies')
   }
 )(StarButtonDropdown)

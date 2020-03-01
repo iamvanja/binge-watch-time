@@ -171,7 +171,7 @@ const getUiState = (methodName, state, listId) => (
 
 export default connect(
   state => {
-    const currentListId = selectors.ui.getCurrentListId(state)
+    const currentListId = selectors.ui.getCurrentListId(state, 'movies')
 
     return {
       isPending: getUiState('isRequestPending', state, currentListId),
@@ -184,7 +184,7 @@ export default connect(
   },
   {
     loadItemsPerListId: starredMovies.fetchByListId,
-    onListChange: ui.setCurrentList,
+    onListChange: listId => ui.setCurrentList(listId, 'movies'),
     onSortChange: ui.setCurrentSort
   }
 )(StarredMovieList)

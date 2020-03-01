@@ -15,7 +15,10 @@ export const initialState = {
   pendingRequests: [],
   erroredRequests: [],
   discoverGenre: null,
-  currentListId: 2,
+  currentListId: {
+    shows: 2,
+    movies: 2
+  },
   isMobileMenuOpen: false,
   currentSort: 'nextEpisodeToAir.airDate-asc'
 }
@@ -56,7 +59,10 @@ export default createReducer({
 
   [setCurrentList]: (state, payload) => ({
     ...state,
-    currentListId: parseInt(payload.listId, 10)
+    currentListId: {
+      ...state.currentListId,
+      [payload.entity]: parseInt(payload.listId, 10)
+    }
   }),
 
   [setCurrentSort]: (state, payload) => ({
@@ -84,8 +90,8 @@ export const getDiscoverGenre = state =>
 export const getDiscoverType = state =>
   state.discoverType || 'shows'
 
-export const getCurrentListId = state =>
-  state.currentListId
+export const getCurrentListId = (state, entity) =>
+  state.currentListId[entity]
 
 export const getCurrentSort = state =>
   state.currentSort

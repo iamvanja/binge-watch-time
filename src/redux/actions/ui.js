@@ -15,7 +15,7 @@ export const setDiscoverType = createAction(
 )
 export const setCurrentList = createAction(
   'SET_STARRED_LIST',
-  listId => ({ listId })
+  (listId, entity) => ({ listId, entity })
 )
 export const setCurrentSort = createAction(
   'SET_ORDER_LIST',

@@ -20,7 +20,10 @@ export const initialState = {
     movies: 2
   },
   isMobileMenuOpen: false,
-  currentSort: 'nextEpisodeToAir.airDate-asc'
+  currentSort: {
+    shows: 'nextEpisodeToAir.airDate-asc',
+    movies: 'name-asc'
+  }
 }
 
 const add = (state, label) =>
@@ -67,7 +70,10 @@ export default createReducer({
 
   [setCurrentSort]: (state, payload) => ({
     ...state,
-    currentSort: payload.sort
+    currentSort: {
+      ...state.currentSort,
+      [payload.entity]: payload.sort
+    }
   }),
 
   [setMobileMenuOpen]: (state, payload) => ({
@@ -93,8 +99,8 @@ export const getDiscoverType = state =>
 export const getCurrentListId = (state, entity) =>
   state.currentListId[entity]
 
-export const getCurrentSort = state =>
-  state.currentSort
+export const getCurrentSort = (state, entity) =>
+  state.currentSort[entity]
 
 export const isMobileMenuOpen = state =>
   !!state.isMobileMenuOpen

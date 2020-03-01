@@ -180,13 +180,13 @@ export default connect(
       isErrored: getUiState('isRequestErrored', state, currentListId),
       lists: selectors.showsLists.getLists(state),
       currentListId,
-      currentSort: selectors.ui.getCurrentSort(state),
+      currentSort: selectors.ui.getCurrentSort(state, 'shows'),
       shows: selectors.getStarredShowsByListId(state, currentListId)
     }
   },
   {
     loadShowsPerListId: starredShows.fetchByListId,
     onListChange: listId => ui.setCurrentList(listId, 'shows'),
-    onSortChange: ui.setCurrentSort
+    onSortChange: sort => ui.setCurrentSort(sort, 'shows')
   }
 )(StarredShowList)

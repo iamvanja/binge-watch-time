@@ -19,7 +19,7 @@ export const setCurrentList = createAction(
 )
 export const setCurrentSort = createAction(
   'SET_ORDER_LIST',
-  sort => ({ sort })
+  (sort, entity) => ({ sort, entity })
 )
 export const setMobileMenuOpen = createAction(
   'SET_MOBILE_MENU_OPEN',

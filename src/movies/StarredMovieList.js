@@ -31,7 +31,7 @@ class StarredMovieList extends Component {
         const varA = get(a, path, '')
         const varB = get(b, path, '')
 
-        if (path === 'nextEpisodeToAir.airDate') {
+        if (path === 'nextEpisodeToAir.airDate' || path === 'releaseDate') {
           if (!varA) {
             return 1
           }
@@ -114,8 +114,8 @@ class StarredMovieList extends Component {
         >
           <option value='name-asc'>Name A-Z</option>
           <option value='name-desc'>Name Z-A</option>
-          <option value='nextEpisodeToAir.airDate-asc'>Airing next</option>
-          <option value='nextEpisodeToAir.airDate-desc'>Airing last</option>
+          <option value='releaseDate-asc'>Oldest</option>
+          <option value='releaseDate-desc'>Newest</option>
         </select>
       </Cell>
     )
@@ -158,8 +158,8 @@ StarredMovieList.propTypes = {
   currentSort: PropTypes.oneOf([
     'name-asc',
     'name-desc',
-    'nextEpisodeToAir.airDate-asc',
-    'nextEpisodeToAir.airDate-desc'
+    'releaseDate-asc',
+    'releaseDate-desc'
   ]),
   items: PropTypes.array
 }
@@ -178,13 +178,13 @@ export default connect(
       isErrored: getUiState('isRequestErrored', state, currentListId),
       lists: selectors.moviesLists.getLists(state),
       currentListId,
-      currentSort: selectors.ui.getCurrentSort(state),
+      currentSort: selectors.ui.getCurrentSort(state, 'movies'),
       items: selectors.getStarredMoviesByListId(state, currentListId)
     }
   },
   {
     loadItemsPerListId: starredMovies.fetchByListId,
     onListChange: listId => ui.setCurrentList(listId, 'movies'),
-    onSortChange: ui.setCurrentSort
+    onSortChange: sort => ui.setCurrentSort(sort, 'movies')
   }
 )(StarredMovieList)

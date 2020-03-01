@@ -39,7 +39,13 @@ class StarButtonDropdown extends Component {
 
   handleClick (listId) {
     const { isActive } = this
-    const { entityId, inListId, onActive, onInactive, onListChange } = this.props
+    const {
+      entityId,
+      inListId,
+      onActive,
+      onInactive,
+      onListChange
+    } = this.props
     this.toggleOpen(false)
 
     if (isActive && inListId === listId) {

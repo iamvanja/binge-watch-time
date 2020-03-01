@@ -141,7 +141,7 @@ class StarButtonDropdownShow extends Component {
                     onClick={() => this.handleClick(listId)}
                     onKeyDown={() => this.handleClick(listId)}
                     key={listId}
-                    className='show-search-item'
+                    className='search-item'
                   >
                     <span role='menuitem'>{lists[listId]}</span>
                   </li>

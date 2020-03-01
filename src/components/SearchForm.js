@@ -6,31 +6,33 @@ import debounce from 'lodash/debounce'
 import api from 'api'
 import Loader from 'components/Loader'
 import Icon from 'components/Icon'
+import { getYearFromDateString } from 'utils/string'
 
-const ShowSearchItem = ({ id, name, originCountry }) => {
-  return (
-    <Link to={`/shows/${id}`} className='show-search-item'>
-      {name}
-      {originCountry.length
-        ? ` (${originCountry.join(', ')})`
-        : null
-      }
-    </Link>
-  )
+const iconNameByType = {
+  movie: 'cinema',
+  show: 'tv'
 }
 
-ShowSearchItem.defaultProps = {
-  originCountry: []
-}
+const SearchItem = ({ type, id, name, year }) => (
+  <Link
+    to={`/${type}s/${id}`}
+    className='search-item'
+    title={type.toUpperCase()}
+  >
+    <Icon icon={iconNameByType[type]} />
+    {name} {year ? `(${year})` : ''}
+  </Link>
+)
 
-ShowSearchItem.propTypes = {
+SearchItem.propTypes = {
+  type: PropTypes.oneOf(['movie', 'show']),
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  originCountry: PropTypes.array
+  year: PropTypes.string
 }
 
 const NoResult = () =>
-  <div className='show-search-item no-results'>No shows found</div>
+  <div className='search-item no-results'>Nothing found</div>
 
 class ShowSearchForm extends Component {
   constructor () {
@@ -61,6 +63,23 @@ class ShowSearchForm extends Component {
     }
   }
 
+  mergeShowsAndMovies (shows, movies) {
+    return [
+      ...shows.map(show => ({
+        ...show,
+        year: getYearFromDateString(show.firstAirDate),
+        type: 'show'
+      })),
+      ...movies.map(movie => ({
+        ...movie,
+        name: movie.title,
+        year: getYearFromDateString(movie.releaseDate),
+        type: 'movie'
+      }))
+    ]
+      .sort((a, b) => b.popularity - a.popularity)
+  }
+
   load (searchTerm) {
     if (!searchTerm) {
       return this.setState({ results: [], searchTerm })
@@ -71,11 +90,18 @@ class ShowSearchForm extends Component {
         isLoading: true,
         areResultsHidden: false
       })
-      return api.shows.search(searchTerm)
-        .then(data => {
+
+      return Promise.all([
+        api.shows.search(searchTerm),
+        api.movies.search(searchTerm)
+      ])
+        .then(([showData, movieData]) => {
           this.setState({
             searchTerm,
-            results: data.results,
+            results: this.mergeShowsAndMovies(
+              showData.results,
+              movieData.results
+            ),
             isLoading: false
           })
         })
@@ -85,12 +111,12 @@ class ShowSearchForm extends Component {
   render () {
     const { isLoading, results, areResultsHidden } = this.state
     return (
-      <div className='show-search-form'>
+      <div className='search-form'>
         <div className='input-group'>
           <span className='input-group-label'><Icon icon='search' /></span>
           <input
             type='text'
-            placeholder='Search shows...'
+            placeholder='Search...'
             autoComplete='off'
             className='input-group-field'
             onKeyUp={this.handleChange}
@@ -104,14 +130,11 @@ class ShowSearchForm extends Component {
             'is-loading': isLoading
           })}
         >
-          {
-            isLoading
-              ? <Loader />
-              : !results.length
-                ? <NoResult />
-                : results.map(show =>
-                  <ShowSearchItem key={show.id} {...show} />
-                )
+          {isLoading
+            ? <Loader />
+            : !results.length
+              ? <NoResult />
+              : results.map(item => <SearchItem key={item.id} {...item} />)
           }
         </div>
       </div>

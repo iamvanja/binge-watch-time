@@ -15,6 +15,10 @@ class ServiceMovieModel {
   discover (query) {
     return mdb('discoverMovie', query)
   }
+
+  search (query) {
+    return mdb('searchMovie', query)
+  }
 }
 
 export default new ServiceMovieModel()

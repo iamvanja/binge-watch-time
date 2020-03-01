@@ -19,9 +19,12 @@ const HeroExpandedContent = ({
           <Rater total={5} rating={(voteAverage / 10) * 5} />
         </li>
         <li className='runtime'>
-          {moment.utc(
-            moment.duration(runtime, 'minutes').as('milliseconds')
-          ).format('H[h] m[m]')}
+          {runtime
+            ? moment.utc(
+              moment.duration(runtime, 'minutes').as('milliseconds')
+            ).format('H[h] m[m]')
+            : 'Unknown duration'
+          }
         </li>
         {/* <li>
           <StarButtonDropdownShow
@@ -36,7 +39,7 @@ const HeroExpandedContent = ({
 
 HeroExpandedContent.propTypes = {
   voteAverage: PropTypes.number.isRequired,
-  runtime: PropTypes.number.isRequired,
+  runtime: PropTypes.number,
   status: PropTypes.string.isRequired
 }
 

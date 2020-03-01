@@ -8,5 +8,6 @@ const router = Router({ mergeParams: true })
 router.use(isAuthenticated)
 
 router.get(`/${MOVIE_ID}`, MovieController.one)
+router.get('/search/:name', MovieController.search)
 
 export default router

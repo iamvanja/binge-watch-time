@@ -45,3 +45,9 @@ export const one = (req, res, next) => {
     .then(movie => res.json(movie))
     .catch(next)
 }
+
+export const search = (req, res, next) => {
+  ServiceMovieModel.search({ query: req.params.name })
+    .then(data => res.json(data))
+    .catch(next)
+}

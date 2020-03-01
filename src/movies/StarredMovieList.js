@@ -1,18 +1,17 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import * as starredShows from 'redux/actions/starredShows'
-import * as lists from 'redux/actions/shows/lists'
-import * as watchedEpisodes from 'redux/actions/watchedEpisodes'
+import * as starredMovies from 'redux/actions/starredMovies'
+import * as lists from 'redux/actions/movies/lists'
 import * as ui from 'redux/actions/ui'
 import * as selectors from 'redux/reducers/selectors'
 import { Link } from 'react-router-dom'
 import Loader from 'components/Loader'
-import StarredShowListItem from './StarredShowListItem'
+import StarredMovieListItem from './StarredMovieListItem'
 import { GridContainer, Grid, Cell } from 'components/Grid'
 import get from 'lodash/get'
 
-class StarredShowList extends Component {
+class StarredMovieList extends Component {
   constructor (props) {
     super(props)
 
@@ -21,10 +20,10 @@ class StarredShowList extends Component {
   }
 
   componentDidMount () {
-    this.props.loadShowsPerListId(this.props.currentListId)
+    this.props.loadItemsPerListId(this.props.currentListId)
   }
 
-  sortShows (shows, currentSort) {
+  sortItems (shows, currentSort) {
     const [path, order] = currentSort.split('-')
 
     return shows
@@ -54,8 +53,8 @@ class StarredShowList extends Component {
   }
 
   renderContent () {
-    const { isPending, isErrored, shows = [] } = this.props
-    const sortedShows = this.sortShows(shows, this.props.currentSort)
+    const { isPending, isErrored, items = [] } = this.props
+    const sortedItems = this.sortItems(items, this.props.currentSort)
 
     if (isPending) {
       return <Loader />
@@ -65,28 +64,28 @@ class StarredShowList extends Component {
       return (
         <div className='text-center'>
           <p className='subheader'>
-            Error while loading starred shows...
+            Error while loading starred movies...
           </p>
         </div>
       )
     }
 
-    return sortedShows.length
+    return sortedItems.length
       ? (
         <Fragment>
-          {sortedShows.map(show =>
-            <StarredShowListItem key={show.id} {...show} />)
+          {sortedItems.map(item =>
+            <StarredMovieListItem key={item.id} {...item} />)
           }
         </Fragment>
       )
       : (
         <p className='text-center subheader lead'>
-          No starred shows in this list. <Link to='/discover/shows'>Discover some</Link>.
+          No starred movies in this list. <Link to='/discover/movies'>Discover some</Link>.
         </p>
       )
   }
 
-  renderShowsListSelect () {
+  renderListSelect () {
     return (
       <Cell small={6} medium={3}>
         {/* eslint-disable-next-line jsx-a11y/no-onchange */}
@@ -105,7 +104,7 @@ class StarredShowList extends Component {
     )
   }
 
-  renderShowsListOrder () {
+  renderListOrder () {
     return (
       <Cell small={6} medium={3}>
         {/* eslint-disable-next-line jsx-a11y/no-onchange */}
@@ -125,7 +124,7 @@ class StarredShowList extends Component {
   handleListChange (e) {
     const newListId = parseInt(e.target.value, 10)
     this.props.onListChange(newListId)
-    this.props.loadShowsPerListId(newListId)
+    this.props.loadItemsPerListId(newListId)
   }
 
   handleSortChange (e) {
@@ -137,8 +136,8 @@ class StarredShowList extends Component {
       <div className='shows-starred-list'>
         <GridContainer>
           <Grid gutters='margin' align='justify'>
-            {this.renderShowsListOrder()}
-            {this.renderShowsListSelect()}
+            {this.renderListOrder()}
+            {this.renderListSelect()}
           </Grid>
         </GridContainer>
 
@@ -148,10 +147,10 @@ class StarredShowList extends Component {
   }
 }
 
-StarredShowList.propTypes = {
+StarredMovieList.propTypes = {
   isPending: PropTypes.bool,
   isErrored: PropTypes.bool,
-  loadShowsPerListId: PropTypes.func.isRequired,
+  loadItemsPerListId: PropTypes.func.isRequired,
   lists: PropTypes.objectOf(PropTypes.string),
   onListChange: PropTypes.func.isRequired,
   onSortChange: PropTypes.func.isRequired,
@@ -162,13 +161,12 @@ StarredShowList.propTypes = {
     'nextEpisodeToAir.airDate-asc',
     'nextEpisodeToAir.airDate-desc'
   ]),
-  shows: PropTypes.array
+  items: PropTypes.array
 }
 
 const getUiState = (methodName, state, listId) => (
   selectors.ui[methodName](state, lists.fetch()) ||
-  selectors.ui[methodName](state, watchedEpisodes.fetch()) ||
-  selectors.ui[methodName](state, starredShows.fetchByListId(listId))
+  selectors.ui[methodName](state, starredMovies.fetchByListId(listId))
 )
 
 export default connect(
@@ -178,15 +176,15 @@ export default connect(
     return {
       isPending: getUiState('isRequestPending', state, currentListId),
       isErrored: getUiState('isRequestErrored', state, currentListId),
-      lists: selectors.showsLists.getLists(state),
+      lists: selectors.moviesLists.getLists(state),
       currentListId,
       currentSort: selectors.ui.getCurrentSort(state),
-      shows: selectors.getStarredShowsByListId(state, currentListId)
+      items: selectors.getStarredMoviesByListId(state, currentListId)
     }
   },
   {
-    loadShowsPerListId: starredShows.fetchByListId,
+    loadItemsPerListId: starredMovies.fetchByListId,
     onListChange: ui.setCurrentList,
     onSortChange: ui.setCurrentSort
   }
-)(StarredShowList)
+)(StarredMovieList)

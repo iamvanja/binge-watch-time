@@ -3,9 +3,11 @@ import * as authSelectors from './authReducer'
 import * as discoverSelectors from './discoverReducer'
 import * as episodesSelectors from './episodesReducer'
 import * as moviesSelectors from './moviesReducer'
+import * as moviesListsSelectors from './movies/listsReducer'
 import * as showsListsSelectors from './shows/listsReducer'
 import * as seasonsSelectors from './seasonsReducer'
 import * as showsSelectors from './showsReducer'
+import * as starredMoviesSelectors from './starredMoviesReducer'
 import * as starredShowsSelectors from './starredShowsReducer'
 import * as uiSelectors from './uiReducer'
 import * as watchedEpisodesSelectors from './watchedEpisodesReducer'
@@ -14,9 +16,11 @@ import {
   DISCOVER,
   EPISODES,
   MOVIES,
+  MOVIE_LISTS,
   SHOW_LISTS,
   SEASONS,
   SHOWS,
+  STARRED_MOVIES,
   STARRED_SHOWS,
   UI,
   WATCHED_EPISODES
@@ -40,6 +44,10 @@ export const movies = bindSelectors(
   state => state[MOVIES],
   moviesSelectors
 )
+export const moviesLists = bindSelectors(
+  state => state[MOVIE_LISTS],
+  moviesListsSelectors
+)
 export const showsLists = bindSelectors(
   state => state[SHOW_LISTS],
   showsListsSelectors
@@ -51,6 +59,10 @@ export const seasons = bindSelectors(
 export const shows = bindSelectors(
   state => state[SHOWS],
   showsSelectors
+)
+export const starredMovies = bindSelectors(
+  state => state[STARRED_MOVIES],
+  starredMoviesSelectors
 )
 export const starredShows = bindSelectors(
   state => state[STARRED_SHOWS],
@@ -78,6 +90,10 @@ export const getStarredShows = state =>
 export const getStarredShowsByListId = (state, listId) =>
   shows.getShows(state, starredShows.getStarredIdsByListId(state, listId))
     .filter(show => !!show)
+
+export const getStarredMoviesByListId = (state, listId) =>
+  movies.getMovies(state, starredMovies.getStarredIdsByListId(state, listId))
+    .filter(movie => !!movie)
 
 export const getShowSeasons = (state, showId) =>
   seasons.getSeasons(state, shows.getShowSeasonIds(state, showId))

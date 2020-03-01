@@ -37,7 +37,7 @@ const HeroExpandedContent = ({
         </li>
         <li>
           <StarButtonDropdownShow
-            showId={id}
+            entityId={id}
             id='star-button-dropdown'
           />
         </li>

@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Rater from 'components/Rater'
-// import StarButtonDropdownShow from './StarButtonDropdownShow'
+import StarButtonDropdownMovie from './StarButtonDropdownMovie'
 import moment from 'moment'
 
 const HeroExpandedContent = ({
   voteAverage,
   runtime,
-  status
+  status,
+  id
 }) => {
   return (
     <div className='hero-expanded-content'>
@@ -26,18 +27,19 @@ const HeroExpandedContent = ({
             : 'Unknown duration'
           }
         </li>
-        {/* <li>
-          <StarButtonDropdownShow
-            showId={id}
+        <li>
+          <StarButtonDropdownMovie
+            entityId={id}
             id='star-button-dropdown'
           />
-        </li> */}
+        </li>
       </ul>
     </div>
   )
 }
 
 HeroExpandedContent.propTypes = {
+  id: PropTypes.number.isRequired,
   voteAverage: PropTypes.number.isRequired,
   runtime: PropTypes.number,
   status: PropTypes.string.isRequired

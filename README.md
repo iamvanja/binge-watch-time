@@ -15,6 +15,6 @@ If you want to run your own instance or create a PR, you will need to run this p
 This project is a work in progress and I would like to have:
 - notifications
 - better email templates
-- movie support
+- <del>movie support</del> ✅
 - user settings such a spoiler alerts
 - ...

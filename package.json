@@ -47,7 +47,7 @@
     "mailgun-js": "^0.16.0",
     "moviedb": "^0.2.10",
     "mysql": "^2.15.0",
-    "njwt": "^0.4.0",
+    "njwt": "^1.0.0",
     "normalizr": "^3.2.4",
     "object-fit-images": "^3.2.4",
     "react": "^16.2.0",

@@ -5727,12 +5727,12 @@ netmask@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
 
-njwt@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/njwt/-/njwt-0.4.0.tgz#7324ed9d76a9d54b5e265cb7b6a3c55f146fd3c7"
+njwt@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/njwt/-/njwt-1.0.0.tgz#da5bfa9c251b144a9cdb40a8ad025b3d7b5b52ee"
   dependencies:
     ecdsa-sig-formatter "^1.0.5"
-    uuid "^2.0.1"
+    uuid "^3.3.2"
 
 no-case@^2.2.0:
   version "2.3.2"
@@ -8934,13 +8934,13 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
-uuid@^2.0.1, uuid@^2.0.2:
+uuid@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
 
-uuid@^3.0.0, uuid@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
+uuid@^3.0.0, uuid@^3.2.1, uuid@^3.3.2:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
 
 v8flags@^2.1.1:
   version "2.1.1"

@@ -43,7 +43,7 @@
     "informative": "^0.6.1",
     "js-cookie": "^2.2.0",
     "limits.js": "^0.1.4",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "mailgun-js": "^0.16.0",
     "moviedb": "^0.2.10",
     "mysql": "^2.15.0",

@@ -40,7 +40,7 @@ const initRoutes = app => {
     // Serve the static files from the React app
     app.use(express.static(path.join(__dirname, '../../build')))
     // Handle requests by serving index.html for all routes
-    app.get('/*', (req, res) => {
+    app.get('*', (req, res) => {
       res.sendFile(path.join(__dirname, '../../build', 'index.html'))
     })
   }

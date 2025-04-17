@@ -13,7 +13,7 @@
 import winston from 'winston'
 import getConsoleTransport from './transports/consoleTransport'
 import getFileTransport from './transports/fileTransport'
-import { LOGGING_GLOBAL_LEVEL } from 'config/env'
+import { LOGGING_GLOBAL_LEVEL } from '../config/env'
 import without from 'lodash/without'
 
 const getTransports = () => {

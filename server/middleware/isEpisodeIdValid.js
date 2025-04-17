@@ -1,6 +1,6 @@
-import { NotFound } from 'utils/throwables'
-import UserShowEpisodeModel from 'models/UserShowEpisodeModel'
-import ServiceShowEpisodeModel from 'models/ServiceShowEpisodeModel'
+import { NotFound } from '../utils/throwables'
+import UserShowEpisodeModel from '../models/UserShowEpisodeModel'
+import ServiceShowEpisodeModel from '../models/ServiceShowEpisodeModel'
 
 const isEpisodeValid = (req, res, next) => {
   const { showId, seasonNumber, episodeNumber } = req.params

@@ -3,7 +3,7 @@ import {
   LOGGING_CONSOLE_ENABLED,
   LOGGING_CONSOLE_LEVEL,
   LOGGING_GLOBAL_LEVEL
-} from 'config/env'
+} from '../../config/env'
 
 const getConsoleTransport = () => {
   if (LOGGING_CONSOLE_ENABLED) {

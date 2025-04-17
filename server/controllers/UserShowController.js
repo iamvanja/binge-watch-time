@@ -1,6 +1,6 @@
-import UserShowModel from 'models/UserShowModel'
-import ServiceShowModel from 'models/ServiceShowModel'
-import { UserNotAllowed } from 'utils/throwables'
+import UserShowModel from '../models/UserShowModel'
+import ServiceShowModel from '../models/ServiceShowModel'
+import { UserNotAllowed } from '../utils/throwables'
 
 export const toggleStar = (req, res, next) => {
   const { userId } = req.user

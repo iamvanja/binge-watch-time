@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import * as ShowController from 'controllers/ShowController'
-import * as MovieController from 'controllers/MovieController'
-import isAuthenticated from 'middleware/isAuthenticated'
+import * as ShowController from '../controllers/ShowController'
+import * as MovieController from '../controllers/MovieController'
+import isAuthenticated from '../middleware/isAuthenticated'
 
 const router = Router()
 

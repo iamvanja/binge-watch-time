@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import * as ShowController from 'controllers/ShowController'
-import * as UserShowEpisodeController from 'controllers/UserShowEpisodeController'
-import isEpisodeIdValid from 'middleware/isEpisodeIdValid'
+import * as ShowController from '../../controllers/ShowController'
+import * as UserShowEpisodeController from '../../controllers/UserShowEpisodeController'
+import isEpisodeIdValid from '../../middleware/isEpisodeIdValid'
 import { SEASON_NUMBER, EPISODE_NUMBER } from './constants'
 
 const router = Router({ mergeParams: true })

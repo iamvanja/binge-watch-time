@@ -4,7 +4,7 @@ import {
   LOGGING_FILE_LEVEL,
   LOGGING_FILE_FILENAME,
   LOGGING_GLOBAL_LEVEL
-} from 'config/env'
+} from '../../config/env'
 
 const getFileTransport = () => {
   if (LOGGING_FILE_ENABLED) {

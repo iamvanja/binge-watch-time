@@ -1,11 +1,11 @@
-import logger from 'logger'
-import init from 'config/express'
+import logger from '../logger'
+import init from './express'
 import {
   NODE_ENV,
   SERVER_PORT,
   SERVER_HOST,
   LATENCY
-} from 'config/env'
+} from './env'
 
 const start = () => {
   const app = init()

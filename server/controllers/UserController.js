@@ -1,11 +1,11 @@
-import UserModel from 'models/UserModel'
-import UserPasswordTokenModel from 'models/UserPasswordTokenModel'
-import logger from 'logger'
+import UserModel from '../models/UserModel'
+import UserPasswordTokenModel from '../models/UserPasswordTokenModel'
+import logger from '../logger'
 import uuid from 'uuid'
 import moment from 'moment'
-import { createPasswordHash } from 'utils/encryption/password'
-import { UserError } from 'utils/throwables'
-import sendEmail from 'utils/sendEmail'
+import { createPasswordHash } from '../utils/encryption/password'
+import { UserError } from '../utils/throwables'
+import sendEmail from '../utils/sendEmail'
 
 export const register = (req, res, next) => {
   const { firstName, lastName, email, password } = req.body

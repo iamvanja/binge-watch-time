@@ -9,7 +9,7 @@ import {
   MYSQL_PASS,
   MYSQL_DB,
   MYSQL_SSL
-} from 'config/env'
+} from '../../config/env'
 
 const connection = mysql.createConnection({
   host: MYSQL_HOST,

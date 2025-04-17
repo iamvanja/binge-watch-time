@@ -1,8 +1,8 @@
-import { NotFound } from 'utils/throwables'
-import UserShowModel from 'models/UserShowModel'
-import UserMovieModel from 'models/UserMovieModel'
-import ServiceShowModel from 'models/ServiceShowModel'
-import ServiceMovieModel from 'models/ServiceMovieModel'
+import { NotFound } from '../utils/throwables'
+import UserShowModel from '../models/UserShowModel'
+import UserMovieModel from '../models/UserMovieModel'
+import ServiceShowModel from '../models/ServiceShowModel'
+import ServiceMovieModel from '../models/ServiceMovieModel'
 
 const idPropertyByEntity = {
   show: 'showId',

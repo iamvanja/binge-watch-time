@@ -2,13 +2,13 @@ import express from 'express'
 import helmet from 'helmet'
 import bodyParser from 'body-parser'
 import path from 'path'
-import jwt from 'middleware/jwt'
+import jwt from '../middleware/jwt'
 import {
   LATENCY,
   JWT_TIMEOUT,
   JWT_SECRET,
   NODE_ENV
-} from 'config/env'
+} from './env'
 
 const initMiddleware = app => {
   app.enable('trust proxy', true)
@@ -34,7 +34,7 @@ const initHeaders = app => {
  * registered first.
  */
 const initRoutes = app => {
-  app.use('/api', require('api').default)
+  app.use('/api', require('../api').default)
 
   if (NODE_ENV === 'production') {
     // Serve the static files from the React app

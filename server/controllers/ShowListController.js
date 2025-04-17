@@ -1,4 +1,4 @@
-import ShowListModel from 'models/ShowListModel'
+import ShowListModel from '../models/ShowListModel'
 
 export const find = (req, res, next) => {
   return ShowListModel.find()

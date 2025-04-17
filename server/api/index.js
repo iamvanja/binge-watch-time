@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import errorHandler from 'utils/errorHandler'
+import errorHandler from '../utils/errorHandler'
 
 import auth from './auth'
 import discover from './discover'

@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import * as UserMovieController from 'controllers/UserMovieController'
-import isEntityIdValid from 'middleware/isEntityIdValid'
+import * as UserMovieController from '../../controllers/UserMovieController'
+import isEntityIdValid from '../../middleware/isEntityIdValid'
 
 const router = Router({ mergeParams: true })
 

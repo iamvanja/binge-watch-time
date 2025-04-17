@@ -1,11 +1,13 @@
 import express from 'express'
 import helmet from 'helmet'
 import bodyParser from 'body-parser'
+import path from 'path'
 import jwt from 'middleware/jwt'
 import {
   LATENCY,
   JWT_TIMEOUT,
-  JWT_SECRET
+  JWT_SECRET,
+  NODE_ENV
 } from 'config/env'
 
 const initMiddleware = app => {
@@ -33,6 +35,15 @@ const initHeaders = app => {
  */
 const initRoutes = app => {
   app.use('/api', require('api').default)
+
+  if (NODE_ENV === 'production') {
+    // Serve the static files from the React app
+    app.use(express.static(path.join(__dirname, '../../build')))
+    // Handle requests by serving index.html for all routes
+    app.get('/*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../../build', 'index.html'))
+    })
+  }
 }
 
 const init = app => {

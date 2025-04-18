@@ -1,28 +1,24 @@
+
 const options = {
   'defaultEnv': 'env-default',
   'env-default': {
-    'driver': 'mysql',
+    'driver': 'pg',
     'host': {
-      'ENV': 'MYSQL_HOST'
+      'ENV': 'PG_HOST'
     },
     'user': {
-      'ENV': 'MYSQL_USER'
+      'ENV': 'PG_USER'
     },
     'password': {
-      'ENV': 'MYSQL_PASS'
+      'ENV': 'PG_PASS'
     },
     'database': {
-      'ENV': 'MYSQL_DB'
+      'ENV': 'PG_DB'
     },
-    'multipleStatements': true
+    'port': {
+      'ENV': 'PG_PORT'
+    }
   }
 }
-const { MYSQL_SSL } = process.env
-const ssl = MYSQL_SSL
-  ? MYSQL_SSL === 'true'
-    ? true
-    : MYSQL_SSL
-  : undefined
-options[options.defaultEnv].ssl = ssl
 
 module.exports = options

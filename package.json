@@ -7,7 +7,7 @@
     "babel-eslint": "^8.2.1",
     "babel-preset-stage-2": "^6.24.1",
     "db-migrate": "^0.10.5",
-    "db-migrate-mysql": "^1.1.10",
+    "db-migrate-pg": "^1.5.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.18.2",

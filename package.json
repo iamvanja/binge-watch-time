@@ -62,12 +62,12 @@
     "winston": "^2.4.0"
   },
   "scripts": {
+    "postinstall": "yarn migrate up && rm -rf build-server && yarn build:server && yarn build:client:css && yarn build:client:js",
     "dev": "run-p dev:\\*",
-    "dev:server": "nodemon --watch server server/index.js --exec 'yarn lint:server -- -c .eslintrc.dev.js && NODE_PATH=server babel-node'",
+    "dev:server": "nodemon --watch server server/index.js --exec 'yarn lint:server -c .eslintrc.dev.js && babel-node'",
     "dev:client": "npm run dev:client:js && npm run dev:client:css",
     "dev:client:js": "NODE_PATH=src react-app-rewired start",
     "dev:client:css": "npm run build:client:css && sass --watch --load-path=./src --load-path=./node_modules src:src",
-    "build": "yarn build:server && yarn build:client:css && yarn build:client:js",
     "build:server": "babel server -d build-server",
     "build:client:js": "NODE_OPTIONS=--max_old_space_size=4096 GENERATE_SOURCEMAP=false NODE_PATH=src react-app-rewired build",
     "build:client:css": "sass --load-path=./src --load-path=./node_modules src:src",
@@ -78,7 +78,7 @@
     "lint:client:css": "stylelint 'src/scss/**/*.scss'",
     "test": "react-app-rewired test",
     "test:coverage": "yarn test -- --coverage",
-    "start:server": "NODE_PATH=build-server NODE_ENV=production node build-server/index.js",
+    "start": "NODE_PATH=build-server NODE_ENV=production node build-server/index.js",
     "migrate": "npx db-migrate --config 'server/database.js' --migrations-dir 'server/migrations'"
   },
   "proxy": {

@@ -1,13 +1,25 @@
-CREATE TABLE `user` (
-  `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(30) NOT NULL DEFAULT '',
-  `last_name` varchar(30) NOT NULL DEFAULT '',
-  `email` varchar(100) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
-  `verification_code` varchar(50) NOT NULL DEFAULT '',
-  `is_verified` tinyint(1) NOT NULL DEFAULT '0',
-  `datetime_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `datetime_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
+CREATE TABLE "user" (
+  user_id SERIAL PRIMARY KEY,
+  first_name VARCHAR(30) NOT NULL DEFAULT '',
+  last_name VARCHAR(30) NOT NULL DEFAULT '',
+  email VARCHAR(100) UNIQUE,
+  password VARCHAR(100),
+  verification_code VARCHAR(50) NOT NULL DEFAULT '',
+  is_verified BOOLEAN NOT NULL DEFAULT FALSE,
+  datetime_added TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  datetime_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- To emulate the "ON UPDATE CURRENT_TIMESTAMP" behavior:
+CREATE OR REPLACE FUNCTION update_datetime_updated()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.datetime_updated = CURRENT_TIMESTAMP;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_update_datetime_updated
+BEFORE UPDATE ON "user"
+FOR EACH ROW
+EXECUTE FUNCTION update_datetime_updated();

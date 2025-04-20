@@ -1,7 +1,7 @@
 import isPlainObject from 'lodash/isPlainObject'
 import snakeCase from 'lodash/snakeCase'
 import mapKeys from 'lodash/mapKeys'
-import db from '../utils/mysql'
+import db from '../../utils/mysql'
 
 class Model {
   constructor (table, key) {

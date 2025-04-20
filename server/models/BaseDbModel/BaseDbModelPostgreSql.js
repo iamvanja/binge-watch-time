@@ -2,7 +2,7 @@ import isPlainObject from 'lodash/isPlainObject'
 import snakeCase from 'lodash/snakeCase'
 import camelCase from 'lodash/camelCase'
 import mapKeys from 'lodash/mapKeys'
-import db from '../utils/pg'
+import db from '../../utils/pg'
 
 class Model {
   constructor (table, key) {

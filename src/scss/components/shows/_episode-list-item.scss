@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .episode-list-item {
   border-bottom: 1px solid $light-gray;
 
@@ -13,7 +15,7 @@
     line-height: 1;
 
     &:hover {
-      color: darken($body-font-color, 10%);
+      color: color.adjust($body-font-color, $lightness: -10%);
     }
   }
 

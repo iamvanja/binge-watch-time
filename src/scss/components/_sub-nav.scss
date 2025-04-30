@@ -1,7 +1,9 @@
-.sub-nav {
-  $inactive-color: darken($app-white, 38%);
+@use 'sass:color';
 
-  border-bottom: 2px solid darken($inactive-color, 20%);
+.sub-nav {
+  $inactive-color: color.adjust($app-white, $lightness: -38%);
+
+  border-bottom: 2px solid color.adjust($inactive-color, $lightness: -20%);
   background-color: $app-secondary-color;
 
   .menu {
@@ -23,7 +25,7 @@
         transition: color 0.5s ease, border-color 0.5s ease;
 
         &:hover {
-          color: lighten($inactive-color, 10%);
+          color: color.adjust($inactive-color, $lightness: 10%);
         }
 
         &.active {

@@ -1,3 +1,7 @@
+@use "sass:map";
+@use 'sass:color';
+@use 'sass:math';
+
 .header-primary {
   margin-bottom: rem-calc(10px);
   background-color: $app-secondary-color;
@@ -22,7 +26,7 @@
       cursor: pointer;
 
       &.border {
-        border-right: 1px solid lighten($app-body-background, 3%);
+        border-right: 1px solid color.adjust($app-body-background, $lightness: 3%);
       }
 
       &.search {
@@ -84,11 +88,11 @@
   }
 
   @include breakpoint(small only) {
-    $gutter: map-get($grid-margin-gutters, 'small');
+    $gutter: map.get($grid-margin-gutters, 'small');
 
     .menu-container {
-      margin-left: rem-calc($gutter / -2);
-      margin-right: rem-calc($gutter / -2);
+      margin-left: rem-calc(math.div($gutter, -2));
+      margin-right: rem-calc(math.div($gutter, -2));
       width: calc(100% + #{rem-calc($gutter)});
       display: none;
 
@@ -118,7 +122,7 @@
     }
 
     .main-content-container {
-      padding: rem-calc($gutter / 2) 0;
+      padding: rem-calc(math.div($gutter, 2)) 0;
     }
   }
 }

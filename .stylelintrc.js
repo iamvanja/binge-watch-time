@@ -15,7 +15,8 @@ module.exports = {
         'for',
         'mixin',
         'content',
-        'function'
+        'function',
+        'use'
       ]
     }]
   }

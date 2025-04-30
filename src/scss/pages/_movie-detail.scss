@@ -1,6 +1,8 @@
+@use 'sass:color';
+
 .page.movie-detail {
   .detail-hero {
-    border-bottom: 2px solid darken($app-white, 58%);
+    border-bottom: 2px solid color.adjust($app-white, $lightness: -58%);
     margin-bottom: rem-calc(10px);
   }
 }

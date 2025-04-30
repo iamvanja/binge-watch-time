@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .button-toggle {
   height: rem-calc(50px);
   width: rem-calc(50px);
@@ -17,7 +19,7 @@
   &.active {
     background: $app-tertiary-color;
     color: $white;
-    border: 1px solid darken($app-tertiary-color, 10%);
+    border: 1px solid color.adjust($app-tertiary-color, $lightness: -10%);
   }
 
   &[disabled] {

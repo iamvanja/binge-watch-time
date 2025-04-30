@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .button-dropdown {
   position: relative;
 
@@ -7,7 +9,7 @@
 
   .main-button {
     width: 80%;
-    padding: $form-spacing/3 $form-spacing/2;
+    padding: math.div($form-spacing, 3) math.div($form-spacing, 2);
 
     .icon-wrap {
       height: rem-calc(40px);

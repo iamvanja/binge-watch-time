@@ -1,8 +1,9 @@
-ALTER TABLE `user_show`
-  DROP FOREIGN KEY `user_show_parent_list`,
-  DROP KEY `user_show_parent_list`
+ALTER TABLE user_show
+  DROP CONSTRAINT IF EXISTS user_show_parent_list;
 
-ALTER TABLE `user_show`
-  DROP COLUMN `list_id`;
+DROP INDEX IF EXISTS user_show_parent_list;
 
-DROP TABLE `show_list`;
+ALTER TABLE user_show
+  DROP COLUMN IF EXISTS list_id;
+
+DROP TABLE IF EXISTS show_list;

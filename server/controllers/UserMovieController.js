@@ -1,6 +1,6 @@
-import UserMovieModel from 'models/UserMovieModel'
-import ServiceMovieModel from 'models/ServiceMovieModel'
-import { UserNotAllowed } from 'utils/throwables'
+import UserMovieModel from '../models/UserMovieModel'
+import ServiceMovieModel from '../models/ServiceMovieModel'
+import { UserNotAllowed } from '../utils/throwables'
 
 export const toggleStar = (req, res, next) => {
   const { userId } = req.user

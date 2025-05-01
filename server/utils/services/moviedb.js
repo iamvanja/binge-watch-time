@@ -1,5 +1,5 @@
 import moviedb from 'moviedb'
-import { MOVIE_DB_API_KEY } from 'config/env'
+import { MOVIE_DB_API_KEY } from '../../config/env'
 import limits from 'limits.js'
 import mapKeys from 'lodash/mapKeys'
 import isArray from 'lodash/isArray'

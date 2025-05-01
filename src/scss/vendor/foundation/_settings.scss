@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 /**
  * This file is copied from
  * `./node_modules/foundation-sites/scss/settings/settings` and serves as
@@ -234,7 +236,7 @@ $accordion-background: $app-secondary-color;
 // $accordion-plusminus: true;
 // $accordion-title-font-size: rem-calc(12);
 // $accordion-item-color: $primary-color;
-$accordion-item-background-hover: lighten($app-secondary-color, 2%);
+$accordion-item-background-hover: color.adjust($app-secondary-color, $lightness: 2%);
 // $accordion-item-padding: 1.25rem 1rem;
 $accordion-content-background: $app-body-background;
 $accordion-content-border: 1px solid $app-tertiary-color;
@@ -875,4 +877,3 @@ $offcanvas-transition-length: 0.25s;
 // $grid-container-padding: $grid-padding-gutters;
 // $grid-container-max: $global-width;
 // $xy-block-grid-max: 8;
-

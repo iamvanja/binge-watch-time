@@ -1,6 +1,6 @@
-import ServiceShowModel from 'models/ServiceShowModel'
-import ServiceShowEpisodeModel from 'models/ServiceShowEpisodeModel'
-import { NotFound } from 'utils/throwables'
+import ServiceShowModel from '../models/ServiceShowModel'
+import ServiceShowEpisodeModel from '../models/ServiceShowEpisodeModel'
+import { NotFound } from '../utils/throwables'
 import moment from 'moment'
 import camelCase from 'lodash/camelCase'
 

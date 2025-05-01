@@ -1,7 +1,9 @@
+@use 'sass:color';
+
 .image-placeholder {
   width: 200px;
   height: 200px;
-  background: lighten($app-secondary-color, 12%);
+  background: color.adjust($app-secondary-color, $lightness: 12%);
   text-align: center;
   display: table;
   font-size: rem-calc(50px);

@@ -1,5 +1,5 @@
-import UserShowEpisodeModel from 'models/UserShowEpisodeModel'
-import { UserNotAllowed } from 'utils/throwables'
+import UserShowEpisodeModel from '../models/UserShowEpisodeModel'
+import { UserNotAllowed } from '../utils/throwables'
 import omit from 'lodash/omit'
 
 export const toggleEpisodeWatch = (req, res, next) => {

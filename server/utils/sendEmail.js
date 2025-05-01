@@ -1,8 +1,8 @@
 import path from 'path'
 import queryString from 'query-string'
 import ejs from 'ejs'
-import { sendEmail } from 'utils/services/mailGun'
-import { BASE_URL } from 'config/env'
+import { sendEmail } from '../utils/services/mailGun'
+import { BASE_URL } from '../config/env'
 
 const emailTemplate = (filename, data) =>
   new Promise((resolve, reject) => {

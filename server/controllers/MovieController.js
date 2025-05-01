@@ -1,4 +1,4 @@
-import ServiceMovieModel from 'models/ServiceMovieModel'
+import ServiceMovieModel from '../models/ServiceMovieModel'
 import moment from 'moment'
 import camelCase from 'lodash/camelCase'
 

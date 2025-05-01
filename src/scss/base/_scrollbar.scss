@@ -1,10 +1,12 @@
+@use 'sass:color';
+
 ::-webkit-scrollbar {
   height: rem-calc(14px);
   width: rem-calc(14px);
 }
 
 ::-webkit-scrollbar-track {
-  background-color: darken($app-secondary-color, 3%);
+  background-color: color.adjust($app-secondary-color, $lightness: -3%, $space: hsl);
 }
 
 // Handle

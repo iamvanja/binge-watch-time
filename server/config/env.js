@@ -21,11 +21,13 @@ const {
   LOGGING_FILE_LEVEL,
   JWT_TIMEOUT: jwtTimeout,
   JWT_SECRET: jwtSecret,
-  MYSQL_HOST,
-  MYSQL_USER,
-  MYSQL_PASS,
-  MYSQL_DB,
-  MYSQL_SSL: mySqlSsl,
+
+  PG_USER,
+  PG_PASS,
+  PG_HOST,
+  PG_PORT: pgPort,
+  PG_DB,
+
   MAILER_FROM_EMAIL,
   MAILER_FROM_NAME,
   MAILGUN_API_KEY,
@@ -64,13 +66,13 @@ export const LOGGING_FILE_FILENAME = loggingFileFilename || 'logs/request.log'
 export { LOGGING_FILE_LEVEL }
 export const JWT_TIMEOUT = jwtTimeout || 1000 * 60 * 60 // 1 Hour
 export const JWT_SECRET = jwtSecret || 'bMiJiiVbYQnQ;PyDUCiXzkij}f&b42iRZ6X'
-export { MYSQL_HOST }
-export { MYSQL_USER }
-export { MYSQL_PASS }
-export { MYSQL_DB }
-export const MYSQL_SSL = isTrue(mySqlSsl)
 export { MAILER_FROM_EMAIL }
 export { MAILER_FROM_NAME }
 export { MAILGUN_API_KEY }
 export { MAILGUN_DOMAIN }
 export { MOVIE_DB_API_KEY }
+export { PG_USER }
+export { PG_PASS }
+export { PG_HOST }
+export const PG_PORT = parseInt(pgPort, 10)
+export { PG_DB }

@@ -4,7 +4,7 @@ import {
   MAILER_FROM_NAME,
   MAILGUN_API_KEY,
   MAILGUN_DOMAIN
-} from 'config/env'
+} from '../../config/env'
 
 const mailgun = Mailgun({
   apiKey: MAILGUN_API_KEY,

@@ -1,4 +1,4 @@
-import mdb from 'utils/services/moviedb'
+import mdb from '../utils/services/moviedb'
 
 class ServiceMovieModel {
   one (query = {}) {

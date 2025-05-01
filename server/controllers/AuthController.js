@@ -1,9 +1,9 @@
-import UserModel from 'models/UserModel'
-import { verifyPassword } from 'utils/encryption/password'
+import UserModel from '../models/UserModel'
+import { verifyPassword } from '../utils/encryption/password'
 import {
   UserAuthenticationFailed,
   UserError
-} from 'utils/throwables'
+} from '../utils/throwables'
 
 export const login = (req, res, next) => {
   const { email, password, keepAlive } = req.body

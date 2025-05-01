@@ -11,5 +11,5 @@
       "dest": "build-server/index.js"
     }
   ],
-  "buildCommand": "yarn install"
+  "buildCommand": "yarn install && yarn build"
 }

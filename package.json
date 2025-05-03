@@ -62,7 +62,7 @@
     "winston": "^2.4.0"
   },
   "scripts": {
-    "postinstall": "yarn migrate up && rm -rf build-server && yarn build:server && yarn build:client:css && yarn build:client:js",
+    "build": "yarn migrate up && rm -rf build-server && yarn build:server && yarn build:client:css && yarn build:client:js",
     "dev": "run-p dev:\\*",
     "dev:server": "nodemon --watch server server/index.js --exec 'yarn lint:server -c .eslintrc.dev.js && babel-node'",
     "dev:client": "yarn dev:client:js",

@@ -4,7 +4,7 @@ import ContentBoxSelect from 'components/ContentBoxSelect'
 import * as discover from 'redux/actions/discover'
 import * as ui from 'redux/actions/ui'
 import * as selectors from 'redux/reducers/selectors'
-import { GENRES } from 'constants/tmdb'
+import { GENRES_SHOWS, GENRES_MOVIES } from 'constants/tmdb'
 import {
   DISCOVER_NEW,
   DISCOVER_POPULAR,
@@ -66,11 +66,21 @@ export const DiscoverTopRated = connect(
   )
 )(HorizontalList)
 
-const genreOptions = GENRES.map(({ id, name }) => ({ value: id, label: name }))
+const genreMapper = ({ id, name }) => ({ value: id, label: name })
+const genreOptionsShows = GENRES_SHOWS.map(genreMapper)
+const genreOptionsMovies = GENRES_MOVIES.map(genreMapper)
 export const DiscoverByGenre = connect(
   (state, ownProps) => {
+    // Handles not found scenario (/discover/foo)
+    if (!ownProps.type) {
+      return {}
+    }
+
+    const genreOptions = ownProps.type === 'shows'
+      ? genreOptionsShows
+      : genreOptionsMovies
     const genreId = (
-      selectors.ui.getDiscoverGenre(state) ||
+      selectors.ui.getDiscoverGenre(state, ownProps.type) ||
       genreOptions[0].value
     )
 
@@ -82,6 +92,6 @@ export const DiscoverByGenre = connect(
   },
   (dispatch, ownProps) => ({
     ...getMapDispatch(dispatch)(null, ownProps.type),
-    onChange: genreId => dispatch(ui.setDiscoverGenre(genreId))
+    onChange: genreId => dispatch(ui.setDiscoverGenre(genreId, ownProps.type))
   })
 )(ContentBoxSelect)

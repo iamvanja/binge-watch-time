@@ -7,7 +7,7 @@ export const apiFinish = createAction('API_FINISH', payloadReducer)
 export const apiError = createAction('API_ERROR', payloadReducer)
 export const setDiscoverGenre = createAction(
   'SET_DISCOVER_GENRE',
-  genreId => ({ discoverGenre: genreId })
+  (genreId, entity) => ({ discoverGenre: genreId, entity })
 )
 export const setDiscoverType = createAction(
   'SET_DISCOVER_TYPE',

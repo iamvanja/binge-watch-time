@@ -35,7 +35,7 @@ class ContentBoxSelect extends Component {
               <Select
                 onChange={this.onChange}
                 options={this.props.selectOptions}
-                defaultValue={currentSelectValue}
+                value={currentSelectValue}
               />
             </Cell>
           </Grid>

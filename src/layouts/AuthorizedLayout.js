@@ -18,6 +18,7 @@ export const AuthorizedLayout = ({ timeout }) => {
       <main className='primary-content'>
         <Switch>
           <Redirect exact from='/' to='/shows' />
+          <Redirect exact from='/discover' to='/discover/shows' />
           <Route path='/discover/:contentType(shows|movies)?' component={DiscoverPage} />
           <Route path='/shows' component={ShowsSubLayout} />
           <Route path='/movies' component={MoviesSubLayout} />

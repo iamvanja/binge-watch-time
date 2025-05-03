@@ -24,15 +24,15 @@ class DiscoverPage extends Component {
   }
 
   componentWillMount () {
-    const { match, selectedContentType } = this.props
+    const { match } = this.props
     const { contentType } = match.params
 
     if (contentType) {
       // there is a content type from params - make sure everything is in sync
       this.props.onTypeChange(contentType)
     } else {
-      // hit root url, redirect to the default type
-      this.redirect(selectedContentType)
+      // Handles not found scenario (/discover/foo)
+      this.redirect('shows')
     }
   }
 
@@ -46,7 +46,7 @@ class DiscoverPage extends Component {
 
   redirect (path) {
     this.props.history.replace(`/discover/${path}`)
-  } h
+  }
 
   onChange (e) {
     this.props.onTypeChange(e.target.value)
@@ -137,8 +137,11 @@ DiscoverPage.propTypes = {
 }
 
 export default connect(
-  state => ({
-    selectedContentType: selectors.ui.getDiscoverType(state)
+  (state, ownProps) => ({
+    selectedContentType: selectors.ui.getDiscoverType(
+      state,
+      ownProps.match.params.contentType
+    )
   }),
   {
     onTypeChange: ui.setDiscoverType

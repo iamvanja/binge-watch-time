@@ -14,7 +14,10 @@ import {
 export const initialState = {
   pendingRequests: [],
   erroredRequests: [],
-  discoverGenre: null,
+  discoverGenre: {
+    shows: null,
+    movies: null
+  },
   currentListId: {
     shows: 2,
     movies: 2
@@ -52,7 +55,10 @@ export default createReducer({
 
   [setDiscoverGenre]: (state, payload) => ({
     ...state,
-    discoverGenre: payload.discoverGenre
+    discoverGenre: {
+      ...state.discoverGenre,
+      [payload.entity]: payload.discoverGenre
+    }
   }),
 
   [setDiscoverType]: (state, payload) => ({
@@ -90,11 +96,11 @@ export const isRequestPending = (state, action) =>
 export const isRequestErrored = (state, action) =>
   state.erroredRequests.includes(getRequestLabel(action))
 
-export const getDiscoverGenre = state =>
-  state.discoverGenre
+export const getDiscoverGenre = (state, entity) =>
+  state.discoverGenre[entity]
 
-export const getDiscoverType = state =>
-  state.discoverType || 'shows'
+export const getDiscoverType = (state, fallback) =>
+  state.discoverType || fallback
 
 export const getCurrentListId = (state, entity) =>
   state.currentListId[entity]
